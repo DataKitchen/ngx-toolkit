@@ -1,4 +1,4 @@
-type SearchParam = { [param: string]: any | SearchParam };
+export type SearchParam = { [param: string]: any | SearchParam };
 
 export function parseParams(params: SearchParam): { [key: string]: any } {
   return Object.keys(params || {})
