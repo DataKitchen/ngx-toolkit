@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { UnsubscribeOnDestroy } from '@heimdall-ui/core';
+import { UnsubscribeOnDestroy } from './unsubscribe-on-destroy';
 import { noop, Subject, takeUntil } from 'rxjs';
 
 describe('UnsubscribeOnDestroy', () => {
