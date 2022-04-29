@@ -1,8 +1,8 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export class CustomValidators {
+export class CustomValidators extends Validators {
   static forbiddenNames(names: string[]) {
     return (control: AbstractControl) => {
       return !control.value ? null : names.map(name => name.toLowerCase()).includes(control.value.toLowerCase()) ? { nameExists: true } : null;
