@@ -9,9 +9,9 @@ export class CustomValidators extends Validators {
     };
   }
 
-  static forbiddenNamesAsync(observable: Observable<any[]>) {
+  static forbiddenNamesAsync(names$: Observable<string[]>) {
     return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
-      return observable.pipe(
+      return names$.pipe(
         map(names => {
           if (names.includes(control?.value)) {
             return { nameExists: true };
