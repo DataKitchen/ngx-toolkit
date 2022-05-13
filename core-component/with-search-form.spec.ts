@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { CoreComponent } from './core-component';
 import { GetSearchableFields, WithSearchForm } from './with-search-form';
 import { TypedFormGroup } from '../../typed-form/typed-forms';
-import { Entity } from '../../entity/entity.model';
+import { Entity } from '../../entities/entity.model';
 
 describe('dk-component with search form', () => {
 
@@ -24,6 +24,7 @@ describe('dk-component with search form', () => {
     search: TypedFormGroup<GetSearchableFields<Entity>> = new TypedFormGroup<GetSearchableFields<Entity>>({
       name: new FormControl('initial name'),
       active: new FormControl(true),
+
     });
 
     onSearchChange(search: GetSearchableFields<Entity>): void {
