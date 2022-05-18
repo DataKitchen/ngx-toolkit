@@ -1,6 +1,6 @@
 import { FormControl, ValidationErrors } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { CustomValidators } from '@heimdall-ui/core';
+import { CustomValidators } from './validators';
 
 const names = [ 'name1', 'name2', 'name3' ];
 const namesAsync = of(names);
