@@ -13,7 +13,7 @@ export class CustomValidators extends Validators {
     return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
       return names$.pipe(
         map(names => {
-          if (names.includes(control?.value)) {
+          if (names.includes(control.value)) {
             return { nameExists: true };
           }
 
