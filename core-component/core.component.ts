@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { AfterViewChecked, AfterViewInit, Directive, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Directive, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, scan, startWith, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
@@ -13,9 +13,10 @@ import { StorageService } from '../../services/storage/storage.service';
 import { defaultPagination, isWithTable, Pagination, WithTable } from './with-table';
 import { isWithSearchForm, WithSearchForm } from './with-search-form';
 import { DeferredProp } from './decorators/deferred-props';
+import { LifeCycle, LifeCycleHoos } from './lifecycle.model';
 
 @Directive()
-export abstract class CoreComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export abstract class CoreComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
 
   public tableBindingsInitialized: boolean = false;
 
@@ -25,6 +26,21 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterViewC
   private propertiesToBindToQueryParams: string[] = getBindableProperties(this);
   private propertiesToHydrateFromLocalStorage: string[] = getPersistOnLocalStorage(this);
   private defaultDebounce: number = 300;
+
+  private hooks: LifeCycleHoos = {
+    OnInit: {
+      hooked: [],
+      done: false,
+    },
+    AfterContentInit: {
+      hooked: [],
+      done: false,
+    },
+    AfterViewInit: {
+      hooked: [],
+      done: false,
+    },
+  };
 
   constructor(
     @Self() @Optional() protected paramsService?: ParameterService,
@@ -85,6 +101,8 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterViewC
         })
       ).subscribe();
     }
+
+    this.runLifecycleHooks('OnInit');
   }
 
   public ngAfterViewInit(): void {
@@ -135,6 +153,13 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterViewC
         this.tableBindingsInitialized = true;
       }
     }
+
+
+    this.runLifecycleHooks('AfterViewInit');
+  }
+
+  public ngAfterContentInit() {
+    this.runLifecycleHooks('AfterContentInit');
   }
 
   public ngAfterViewChecked(): void {
@@ -149,6 +174,18 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterViewC
 
     for (const sub of this.subscriptions) {
       sub.unsubscribe();
+    }
+  }
+
+  public defer(fn: () => void) {
+    return {
+      after: (lc: LifeCycle) => {
+        if (!this.hooks[lc].done) {
+          this.hooks[lc].hooked.push(fn);
+        } else {
+          fn();
+        }
+      }
     }
   }
 
@@ -356,5 +393,13 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterViewC
 
     }
 
+  }
+
+  private runLifecycleHooks(lifecycle: LifeCycle) {
+    this.hooks[lifecycle].hooked.forEach((fn) => {
+      fn();
+    });
+
+    this.hooks[lifecycle].done = true;
   }
 }
