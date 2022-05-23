@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Prop } from '../deferred-props';
 import { BehaviorSubject } from 'rxjs';
-import { CoreComponent } from '../../core-component';
+import { CoreComponent } from '../../core.component';
 import { PersistOnLocalStorage } from './persist-on-local-storage';
 import { StorageService } from '../../../../services/storage/storage.service';
 import { Mocked, MockService } from '../../../../../testing/mock-service';

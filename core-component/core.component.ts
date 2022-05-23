@@ -152,7 +152,6 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterViewC
     }
   }
 
-
   private scanPropertiesForDecorators() {
     if (this.propertiesToBindToQueryParams.length) {
       if (!this.paramsService) {

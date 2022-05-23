@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { CoreComponent } from './core-component';
+import { CoreComponent } from './core.component';
 import { defaultPagination, WithTable } from './with-table';
 import { Entity } from '../../entities/entity.model';
 
