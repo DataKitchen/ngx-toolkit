@@ -1,4 +1,4 @@
-import { CoreComponent } from '../../core-component';
+import { CoreComponent } from '../../core.component';
 import { DeferredProp } from '../deferred-props';
 
 const BindToQueryParamsSymbol = Symbol.for('BindToQueryParams');

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
-import { CoreComponent } from './core-component';
+import { CoreComponent } from './core.component';
 import { GetSearchableFields, WithSearchForm } from './with-search-form';
 import { TypedFormGroup } from '../../typed-form/typed-forms';
 import { Entity } from '../../entities/entity.model';

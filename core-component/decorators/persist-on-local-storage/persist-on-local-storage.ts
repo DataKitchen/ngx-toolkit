@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DeferredProp } from '../deferred-props';
-import { CoreComponent } from '../../core-component';
+import { CoreComponent } from '../../core.component';
 
 const PersistOnLocalStorageSymbol = Symbol.for('PersistOnLocalStorageSymbol');
 

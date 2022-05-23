@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreComponent } from './core-component';
+import { CoreComponent } from './core.component';
 import { Subject } from 'rxjs';
 import spyOn = jest.spyOn;
 

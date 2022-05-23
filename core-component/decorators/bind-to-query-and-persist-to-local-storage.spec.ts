@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
-import { CoreComponent } from '../core-component';
+import { CoreComponent } from '../core.component';
 import { PersistOnLocalStorage } from './persist-on-local-storage/persist-on-local-storage';
 import { BindToQueryParams } from './bind-to-query-params/bind-to-query-params';
 import { ParameterService } from '../../../services/paramter/parameter.service';
