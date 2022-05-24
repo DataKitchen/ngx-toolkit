@@ -9,10 +9,8 @@ describe('forbiddenNames', () => {
   const validator = CustomValidators.forbiddenNames(names);
 
   it('should return error, if list contains value', () => {
-    names.forEach((name) => {
-      const control = new FormControl(name);
-      expect(validator(control)).toEqual({ nameExists: expect.anything() });
-    });
+    const control = new FormControl(names[0]);
+    expect(validator(control)).toEqual({ nameExists: expect.anything() });
   });
 
   it('should not return error, if list does not contain value', () => {
