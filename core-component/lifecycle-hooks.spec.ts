@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreComponent } from '@heimdall-ui/core';
 import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { CoreComponent } from './core.component';
 
 describe('CoreComponent lifecycle hooks', () => {
 
