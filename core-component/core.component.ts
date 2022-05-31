@@ -13,7 +13,7 @@ import { StorageService } from '../../services/storage/storage.service';
 import { defaultPagination, isWithTable, Pagination, WithTable } from './with-table';
 import { isWithSearchForm, WithSearchForm } from './with-search-form';
 import { DeferredProp } from './decorators/deferred-props';
-import { LifeCycle, LifeCycleHoos } from './lifecycle.model';
+import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
 
 @Directive()
 export abstract class CoreComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
@@ -27,7 +27,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
   private propertiesToHydrateFromLocalStorage: string[] = getPersistOnLocalStorage(this);
   private defaultDebounce: number = 300;
 
-  private hooks: LifeCycleHoos = {
+  private hooks: LifeCycleHooks = {
     OnInit: {
       hooked: [],
       done: false,
