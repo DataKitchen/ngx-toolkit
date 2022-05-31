@@ -10,7 +10,7 @@ import { Mocked, MockService } from '../../../../testing/mock-service';
 import { expectObservableWithCallback } from '../../../../testing/expect-observable';
 import { StorageService } from '../../../services/storage/storage.service';
 
-describe('dk-component with both @BindToQueryParams and @PersistOnLocalStorage decorators', () => {
+describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorage decorators', () => {
 
   @Component({
     selector: 'comp',

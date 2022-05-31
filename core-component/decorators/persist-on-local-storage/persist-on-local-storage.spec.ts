@@ -9,7 +9,7 @@ import { Mocked, MockService } from '../../../../../testing/mock-service';
 import { expectObservable } from '../../../../../testing/expect-observable';
 import { Component } from '@angular/core';
 
-describe('dk-component with @PersistOnLocalStorage', () => {
+describe('core-componenta with @PersistOnLocalStorage', () => {
 
 
   @Component({
