@@ -7,7 +7,7 @@ import { GetSearchableFields, WithSearchForm } from './with-search-form';
 import { TypedFormGroup } from '../../typed-form/typed-forms';
 import { Entity } from '../../entities/entity.model';
 
-describe('dk-component with search form', () => {
+describe('core-componenta with search form', () => {
 
   @Component({
     selector: 'comp',

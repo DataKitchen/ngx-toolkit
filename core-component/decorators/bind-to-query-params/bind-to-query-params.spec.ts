@@ -10,7 +10,7 @@ import { Mocked, MockService } from '../../../../../testing/mock-service';
 import { expectObservable } from '../../../../../testing/expect-observable';
 import spyOn = jest.spyOn;
 
-describe('dk-component with @BindToQueryParam', () => {
+describe('core-componenta with @BindToQueryParam', () => {
 
 
   @Component({
