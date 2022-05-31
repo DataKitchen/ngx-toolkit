@@ -8,7 +8,7 @@ interface ExpectObservableMatcher<T> {
   toContain: (...vales: Array<T>) => void;
 }
 
-export const testScheduler = (useContain = false) => new TestScheduler((actual, expected) => {
+const testScheduler = (useContain = false) => new TestScheduler((actual, expected) => {
   if (useContain) {
     for (const expectedElement of expected) {
       expect(actual).toContainEqual(expectedElement);
