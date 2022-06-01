@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Entity } from '../../entities/entity.model';
+import { Entity } from '../../entity/entity.model';
 import { GetSortableFields } from './with-search-form';
 
 export interface SortOptions<E extends Entity = Entity> {
