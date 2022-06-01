@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { CoreComponent } from './core.component';
 import { GetSearchableFields, WithSearchForm } from './with-search-form';
 import { TypedFormGroup } from '../../typed-form/typed-forms';
-import { Entity } from '../../entities/entity.model';
+import { Entity } from '../../entity/entity.model';
 
 describe('core-componenta with search form', () => {
 
