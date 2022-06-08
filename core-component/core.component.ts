@@ -74,24 +74,24 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
     if (listObservables.length > 0) {
       merge(...listObservables).pipe(
-        scan((acc: { pagination: Pagination<any>; search: any }, value: unknown | Pagination<any>) => {
-          const keys = keysIn(value) as unknown as Array<$Keys<Pagination<any>>>;
-          const paginationKeys: Set<$Keys<Pagination<any>>> = new Set([ 'page', 'count', 'sort_by', 'order' ]);
+        scan((acc: { pagination: Pagination; search: any }, value: unknown | Pagination) => {
+          const keys = keysIn(value) as unknown as Array<$Keys<Pagination>>;
+          const paginationKeys = new Set([ 'page', 'count', 'sort_by', 'order' ]);
           const isPagination = keys.filter(key => paginationKeys.has(key)).length > 0;
 
           return Object.assign(
             {},
             acc,
             isPagination
-              ? {pagination: value as Pagination<any>}
+              ? {pagination: value as Pagination}
               : {pagination: {...(acc.pagination || {}), page: 0}, search: value},
           );
-        }, {} as { pagination: Pagination<any>; search: any }),
+        }, {} as { pagination: Pagination; search: any }),
         // TODO with debounce time on tests fail, do we actually need it?
         // debounceTime(10),
         tap((data) => {
           if (data.pagination && isWithTable(this)) {
-            (this as unknown as WithTable<any>).onPageChange(data.pagination);
+            (this as unknown as WithTable).onPageChange(data.pagination);
           }
           if (data.search && isWithSearchForm(this)) {
             (this as unknown as WithSearchForm<any>).onSearchChange(data.search);
@@ -127,7 +127,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           }),
           tap((page) => {
             // @ts-ignore
-            (this as unknown as WithTable<any>).pageChange$.next(page);
+            (this as unknown as WithTable).pageChange$.next(page);
           }),
           takeUntil(this.destroyed$),
         ).subscribe();
@@ -149,7 +149,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           }),
           tap((page) => {
             // @ts-ignore
-            (this as unknown as WithTable<any>).pageChange$.next(page);
+            (this as unknown as WithTable).pageChange$.next(page);
           }),
           takeUntil(this.destroyed$),
         ).subscribe();
