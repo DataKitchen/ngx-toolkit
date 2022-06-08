@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CoreComponent } from './core.component';
 import { defaultPagination, WithTable } from './with-table';
-import { Entity } from '../../entity/entity.model';
+import { Entity } from '../../entity';
 
 describe('core-component', () => {
 
@@ -103,8 +103,6 @@ describe('core-component', () => {
       override onPageChange = jest.fn();
 
     }
-
-    let component: TestClass2Component;
     let fixture: ComponentFixture<TestClassComponent>;
 
     beforeEach(() => {
