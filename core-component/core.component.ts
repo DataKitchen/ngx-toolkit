@@ -4,7 +4,6 @@ import { BehaviorSubject, merge, Observable, Subject, Subscription } from 'rxjs'
 import { catchError, debounceTime, distinctUntilChanged, map, scan, startWith, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Params } from '@angular/router';
-import { isObject, keysIn, omit, pick } from 'lodash';
 import { $Keys, isPrimitive } from 'utility-types';
 import { getBindableProperties, getBindablePropertyNamespace } from './decorators/bind-to-query-params/bind-to-query-params';
 import { getLocalStorageOptions, getPersistOnLocalStorage, PersistOnLocalStorageOptions } from './decorators/persist-on-local-storage/persist-on-local-storage';
@@ -14,6 +13,10 @@ import { defaultPagination, isWithTable, Pagination, WithTable } from './with-ta
 import { isWithSearchForm, WithSearchForm } from './with-search-form';
 import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
+
+// TODO we need to get rid of this!
+import { isObject, keysIn, omit, pick } from 'lodash';
+
 
 @Directive()
 export abstract class CoreComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
