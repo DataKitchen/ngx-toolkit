@@ -2,7 +2,7 @@ import { TypedFormGroup } from '../../typed-form/typed-forms';
 import { $Keys, PickByValue } from 'utility-types';
 
 
-export type FieldType = string | number | boolean;
+export type FieldType = string | number | boolean | symbol;
 
 export type SortableField<T extends FieldType> = T & {
   __sortable: true;
@@ -12,18 +12,24 @@ export type SearchableField<T extends FieldType> = T & {
   __searchable: true;
 };
 
-export type SortableAndSearchable<T extends FieldType> = T & SortableField<T> & SearchableField<T>;
+export type SortableAndSearchable<T extends FieldType> = T & {
+  __sortable__searchable: true;
+}
 
-export type GetSortableFields<T> = $Keys<PickByValue<T, SortableField<FieldType>>>;
+export type GetSortableFields<T> = $Keys<PickByValue<T, SortableField<FieldType> | SortableAndSearchable<FieldType>>>;
 
-export type GetSearchableFields<T> = PickByValue<T, SearchableField<FieldType>>;
+export type GetSearchableFields<T> = PickByValue<T, SearchableField<FieldType> | SortableAndSearchable<FieldType>>;
 
-export function make<T extends FieldType>(v: T): SearchableField<T> & SortableField<T> {
-  return v as SearchableField<T> & SortableField<T>;
+export type Rebrand<T> = {
+  [k in keyof T]: T[k] extends (SortableField<infer R> | SearchableField<infer R> | SortableAndSearchable<infer R>) ?
+    R extends (SortableField<infer S> | SearchableField<infer S> | SortableAndSearchable<infer S>) ? S : T[k] : T[k]
+};
+
+export function make<T extends FieldType>(v: T): SearchableField<T> & SortableField<T> & SortableAndSearchable<T>{
+  return v as SearchableField<T> & SortableField<T> & SortableAndSearchable<T>;
 }
 
 export type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
-
 
 export interface WithSearchForm<E extends { [key: string]: any }> {
     search: TypedFormGroup<E>;

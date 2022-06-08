@@ -17,7 +17,7 @@ describe('core-component', () => {
       <mat-paginator></mat-paginator>
     `
   })
-  class TestClassComponent extends CoreComponent implements WithTable<Entity> {
+  class TestClassComponent extends CoreComponent implements WithTable {
 
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
@@ -80,6 +80,8 @@ describe('core-component', () => {
   describe('with MatPaginator and optional MatSort ', () => {
 
 
+    let component: TestClass2Component;
+
     @Component({
       selector: 'comp',
       template: `
@@ -92,7 +94,7 @@ describe('core-component', () => {
         <mat-paginator></mat-paginator>
       `
     })
-    class TestClass2Component extends TestClassComponent implements WithTable<Entity> {
+    class TestClass2Component extends TestClassComponent implements WithTable {
 
       @ViewChild(MatPaginator)
       override paginator!: MatPaginator;
