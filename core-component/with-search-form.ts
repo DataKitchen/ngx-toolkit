@@ -21,8 +21,9 @@ export type GetSortableFields<T> = $Keys<PickByValue<T, SortableField<FieldType>
 export type GetSearchableFields<T> = PickByValue<T, SearchableField<FieldType> | SortableAndSearchable<FieldType>>;
 
 export type Rebrand<T> = {
-  [k in keyof T]: T[k] extends (SortableField<infer R> | SearchableField<infer R> | SortableAndSearchable<infer R>) ?
-    R extends (SortableField<infer S> | SearchableField<infer S> | SortableAndSearchable<infer S>) ? S : T[k] : T[k]
+  [k in keyof T]: T[k] extends SortableField<infer R> ? R :
+                  T[k] extends SortableAndSearchable<infer R> ? R :
+                  T[k] extends SearchableField<infer R> ? R : T[k]
 };
 
 export function make<T extends FieldType>(v: T): SearchableField<T> & SortableField<T> & SortableAndSearchable<T>{
