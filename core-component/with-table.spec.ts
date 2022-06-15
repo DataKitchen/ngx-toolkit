@@ -4,7 +4,6 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CoreComponent } from './core.component';
 import { defaultPagination, WithTable } from './with-table';
-import { Entity } from '../../entity';
 
 describe('core-component', () => {
 
