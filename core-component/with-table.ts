@@ -2,11 +2,11 @@ import { BehaviorSubject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Entity } from '../../entity';
-import { GetSortableFields } from './with-search-form';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface SortOptions<E = Entity> {
-  sort_by?: GetSortableFields<E>;
-  order?: 'asc' | 'desc' | '';
+  // sort_by?: GetSortableFields<E>;
+  sort?: 'asc' | 'desc' | '';
 }
 
 export interface Pagination {
@@ -15,10 +15,10 @@ export interface Pagination {
 }
 
 export const defaultPagination: Pagination & SortOptions<Entity> = {
-  page: 0,
+  page: 1,
   count: 10,
-  sort_by: 'name',
-  order: 'asc',
+  // sort_by: 'name',
+  sort: 'asc',
 };
 
 export interface WithTable {
