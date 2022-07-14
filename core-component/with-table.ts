@@ -18,7 +18,7 @@ export const defaultPagination: Pagination & SortOptions<Entity> = {
   page: 1,
   count: 10,
   // sort_by: 'name',
-  sort: 'asc',
+  // sort: 'asc',
 };
 
 export interface WithTable {
@@ -35,5 +35,9 @@ export class WithTable {}
 
 export function isWithTable(c: unknown): c is WithTable {
     return typeof (c as { [key: string]: any; })['onPageChange'] === 'function';
+}
+
+export function isPagination(c: unknown): c is Pagination {
+    return typeof c === 'object' && c !== null && c !== undefined && 'page' in c;
 }
 
