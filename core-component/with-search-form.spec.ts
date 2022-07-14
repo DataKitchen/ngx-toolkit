@@ -7,7 +7,7 @@ import { GetSearchableFields, WithSearchForm } from './with-search-form';
 import { TypedFormGroup } from '../../typed-form/typed-forms';
 import { Entity } from '../../entity/entity.model';
 
-describe('core-componenta with search form', () => {
+describe('core-component with search form', () => {
 
   @Component({
     selector: 'comp',
@@ -23,8 +23,6 @@ describe('core-componenta with search form', () => {
 
     search: TypedFormGroup<GetSearchableFields<Entity>> = new TypedFormGroup<GetSearchableFields<Entity>>({
       name: new FormControl('initial name'),
-      active: new FormControl(true),
-
     });
 
     onSearchChange(search: GetSearchableFields<Entity>): void {
@@ -55,13 +53,7 @@ describe('core-componenta with search form', () => {
 
   it('should call lifecycle hook onSearchChange with initial value', fakeAsync(() => {
     tick(10);
-    expect(component.spy).toHaveBeenCalledWith({name: 'initial name', active: true});
+    expect(component.spy).toHaveBeenCalledWith({name: 'initial name'});
   }));
-
-  // it('should call lifecycle hook onSearchChange when form value changes', fakeAsync(() => {
-  //   component.search.patchValue({name: make('a name'), active: make(false)});
-  //   tick(entitySearchDebounce + 10);
-  //   expect(component.spy).toHaveBeenCalledWith({name: 'a name', active: false});
-  // }));
 
 });

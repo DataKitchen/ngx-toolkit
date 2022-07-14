@@ -67,8 +67,8 @@ describe('core-component', () => {
           page: 1,
           count: 20,
           // TODO discuss: we probably don't want to send these when MatSort in not available?
-          sort_by: 'name',
-          order: 'asc',
+          // sort_by: 'name',
+          // sort: 'asc',
         });
 
       });
@@ -135,7 +135,7 @@ describe('core-component', () => {
 
         tick(10);
         expect(component.onPageChange).toHaveBeenCalledWith({
-          page: 0,
+          page: 1,
           count: 10,
           // TODO discuss: we probably don't want to send these when MatSort in not available?
           sort_by: 'created_on',

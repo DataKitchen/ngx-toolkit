@@ -4,18 +4,18 @@ import { BehaviorSubject, merge, Observable, Subject, Subscription } from 'rxjs'
 import { catchError, debounceTime, distinctUntilChanged, map, scan, startWith, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Params } from '@angular/router';
-import { $Keys, isPrimitive } from 'utility-types';
+import { isPrimitive } from 'utility-types';
 import { getBindableProperties, getBindablePropertyNamespace } from './decorators/bind-to-query-params/bind-to-query-params';
 import { getLocalStorageOptions, getPersistOnLocalStorage, PersistOnLocalStorageOptions } from './decorators/persist-on-local-storage/persist-on-local-storage';
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { defaultPagination, isWithTable, Pagination, WithTable } from './with-table';
+import { defaultPagination, isPagination, isWithTable, Pagination, WithTable } from './with-table';
 import { isWithSearchForm, WithSearchForm } from './with-search-form';
 import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
 
 // TODO we need to get rid of this!
-import { isObject, keysIn, omit, pick } from 'lodash';
+import { isObject, omit, pick } from 'lodash';
 
 
 @Directive()
@@ -74,19 +74,23 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
     if (listObservables.length > 0) {
       merge(...listObservables).pipe(
-        scan((acc: { pagination: Pagination; search: any }, value: unknown | Pagination) => {
-          const keys = keysIn(value) as unknown as Array<$Keys<Pagination>>;
-          const paginationKeys = new Set([ 'page', 'count', 'sort_by', 'order' ]);
-          const isPagination = keys.filter(key => paginationKeys.has(key)).length > 0;
+        scan((acc: { pagination: Pagination; search?: any }, value: unknown | Pagination) => {
 
-          return Object.assign(
-            {},
-            acc,
-            isPagination
-              ? {pagination: value as Pagination}
-              : {pagination: {...(acc.pagination || {}), page: 0}, search: value},
-          );
-        }, {} as { pagination: Pagination; search: any }),
+          const data = isPagination(value) ? {
+            pagination: {
+              ...acc.pagination,
+              ...value
+            }
+          } : {
+            search: value
+          };
+
+
+          return {
+            ...acc,
+            ...data,
+          }
+        }, {pagination: defaultPagination}),
         // TODO with debounce time on tests fail, do we actually need it?
         // debounceTime(10),
         tap((data) => {
