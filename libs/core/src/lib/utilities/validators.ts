@@ -1,24 +1,28 @@
-import { AbstractControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { AbstractControl, AsyncValidatorFn, ValidatorFn, Validators } from '@angular/forms';
+import { first, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export class CustomValidators extends Validators {
-  static forbiddenNames(names: string[]) {
+  static forbiddenNames(names: string[]): ValidatorFn {
     return (control: AbstractControl) => {
       return !control.value ? null : names.map(name => name.toLowerCase()).includes(control.value.toLowerCase()) ? { nameExists: true } : null;
     };
   }
 
-  static forbiddenNamesAsync(names$: Observable<string[]>) {
-    return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
+  static forbiddenNamesAsync(names$: Observable<string[]>): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<{ nameExists: boolean } | null> => {
       return names$.pipe(
         map(names => {
+
           if (names.includes(control.value)) {
+
             return { nameExists: true };
           }
 
           return null;
-        })
+        }),
+        // observable must be finite https://angular.io/guide/form-validation#creating-asynchronous-validators
+        first(),
       );
     };
   }
