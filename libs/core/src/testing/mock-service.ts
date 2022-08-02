@@ -38,3 +38,11 @@ export function MockService<T extends new(...args: any[]) => any>(service: T): (
     return mockedClass as Mocked<T>;
   };
 }
+
+// @ts-ignore
+export function MockProvider(klass, overrides) {
+  return {
+    provide: klass,
+    useClass: MockService(klass)(overrides)
+  }
+}
