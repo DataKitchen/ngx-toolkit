@@ -23,7 +23,7 @@ describe('core-component with search form', () => {
 
     search: TypedFormGroup<GetSearchableFields<Entity>> = new TypedFormGroup<GetSearchableFields<Entity>>({
       name: new FormControl('initial name'),
-    });
+    } as unknown as any);
 
     onSearchChange(search: GetSearchableFields<Entity>): void {
       this.spy(search);
