@@ -8,3 +8,7 @@ export function caseInsensitiveIncludes(value: string | string[], searchString: 
   }
   return String(value ?? '').toLowerCase().includes(search);
 }
+
+export function parseDate(date: string): Date {
+  return new Date(date + '+00:00');
+}
