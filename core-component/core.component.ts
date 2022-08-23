@@ -2,7 +2,7 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Directive, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, scan, startWith, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Params } from '@angular/router';
 import { isPrimitive } from 'utility-types';
 import { getBindableProperties, getBindablePropertyNamespace } from './decorators/bind-to-query-params/bind-to-query-params';
@@ -239,7 +239,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
         if (params) {
 
-          if (value instanceof FormGroup) {
+          if (value instanceof UntypedFormGroup) {
             params = Object.keys(value.controls)
               .reduce((p, fieldName) => {
                 // filter out undefined params
@@ -254,7 +254,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
               }, {});
           }
 
-          if (value instanceof FormControl || isPrimitive(value) || value instanceof Subject) {
+          if (value instanceof UntypedFormControl || isPrimitive(value) || value instanceof Subject) {
             params = params[`${queryParamsNamespace}${property}`] as string;
           }
 
