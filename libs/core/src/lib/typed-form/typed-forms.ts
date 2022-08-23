@@ -1,12 +1,12 @@
 /* istanbul ignore file */
-import { AbstractControl, AbstractControlOptions, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AbstractControlOptions, AsyncValidatorFn, UntypedFormArray, UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 export type AbstractControlFields<T extends { [key: string]: any }> = {
-  [key in keyof T]: AbstractControl | FormControl | FormGroup;
+  [key in keyof T]: AbstractControl | UntypedFormControl | UntypedFormGroup;
 };
 
-export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup {
+export class TypedFormGroup<T extends { [key: string]: any }> extends UntypedFormGroup {
 
   override value!: T;
   override valueChanges!: Observable<T>;
@@ -25,7 +25,7 @@ export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup 
   }
 }
 
-export class TypedFormArray<T extends any[]> extends FormArray {
+export class TypedFormArray<T extends any[]> extends UntypedFormArray {
 
   override value!: T;
   override valueChanges!: Observable<T>;
@@ -43,7 +43,7 @@ export class TypedFormArray<T extends any[]> extends FormArray {
   }
 }
 
-export class TypedFormControl<T> extends FormControl {
+export class TypedFormControl<T> extends UntypedFormControl {
 
   override value!: T;
   override valueChanges!: Observable<T>;
