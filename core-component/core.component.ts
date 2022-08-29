@@ -368,6 +368,12 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           const paramName = [ queryParamsNamespace, fieldName ].join('');
           // @ts-ignore
           p[paramName] = v[fieldName] as unknown;
+
+          // @ts-ignore
+          if (p[paramName] instanceof Date) {
+            // @ts-ignore
+            p[paramName] = p[paramName].toISOString();
+          }
           return p;
         }, {});
       } else if (isPrimitive(v)) {
