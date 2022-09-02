@@ -62,7 +62,7 @@ describe('CustomValidators', () => {
 
     it('should validate a `separator` list of emails (valid emails)', () => {
       form.setValue('test@test.it, test2@test.it');
-      expect(form.hasError('emails')).toBeFalsy();
+      expect(form.hasError('email')).toBeFalsy();
     });
 
     it('should validate a `separator` list of emails (invalid emails)', () => {
@@ -70,6 +70,11 @@ describe('CustomValidators', () => {
       expect(form.hasError('email')).toBeTruthy();
     });
 
+    it('should validate with a custom `separator`', () => {
+      const form2 = new FormControl('', [ CustomValidators.emails(';') ]);
+      form2.setValue('test@test.it; test@test2.com; ');
+      expect(form2.hasError('email')).toBeFalsy();
+    });
 
   });
 

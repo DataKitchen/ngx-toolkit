@@ -8,7 +8,8 @@ export class CustomValidators extends Validators {
       const emails = control.value.split(separator);
 
       for (const email of emails) {
-        if (Validators.email(new FormControl(email))) {
+
+        if (email.length > 0 && Validators.email(new FormControl(email.trim())) !== null) {
           return {
             email: true,
           };
