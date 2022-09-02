@@ -6,6 +6,10 @@ export type AbstractControlFields<T extends { [key: string]: any }> = {
   [key in keyof T]: AbstractControl | UntypedFormControl | UntypedFormGroup;
 };
 
+
+/**
+ * @deprecated from angular 14 `FormGroup` is already typed use `FormGroup<T>` instead
+ */
 export class TypedFormGroup<T extends { [key: string]: any }> extends UntypedFormGroup {
 
   override value!: T;
@@ -25,6 +29,10 @@ export class TypedFormGroup<T extends { [key: string]: any }> extends UntypedFor
   }
 }
 
+
+/**
+ * @deprecated from angular 14 `FormArray` is already typed use `FormArray<T[]>` instead
+ */
 export class TypedFormArray<T extends any[]> extends UntypedFormArray {
 
   override value!: T;
@@ -43,6 +51,9 @@ export class TypedFormArray<T extends any[]> extends UntypedFormArray {
   }
 }
 
+/**
+ * @deprecated from angular 14 `FormControl` is already typed use `FormControl<T>` instead
+ */
 export class TypedFormControl<T> extends UntypedFormControl {
 
   override value!: T;
