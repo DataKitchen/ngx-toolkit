@@ -22,7 +22,11 @@ export function isObject(value: any): boolean {
   return value != null && (type === 'object' || type === 'function');
 }
 
-export function omit(obj: any, keys: string[]) {
+export function omit(obj: object, keys: string[]) {
+  if (!isObject(obj)) {
+    throw new Error('Input must be an object');
+  }
+
   const newObject: any = {};
   Object.entries(obj).filter(([ k ]) => !keys.includes(k)).forEach(([ key, value ]) => {
     newObject[key] = value;
@@ -30,7 +34,11 @@ export function omit(obj: any, keys: string[]) {
   return newObject;
 }
 
-export function pick(obj: any, keys: string[]) {
+export function pick(obj: object, keys: string[]) {
+  if (!isObject(obj)) {
+    throw new Error('Input must be an object');
+  }
+
   const newObject: any = {};
   Object.entries(obj).filter(([ k ]) => keys.includes(k)).forEach(([ key, value ]) => {
     newObject[key] = value;

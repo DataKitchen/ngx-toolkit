@@ -87,6 +87,11 @@ describe('general-utilities', () => {
       const expected = { age: 30 };
       expect(omit(input, [ 'name', 'surname' ])).toEqual(expected);
     });
+
+    it('should throw an error if input is not an object', () => {
+      const input = 'test';
+      expect(() => omit(input as any, [ 'age' ])).toThrowError('Input must be an object');
+    });
   });
 
   describe('pick', () => {
@@ -96,5 +101,9 @@ describe('general-utilities', () => {
       expect(pick(input, [ 'age' ])).toEqual(expected);
 >>>>>>> f6ff16e (test(core): add tests for pick, omit, isObject utilities)
     });
+
+    it('should throw an error if input is not an object', () => {
+      const input = 'test';
+      expect(() => pick(input as any, [ 'age' ])).toThrowError('Input must be an object');    });
   });
 });
