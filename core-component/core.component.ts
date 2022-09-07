@@ -15,7 +15,7 @@ import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
 
 // TODO we need to get rid of this!
-import { isObject, omit, pick } from 'lodash';
+import { isObject, omit, pick } from '../../utilities/general.utilities';
 
 
 @Directive()
@@ -89,8 +89,8 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           return {
             ...acc,
             ...data,
-          }
-        }, {pagination: defaultPagination}),
+          };
+        }, { pagination: defaultPagination }),
         // TODO with debounce time on tests fail, do we actually need it?
         // debounceTime(10),
         tap((data) => {
@@ -126,8 +126,8 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           }),
           // @ts-ignore
           withLatestFrom(this.pageChange$),
-          map(([{pageIndex: page, pageSize: count}, pagination ]) => {
-            return {...pagination, page, count};
+          map(([{ pageIndex: page, pageSize: count }, pagination ]) => {
+            return { ...pagination, page, count };
           }),
           tap((page) => {
             // @ts-ignore
@@ -147,9 +147,9 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           }),
           // @ts-ignore
           withLatestFrom(this.pageChange$),
-          map(([{active, direction}, pagination ]) => {
+          map(([{ active, direction }, pagination ]) => {
 
-            return {...pagination, order: direction, sort_by: active};
+            return { ...pagination, order: direction, sort_by: active };
           }),
           tap((page) => {
             // @ts-ignore
@@ -193,7 +193,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           fn();
         }
       }
-    }
+    };
   }
 
   private scanPropertiesForDecorators() {
@@ -267,7 +267,8 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
       let initialValue;
 
       if (isObject(initialValueFromQueryParams) && isObject(initialValueFromLocalStorage)) {
-        initialValue = {...initialValueFromLocalStorage, ...initialValueFromQueryParams};
+        // @ts-ignore
+        initialValue = { ...initialValueFromLocalStorage, ...initialValueFromQueryParams };
       } else {
         initialValue = (initialValueFromQueryParams || initialValueFromLocalStorage) as unknown;
       }
@@ -280,7 +281,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
         ).subscribe();
 
         if (initialValue !== null && initialValue !== undefined && Object.keys(initialValue as object).length) {
-          value.patchValue(initialValue, {emit: isHydratedFromLocalStorage});
+          value.patchValue(initialValue, { emit: isHydratedFromLocalStorage });
         }
 
       } else if (isPrimitive(value)) {
