@@ -12,3 +12,7 @@ export function caseInsensitiveIncludes(value: string | string[], searchString: 
 export function parseDate(date: string): Date {
   return new Date(date + '+00:00');
 }
+
+export function isValidDate(d: any) {
+  return d instanceof Date && !isNaN(d as any);
+}

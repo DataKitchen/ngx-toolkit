@@ -1,4 +1,4 @@
-import { caseInsensitiveIncludes, parseDate } from './general.utilities';
+import { caseInsensitiveIncludes, isValidDate, parseDate } from './general.utilities';
 
 describe('general-utilities', () => {
 
@@ -41,6 +41,16 @@ describe('general-utilities', () => {
   describe('parseDate()', () => {
     it('should add UTC padding to the ISO string', () => {
       expect(parseDate('2019-08-24T14:15:22').toISOString()).toBe('2019-08-24T14:15:22.000Z');
+    });
+  });
+
+  describe('isValidDate', () => {
+    it('should return true if a valid date is passed in input', () => {
+      expect(isValidDate(new Date())).toBeTruthy();
+    });
+
+    it('should return false if no valid date is passed in input', () => {
+      expect(isValidDate(3)).toBeFalsy();
     });
   });
 });
