@@ -104,6 +104,36 @@ describe('general-utilities', () => {
 
     it('should throw an error if input is not an object', () => {
       const input = 'test';
-      expect(() => pick(input as any, [ 'age' ])).toThrowError('Input must be an object');    });
+      expect(() => pick(input as any, [ 'age' ])).toThrowError('Input must be an object');
+    });
   });
+<<<<<<< HEAD
+=======
+
+  describe('isValidDate', () => {
+    it('should return true if a valid date is passed as input', () => {
+      expect(isValidDate(new Date())).toBeTruthy();
+    });
+
+    it('should return false if a number is passed as input', () => {
+      expect(isValidDate(3)).toBeFalsy();
+    });
+
+    it('should return false if a string is passed as input', () => {
+      expect(isValidDate('test')).toBeFalsy();
+    });
+
+    it('should return false if a boolean is passed as input', () => {
+      expect(isValidDate(true)).toBeFalsy();
+    });
+
+    it('should return false if an object is passed as input', () => {
+      expect(isValidDate({ test: 'test' })).toBeFalsy();
+    });
+
+    it('should return false if an array is passed as input', () => {
+      expect(isValidDate([ 'test' ])).toBeFalsy();
+    });
+  });
+>>>>>>> ed4a231 (test: add more tests for valid date utility)
 });
