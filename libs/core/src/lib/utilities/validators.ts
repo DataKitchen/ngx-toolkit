@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 export class CustomValidators extends Validators {
   static emails(separator = ','): ValidatorFn {
     return (control: AbstractControl) => {
-      const emails = control.value.split(separator);
+      const emails = control.value?.split(separator) || [];
 
       for (const email of emails) {
 
