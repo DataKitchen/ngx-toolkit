@@ -43,4 +43,14 @@ export class CustomValidators extends Validators {
       );
     };
   }
+
+  static oneOf(values: string[]): ValidatorFn {
+    return (control: AbstractControl) => {
+      if (!values.includes(control.value)) {
+        return { oneOf: true };
+      }
+
+      return null;
+    };
+  }
 }
