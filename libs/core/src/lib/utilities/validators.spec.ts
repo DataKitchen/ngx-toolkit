@@ -78,4 +78,17 @@ describe('CustomValidators', () => {
 
   });
 
+  describe('oneOf', () => {
+    const form = new FormControl('', [ CustomValidators.oneOf([ 'A', 'B', 'D' ]) ]);
+
+    it('should fail for not included values', () => {
+      form.setValue('C');
+      expect(form.hasError('oneOf')).toBeTruthy();
+    });
+
+    it('should validate included values', () => {
+      form.setValue('D');
+      expect(form.hasError('oneOf')).toBeFalsy();
+    });
+  });
 });
