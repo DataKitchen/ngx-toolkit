@@ -57,7 +57,9 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
     // logic for interfaces
     if (isWithTable(this)) {
-      this.pageChange$ = new BehaviorSubject(defaultPagination);
+      if (this.pageChange$ === undefined) {
+        this.pageChange$ = new BehaviorSubject(defaultPagination);
+      }
       listObservables.push(this.pageChange$);
     }
 
@@ -95,7 +97,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
         // debounceTime(10),
         tap((data) => {
           if (data.pagination && isWithTable(this)) {
-            (this as unknown as WithTable).onPageChange(data.pagination);
+            (this as unknown as WithTable).onPageChange?.apply(this, [ data.pagination ]);
           }
           if (data.search && isWithSearchForm(this)) {
             (this as unknown as WithSearchForm<any>).onSearchChange(data.search);
