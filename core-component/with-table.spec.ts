@@ -135,7 +135,7 @@ describe('core-component', () => {
 
         tick(10);
         expect(component.onPageChange).toHaveBeenCalledWith({
-          page: 1,
+          page: 0,
           count: 10,
           // TODO discuss: we probably don't want to send these when MatSort in not available?
           sort_by: 'created_on',
