@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { AbstractControl, AbstractControlOptions, AsyncValidatorFn, UntypedFormArray, UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AbstractControlOptions, AsyncValidatorFn, FormArray, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 export type AbstractControlFields<T extends { [key: string]: any }> = {
@@ -10,7 +10,7 @@ export type AbstractControlFields<T extends { [key: string]: any }> = {
 /**
  * @deprecated from angular 14 `FormGroup` is already typed use `FormGroup<T>` instead
  */
-export class TypedFormGroup<T extends { [key: string]: any }> extends UntypedFormGroup {
+export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup {
 
   override value!: T;
   override valueChanges!: Observable<T>;
@@ -33,7 +33,7 @@ export class TypedFormGroup<T extends { [key: string]: any }> extends UntypedFor
 /**
  * @deprecated from angular 14 `FormArray` is already typed use `FormArray<T[]>` instead
  */
-export class TypedFormArray<T extends any[]> extends UntypedFormArray {
+export class TypedFormArray<T extends any[]> extends FormArray {
 
   override value!: T;
   override valueChanges!: Observable<T>;
@@ -54,7 +54,7 @@ export class TypedFormArray<T extends any[]> extends UntypedFormArray {
 /**
  * @deprecated from angular 14 `FormControl` is already typed use `FormControl<T>` instead
  */
-export class TypedFormControl<T> extends UntypedFormControl {
+export class TypedFormControl<T> extends FormControl {
 
   override value!: T;
   override valueChanges!: Observable<T>;
