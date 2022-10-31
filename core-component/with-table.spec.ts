@@ -99,7 +99,7 @@ describe('core-component', () => {
       override paginator!: MatPaginator;
 
       @ViewChild(MatSort)
-      sortBy!: MatSort;
+      __sortBy!: MatSort;
 
       override onPageChange = jest.fn();
 
@@ -128,7 +128,7 @@ describe('core-component', () => {
       });
 
       it('should call lifecycle hook onPageChange when sort changes', fakeAsync(() => {
-        component.sortBy.sortChange.emit({
+        component.__sortBy.sortChange.emit({
           active: 'created_on',
           direction: 'desc',
         });
