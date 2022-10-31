@@ -57,10 +57,10 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
     // logic for interfaces
     if (isWithTable(this)) {
-      if (this.pageChange$ === undefined) {
-        this.pageChange$ = new BehaviorSubject(defaultPagination);
+      if (this.__pageChange$ === undefined) {
+        this.__pageChange$ = new BehaviorSubject(defaultPagination);
       }
-      listObservables.push(this.pageChange$);
+      listObservables.push(this.__pageChange$);
     }
 
     if (isWithSearchForm(this)) {
@@ -127,35 +127,35 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
             return prev.pageIndex === current.pageIndex && prev.pageSize === current.pageSize;
           }),
           // @ts-ignore
-          withLatestFrom(this.pageChange$),
+          withLatestFrom(this.__pageChange$),
           map(([{ pageIndex: page, pageSize: count }, pagination ]) => {
             return { ...pagination, page, count };
           }),
           tap((page) => {
             // @ts-ignore
-            (this as unknown as WithTable).pageChange$.next(page);
+            (this as unknown as WithTable).__pageChange$.next(page);
           }),
           takeUntil(this.destroyed$),
         ).subscribe();
         this.tableBindingsInitialized = true;
       }
 
-      if (this.sortBy) {
-        this.sortBy.sortChange.pipe(
+      if (this.__sortBy) {
+        this.__sortBy.sortChange.pipe(
           distinctUntilChanged((p, c) => {
             // same note as above for MatPaginator but regarding
             // bindQueryParamsMatSort and setInitialValue
             return p.direction === c.direction && p.active === c.active;
           }),
           // @ts-ignore
-          withLatestFrom(this.pageChange$),
+          withLatestFrom(this.__pageChange$),
           map(([{ active, direction }, pagination ]) => {
 
             return { ...pagination, order: direction, sort_by: active };
           }),
           tap((page) => {
             // @ts-ignore
-            (this as unknown as WithTable).pageChange$.next(page);
+            (this as unknown as WithTable).__pageChange$.next(page);
           }),
           takeUntil(this.destroyed$),
         ).subscribe();
