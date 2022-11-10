@@ -1,24 +1,23 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Entity } from '../../entity';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface SortOptions<E = Entity> {
+export interface SortOptions {
   // sort_by?: GetSortableFields<E>;
   sort?: 'asc' | 'desc' | '';
 }
 
-export interface Pagination {
+export interface Pagination extends SortOptions{
   page?: number;
   count?: number;
 }
 
-export const defaultPagination: Pagination & SortOptions<Entity> = {
+export const defaultPagination: Pagination & SortOptions = {
   page: 0,
   count: 10,
   // sort_by: 'name',
-  // sort: 'asc',
+  sort: 'asc',
 };
 
 export interface WithTable {
