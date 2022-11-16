@@ -8,18 +8,31 @@ interface ExpectObservableMatcher<T> {
   toContain: (...vales: Array<T>) => void;
 }
 
-const testScheduler = (useContain = false) => new TestScheduler((actual, expected) => {
-  if (useContain) {
-    for (const expectedElement of expected) {
-      expect(actual).toContainEqual(expectedElement);
-    }
-  } else {
-    expect(actual).toEqual(expected);
+class MyTestScheduler extends TestScheduler {
+  useContain = false;
+
+  constructor() {
+    super((actual, expected) => {
+      if (this.useContain) {
+        for (const expectedElement of expected) {
+          expect(actual).toContainEqual(expectedElement);
+        }
+      } else {
+        expect(actual).toEqual(expected);
+      }
+    });
   }
-});
+}
+
+export const testScheduler = new MyTestScheduler();
+
+export const getTestScheduler = (useContain = false) => {
+  testScheduler.useContain = useContain;
+  return testScheduler;
+};
 
 export function expectObservableWithCallback<T>(callback: (helpers: RunHelpers) => T): T {
-  return testScheduler().run(callback);
+  return getTestScheduler().run(callback);
 }
 
 export function expectObservable<
@@ -30,13 +43,13 @@ export function expectObservable<
 
   return {
     toBe: (marble: string, values?: {}, errorValue?: any) => {
-      testScheduler().run(({ expectObservable }) => {
+      getTestScheduler().run(({ expectObservable }) => {
         expectObservable(obs).toBe(marble, values, errorValue);
       });
     },
     toEqual: (...values: Array<{}>) => {
 
-      testScheduler().run(({ expectObservable }) => {
+      getTestScheduler().run(({ expectObservable }) => {
 
         const marble = values.map((_, index) => {
           return alphabet[index];
@@ -53,7 +66,7 @@ export function expectObservable<
     },
     toContain: (...values: Array<{}>) => {
 
-      testScheduler(true).run(({ expectObservable }) => {
+      getTestScheduler(true).run(({ expectObservable }) => {
 
         const marble = values.map((_, index) => {
           return alphabet[index];
@@ -70,5 +83,5 @@ export function expectObservable<
 
       });
     }
-  }
+  };
 }
