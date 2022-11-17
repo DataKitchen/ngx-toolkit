@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
-import { CoreComponent } from './core.component';
-import { WithSearchForm } from './with-search-form';
-import { TypedFormGroup } from '../../typed-form/typed-forms';
-import { BehaviorSubject, Subject, tap } from 'rxjs';
+import { CoreComponent } from '../core.component';
+import { HasSearchForm } from './has-search-form';
+import { TypedFormGroup } from '../../../typed-form/typed-forms';
+import { Subject, tap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-describe('core-component with search form', () => {
+describe('core-component has search form', () => {
 
   interface SearchFields {
     name: string;
@@ -23,7 +23,7 @@ describe('core-component with search form', () => {
       <mat-paginator></mat-paginator>
     `
   })
-  class TestClassComponent extends CoreComponent implements WithSearchForm<SearchFields> {
+  class TestClassComponent extends CoreComponent implements HasSearchForm<SearchFields> {
 
     spy = jest.fn();
 
