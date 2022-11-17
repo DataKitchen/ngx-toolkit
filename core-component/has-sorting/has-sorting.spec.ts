@@ -4,7 +4,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { rxjsScheduler } from '../rxjs-scheduler.token';
-import { expectObservableWithCallback, testScheduler } from '@heimdall-ui/testing/expect-observable';
+import { expectObservableWithCallback, testScheduler } from '../../../../testing/expect-observable';
 import { HasSorting } from './has-sorting';
 
 describe('core.component has sorting', () => {

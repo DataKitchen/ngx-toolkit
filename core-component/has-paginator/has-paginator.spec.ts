@@ -1,14 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { CoreComponent } from './core.component';
-import { WithTable } from './with-table';
-import { expectObservable, expectObservableWithCallback, testScheduler } from '../../../testing/expect-observable';
-import { rxjsScheduler } from './rxjs-scheduler.token';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CoreComponent } from '../core.component';
+import { HasPaginator } from './has-paginator';
+import { expectObservable, expectObservableWithCallback, testScheduler } from '../../../../testing/expect-observable';
+import { rxjsScheduler } from '../rxjs-scheduler.token';
 
-
-describe('core-component', () => {
+describe('core-component has paginator', () => {
 
   @Component({
     selector: 'comp',
@@ -18,7 +16,7 @@ describe('core-component', () => {
       <mat-paginator></mat-paginator>
     `
   })
-  class TestClassComponent extends CoreComponent implements WithTable {
+  class TestClassComponent extends CoreComponent implements HasPaginator {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -87,6 +85,3 @@ describe('core-component', () => {
   });
 
 });
-
-
-
