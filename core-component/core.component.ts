@@ -12,7 +12,7 @@ import { StorageService } from '../../services/storage/storage.service';
 import { hasPaginator } from './has-paginator/has-paginator';
 import { hasSearchForm } from './has-search-form/has-search-form';
 import { DeferredProp } from './decorators/deferred-props';
-import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
+import { LifeCycle, LifeCycleHooks } from './lifecycle-hooks/lifecycle.model';
 import { isObject, omit, pick } from '../../utilities/general.utilities';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
