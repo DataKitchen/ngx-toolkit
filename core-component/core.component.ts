@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Directive, OnDestroy, OnInit, Optional, Self } from '@angular/core';
-import { BehaviorSubject, merge, Observable, Subject, Subscription } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, scan, startWith, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { AfterContentInit, AfterViewInit, Directive, inject, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { debounceTime, startWith, takeUntil, tap } from 'rxjs/operators';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Params } from '@angular/router';
 import { isPrimitive } from 'utility-types';
@@ -9,26 +9,32 @@ import { getBindableProperties, getBindablePropertyNamespace } from './decorator
 import { getLocalStorageOptions, getPersistOnLocalStorage, PersistOnLocalStorageOptions } from './decorators/persist-on-local-storage/persist-on-local-storage';
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { defaultPagination, isPagination, isWithTable, Pagination, WithTable } from './with-table';
-import { isWithSearchForm, WithSearchForm } from './with-search-form';
+import { hasSorting, isWithTable } from './with-table';
+import { isWithSearchForm } from './with-search-form';
 import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
-
-// TODO we need to get rid of this!
 import { isObject, omit, pick } from '../../utilities/general.utilities';
+import { Sort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
+import { rxjsScheduler } from './rxjs-scheduler.token';
 
 
 @Directive()
-export abstract class CoreComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
+export abstract class CoreComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
 
-  public tableBindingsInitialized: boolean = false;
+  __pageChange$ = new BehaviorSubject<PageEvent>({
+      pageIndex: 0, pageSize: 50, length: 0
+    });
+
+  __sortChange$ = new BehaviorSubject<Sort | undefined>(undefined);
 
   protected subscriptions: Subscription[] = [];
   protected destroyed$: Subject<void> = new Subject<void>();
 
+  protected defaultDebounce: number = 100;
+
   private propertiesToBindToQueryParams: string[] = getBindableProperties(this);
   private propertiesToHydrateFromLocalStorage: string[] = getPersistOnLocalStorage(this);
-  private defaultDebounce: number = 300;
 
   private hooks: LifeCycleHooks = {
     OnInit: {
@@ -45,70 +51,23 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
     },
   };
 
+  private scheduler = inject(rxjsScheduler);
+
   constructor(
     @Self() @Optional() protected paramsService?: ParameterService,
     @Self() @Optional() protected storageService?: StorageService) {
   }
 
   public ngOnInit(): void {
-    const listObservables: Array<Observable<any>> = [];
 
     this.scanPropertiesForDecorators();
 
-    // logic for interfaces
-    if (isWithTable(this)) {
-      if (this.__pageChange$ === undefined) {
-        this.__pageChange$ = new BehaviorSubject(defaultPagination);
-      }
-      listObservables.push(this.__pageChange$);
-    }
-
     if (isWithSearchForm(this)) {
-      listObservables.push(
-        // noinspection JSDeprecatedSymbols
-        this.search.valueChanges.pipe(
-          // if the search form is bound to query params is has already been patched
-          debounceTime(this.defaultDebounce),
-          startWith(this.search.value),
-        )
-      );
-    }
-
-    if (listObservables.length > 0) {
-      merge(...listObservables).pipe(
-        scan((acc: { pagination: Pagination; search?: any }, value: unknown | Pagination) => {
-
-          const data = isPagination(value) ? {
-            pagination: {
-              ...acc.pagination,
-              ...value
-            }
-          } : {
-            search: value
-          };
-
-
-          return {
-            ...acc,
-            ...data,
-          };
-        }, { pagination: defaultPagination }),
-        // TODO with debounce time on tests fail, do we actually need it?
-        // debounceTime(10),
-        tap((data) => {
-          if (data.pagination && isWithTable(this)) {
-            (this as unknown as WithTable).onPageChange?.apply(this, [ data.pagination ]);
-          }
-          if (data.search && isWithSearchForm(this)) {
-            (this as unknown as WithSearchForm<any>).onSearchChange(data.search);
-          }
-        }),
-        takeUntil(this.destroyed$),
-        catchError((err) => {
-          console.error(err);
-          return err;
-        })
-      ).subscribe();
+      this.search.valueChanges.pipe(
+        debounceTime(this.defaultDebounce),
+        // if the search form is bound to query params is has already been patched
+        startWith(this.search.value),
+      ).subscribe(this.search$);
     }
 
     this.runLifecycleHooks('OnInit');
@@ -117,50 +76,31 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
   public ngAfterViewInit(): void {
 
     if (isWithTable(this)) {
+      this.paginator.page.pipe(
+       startWith({
+          pageIndex: this.paginator.pageIndex,
+          pageSize: this.paginator.pageSize,
+          length: this.paginator.length,
+        }),
+        // when bindQueryParamMatPaginator is in place avoids "nexting" twice
+        debounceTime(this.defaultDebounce, this.scheduler),
+        takeUntil(this.destroyed$),
+      ).subscribe(this.__pageChange$);
 
-      if (this.paginator) {
-        this.paginator.page.pipe(
-          distinctUntilChanged((prev, current) => {
-            // when on paginator is used bindQueryParamsMatPaginator directive
-            // we get a second emitted value coming from the ngOnChanges of that directive
-            // to avoid unnecessary calls to lifecycle hook we check if pageSize or pageIndex actually changed
-            return prev.pageIndex === current.pageIndex && prev.pageSize === current.pageSize;
-          }),
-          // @ts-ignore
-          withLatestFrom(this.__pageChange$),
-          map(([{ pageIndex: page, pageSize: count }, pagination ]) => {
-            return { ...pagination, page, count };
-          }),
-          tap((page) => {
-            // @ts-ignore
-            (this as unknown as WithTable).__pageChange$.next(page);
-          }),
-          takeUntil(this.destroyed$),
-        ).subscribe();
-        this.tableBindingsInitialized = true;
-      }
+    }
 
-      if (this.__sortBy) {
-        this.__sortBy.sortChange.pipe(
-          distinctUntilChanged((p, c) => {
-            // same note as above for MatPaginator but regarding
-            // bindQueryParamsMatSort and setInitialValue
-            return p.direction === c.direction && p.active === c.active;
-          }),
-          // @ts-ignore
-          withLatestFrom(this.__pageChange$),
-          map(([{ active, direction }, pagination ]) => {
+    if (hasSorting(this)) {
 
-            return { ...pagination, order: direction, sort_by: active };
-          }),
-          tap((page) => {
-            // @ts-ignore
-            (this as unknown as WithTable).__pageChange$.next(page);
-          }),
-          takeUntil(this.destroyed$),
-        ).subscribe();
-        this.tableBindingsInitialized = true;
-      }
+      this.__sortBy.sortChange.pipe(
+        startWith({
+          active: this.__sortBy.active,
+          direction: this.__sortBy.direction,
+        }),
+        // same as above but for bindQueryParamsMatSort
+        debounceTime(this.defaultDebounce),
+        takeUntil(this.destroyed$),
+      ).subscribe(this.__sortChange$);
+
     }
 
 
@@ -171,11 +111,6 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
     this.runLifecycleHooks('AfterContentInit');
   }
 
-  public ngAfterViewChecked(): void {
-    if (!this.tableBindingsInitialized && isWithTable(this)) {
-      this.ngAfterViewInit();
-    }
-  }
 
   public ngOnDestroy(): void {
     this.destroyed$.next();

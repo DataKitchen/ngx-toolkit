@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
-import { asyncScheduler } from 'rxjs';
+import { asyncScheduler, SchedulerLike } from 'rxjs';
 
-export const rxjsScheduler = new InjectionToken('rxjs/scheduler', {
+export const rxjsScheduler = new InjectionToken<SchedulerLike>('rxjs/scheduler', {
   providedIn: 'root',
   factory: () => {
     return asyncScheduler;

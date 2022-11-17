@@ -1,5 +1,7 @@
 import { TypedFormGroup } from '../../typed-form/typed-forms';
 import { $Keys, PickByValue } from 'utility-types';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 
 export type FieldType = string | number | boolean | symbol;
@@ -22,21 +24,21 @@ export type GetSearchableFields<T> = PickByValue<T, SearchableField<FieldType> |
 
 export type Rebrand<T> = {
   [k in keyof T]: T[k] extends SortableField<infer R> ? R :
-                  T[k] extends SortableAndSearchable<infer R> ? R :
-                  T[k] extends SearchableField<infer R> ? R : T[k]
+    T[k] extends SortableAndSearchable<infer R> ? R :
+      T[k] extends SearchableField<infer R> ? R : T[k]
 };
 
-export function make<T extends FieldType>(v: T): SearchableField<T> & SortableField<T> & SortableAndSearchable<T>{
+export function make<T extends FieldType>(v: T): SearchableField<T> & SortableField<T> & SortableAndSearchable<T> {
   return v as SearchableField<T> & SortableField<T> & SortableAndSearchable<T>;
 }
 
 export type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
 export interface WithSearchForm<E extends { [key: string]: any }> {
-    search: TypedFormGroup<E>;
-    onSearchChange: (search: E) => void;
+  search: TypedFormGroup<E>;
+  search$: Subject<E>;
 }
 
 export function isWithSearchForm(c: unknown): c is WithSearchForm<any> {
-    return typeof (c as { [key: string]: any; })['onSearchChange'] === 'function';
+  return (c as { [key: string]: any; })['search'] instanceof AbstractControl && (c as { [key: string]: any; })['search$'] instanceof Subject;
 }
