@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
-import { CoreComponent } from './core.component';
+import { CoreComponent } from '../core.component';
 
 describe('CoreComponent lifecycle hooks', () => {
 
