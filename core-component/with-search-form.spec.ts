@@ -3,11 +3,17 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { CoreComponent } from './core.component';
-import { GetSearchableFields, WithSearchForm } from './with-search-form';
+import { WithSearchForm } from './with-search-form';
 import { TypedFormGroup } from '../../typed-form/typed-forms';
-import { Entity } from '../../entity/entity.model';
+import { BehaviorSubject, Subject, tap } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 describe('core-component with search form', () => {
+
+  interface SearchFields {
+    name: string;
+    created_on: string;
+  }
 
   @Component({
     selector: 'comp',
@@ -17,16 +23,24 @@ describe('core-component with search form', () => {
       <mat-paginator></mat-paginator>
     `
   })
-  class TestClassComponent extends CoreComponent implements WithSearchForm<GetSearchableFields<Entity>> {
+  class TestClassComponent extends CoreComponent implements WithSearchForm<SearchFields> {
 
     spy = jest.fn();
 
-    search: TypedFormGroup<GetSearchableFields<Entity>> = new TypedFormGroup<GetSearchableFields<Entity>>({
+    search = new TypedFormGroup<SearchFields>({
       name: new FormControl('initial name'),
-    } as unknown as any);
+      created_on: new FormControl('2022-01-01'),
+    });
 
-    onSearchChange(search: GetSearchableFields<Entity>): void {
-      this.spy(search);
+    search$ = new Subject<SearchFields>();
+
+    override ngOnInit() {
+      this.search$.pipe(
+        tap((values) => this.spy(values)),
+        takeUntil(this.destroyed$),
+      ).subscribe();
+
+      super.ngOnInit();
     }
   }
 
@@ -51,9 +65,17 @@ describe('core-component with search form', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call lifecycle hook onSearchChange with initial value', fakeAsync(() => {
-    tick(10);
-    expect(component.spy).toHaveBeenCalledWith({name: 'initial name'});
+  it('should provide initial values', () => {
+    expect(component.spy).toHaveBeenCalledWith({
+      name: 'initial name',
+      created_on: '2022-01-01',
+    });
+  });
+
+  it('should mirror form\'s value changes ', fakeAsync(() => {
+    component.search.patchValue({name: 'spiderman', created_on: '2022-02-02'});
+    tick(200);
+    expect(component.spy).toHaveBeenCalledWith({name: 'spiderman', created_on: '2022-02-02'});
   }));
 
 });

@@ -3,10 +3,12 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CoreComponent } from './core.component';
-import { defaultPagination, WithTable } from './with-table';
+import { WithTable } from './with-table';
+import { expectObservable, expectObservableWithCallback, testScheduler } from '../../../testing/expect-observable';
+import { rxjsScheduler } from './rxjs-scheduler.token';
+
 
 describe('core-component', () => {
-
 
   @Component({
     selector: 'comp',
@@ -18,65 +20,74 @@ describe('core-component', () => {
   })
   class TestClassComponent extends CoreComponent implements WithTable {
 
-    @ViewChild(MatPaginator)
-    paginator!: MatPaginator;
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    onPageChange = jest.fn();
   }
 
-  describe('with MatPaginator only', () => {
+  let component: TestClassComponent;
+  let fixture: ComponentFixture<TestClassComponent>;
 
-    let component: TestClassComponent;
-    let fixture: ComponentFixture<TestClassComponent>;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ MatPaginatorModule ],
+      declarations: [ TestClassComponent ],
+      providers: [
+        {
+          provide: rxjsScheduler,
+          useValue: testScheduler,
+        }
+      ],
+    });
 
+    fixture = TestBed.createComponent(TestClassComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should call lifecycle hook onPageChange with default pagination', () => {
+    // calls ngOnInit
+    fixture.detectChanges();
+
+    expectObservable(component.__pageChange$).toContain({
+      length: 0,
+      pageIndex: 0,
+      pageSize: 50,
+    });
+  });
+
+  describe('page change', () => {
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [ MatPaginatorModule ],
-        declarations: [ TestClassComponent ],
-        providers: [],
-      });
-
-      fixture = TestBed.createComponent(TestClassComponent);
-      component = fixture.componentInstance;
-    });
-
-    it('should create', () => {
-      expect(component).toBeTruthy();
-    });
-
-    it('should call lifecycle hook onPageChange with default pagination', fakeAsync(() => {
-      // calls ngOnInit
       fixture.detectChanges();
-      tick(10);
-      expect(component.onPageChange).toHaveBeenCalledWith(defaultPagination);
-    }));
+    });
 
-    describe('page change', () => {
-      beforeEach(() => {
-        fixture.detectChanges();
-      });
+    it('should call lifecycle hook onPageChange when pagination changes', () => {
 
-      it('should call lifecycle hook onPageChange when pagination changes', () => {
+      expectObservableWithCallback(({expectObservable}) => {
         component.paginator.page.emit({
           pageIndex: 1,
           pageSize: 20,
           length: 100,
         });
 
-        expect(component.onPageChange).toHaveBeenCalledWith({
-          page: 1,
-          count: 20,
-          // TODO discuss: we probably don't want to send these when MatSort in not available?
-          // sort_by: 'name',
-          // sort: 'asc',
+        expectObservable(component.__pageChange$).toBe('100ms a 99ms b', {
+          a: expect.anything(),
+          b: {
+            length: 100,
+            pageIndex: 1,
+            pageSize: 20,
+          }
         });
-
       });
 
     });
+
   });
 
-  describe('with MatPaginator and optional MatSort ', () => {
+  // TODO move elsewhere for testing the HasSortable interface
+  xdescribe('with MatPaginator and optional MatSort ', () => {
 
 
     let component: TestClass2Component;
@@ -93,15 +104,15 @@ describe('core-component', () => {
         <mat-paginator></mat-paginator>
       `
     })
-    class TestClass2Component extends TestClassComponent implements WithTable {
+    class TestClass2Component extends CoreComponent implements WithTable {
 
       @ViewChild(MatPaginator)
-      override paginator!: MatPaginator;
+      paginator!: MatPaginator;
 
       @ViewChild(MatSort)
       __sortBy!: MatSort;
 
-      override onPageChange = jest.fn();
+      onPageChange = jest.fn();
 
     }
     let fixture: ComponentFixture<TestClassComponent>;
@@ -147,5 +158,6 @@ describe('core-component', () => {
     });
   });
 });
+
 
 
