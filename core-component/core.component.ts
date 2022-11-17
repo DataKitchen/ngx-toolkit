@@ -9,7 +9,7 @@ import { getBindableProperties, getBindablePropertyNamespace } from './decorator
 import { getLocalStorageOptions, getPersistOnLocalStorage, PersistOnLocalStorageOptions } from './decorators/persist-on-local-storage/persist-on-local-storage';
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { isWithTable } from './with-table';
+import { hasPaginator } from './has-paginator/has-paginator';
 import { isWithSearchForm } from './with-search-form';
 import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
@@ -76,7 +76,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
   public ngAfterViewInit(): void {
 
-    if (isWithTable(this)) {
+    if (hasPaginator(this)) {
       this.paginator.page.pipe(
        startWith({
           pageIndex: this.paginator.pageIndex,
