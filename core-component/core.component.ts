@@ -9,7 +9,7 @@ import { getBindableProperties, getBindablePropertyNamespace } from './decorator
 import { getLocalStorageOptions, getPersistOnLocalStorage, PersistOnLocalStorageOptions } from './decorators/persist-on-local-storage/persist-on-local-storage';
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { hasSorting, isWithTable } from './with-table';
+import { isWithTable } from './with-table';
 import { isWithSearchForm } from './with-search-form';
 import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
@@ -17,6 +17,7 @@ import { isObject, omit, pick } from '../../utilities/general.utilities';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { rxjsScheduler } from './rxjs-scheduler.token';
+import { hasSorting } from './has-sorting/has-sorting';
 
 
 @Directive()
