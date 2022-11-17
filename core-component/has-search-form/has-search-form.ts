@@ -1,4 +1,4 @@
-import { TypedFormGroup } from '../../typed-form/typed-forms';
+import { TypedFormGroup } from '../../../typed-form/typed-forms';
 import { $Keys, PickByValue } from 'utility-types';
 import { AbstractControl } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -34,11 +34,11 @@ export function make<T extends FieldType>(v: T): SearchableField<T> & SortableFi
 
 export type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
-export interface WithSearchForm<E extends { [key: string]: any }> {
+export interface HasSearchForm<E extends { [key: string]: any }> {
   search: TypedFormGroup<E>;
   search$: Subject<E>;
 }
 
-export function isWithSearchForm(c: unknown): c is WithSearchForm<any> {
+export function hasSearchForm(c: unknown): c is HasSearchForm<any> {
   return (c as { [key: string]: any; })['search'] instanceof AbstractControl && (c as { [key: string]: any; })['search$'] instanceof Subject;
 }

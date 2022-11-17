@@ -10,7 +10,7 @@ import { getLocalStorageOptions, getPersistOnLocalStorage, PersistOnLocalStorage
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { hasPaginator } from './has-paginator/has-paginator';
-import { isWithSearchForm } from './with-search-form';
+import { hasSearchForm } from './has-search-form/has-search-form';
 import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle.model';
 import { isObject, omit, pick } from '../../utilities/general.utilities';
@@ -63,7 +63,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
     this.scanPropertiesForDecorators();
 
-    if (isWithSearchForm(this)) {
+    if (hasSearchForm(this)) {
       this.search.valueChanges.pipe(
         debounceTime(this.defaultDebounce, this.scheduler),
         // if the search form is bound to query params is has already been patched
