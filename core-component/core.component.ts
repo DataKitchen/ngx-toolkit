@@ -64,7 +64,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
     if (isWithSearchForm(this)) {
       this.search.valueChanges.pipe(
-        debounceTime(this.defaultDebounce),
+        debounceTime(this.defaultDebounce, this.scheduler),
         // if the search form is bound to query params is has already been patched
         startWith(this.search.value),
       ).subscribe(this.search$);
@@ -97,7 +97,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           direction: this.__sortBy.direction,
         }),
         // same as above but for bindQueryParamsMatSort
-        debounceTime(this.defaultDebounce),
+        debounceTime(this.defaultDebounce, this.scheduler),
         takeUntil(this.destroyed$),
       ).subscribe(this.__sortChange$);
 
