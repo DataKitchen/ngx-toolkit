@@ -52,7 +52,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
     },
   };
 
-  private scheduler = inject(rxjsScheduler);
+  protected scheduler = inject(rxjsScheduler);
 
   constructor(
     @Self() @Optional() protected paramsService?: ParameterService,
