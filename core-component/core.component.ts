@@ -65,10 +65,16 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
     if (hasSearchForm(this)) {
       this.search.valueChanges.pipe(
+        tap(() => {
+          if (hasPaginator(this)) {
+            this.paginator.firstPage();
+          }
+        }),
         debounceTime(this.defaultDebounce, this.scheduler),
         // if the search form is bound to query params is has already been patched
         startWith(this.search.value),
       ).subscribe(this.search$);
+
     }
 
     this.runLifecycleHooks('OnInit');
@@ -77,6 +83,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
   public ngAfterViewInit(): void {
 
     if (hasPaginator(this)) {
+
       this.paginator.page.pipe(
        startWith({
           pageIndex: this.paginator.pageIndex,
@@ -103,7 +110,6 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
       ).subscribe(this.__sortChange$);
 
     }
-
 
     this.runLifecycleHooks('AfterViewInit');
   }
