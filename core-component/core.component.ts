@@ -23,9 +23,7 @@ import { hasSorting } from './has-sorting/has-sorting';
 @Directive()
 export abstract class CoreComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
 
-  __pageChange$ = new BehaviorSubject<PageEvent>({
-      pageIndex: 0, pageSize: 50, length: 0
-    });
+  __pageChange$ = new Subject<PageEvent>();
 
   __sortChange$ = new BehaviorSubject<Sort | undefined>(undefined);
 

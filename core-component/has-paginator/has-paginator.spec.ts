@@ -13,7 +13,7 @@ describe('core-component has paginator', () => {
     template: `
       <h1>my component</h1>
 
-      <mat-paginator></mat-paginator>
+      <mat-paginator [pageSize]="10"></mat-paginator>
     `
   })
   class TestClassComponent extends CoreComponent implements HasPaginator {
@@ -39,47 +39,43 @@ describe('core-component has paginator', () => {
 
     fixture = TestBed.createComponent(TestClassComponent);
     component = fixture.componentInstance;
+
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call lifecycle hook onPageChange with default pagination', () => {
-    // calls ngOnInit
-    fixture.detectChanges();
+  it('should call notify `__pageChange$` with default pagination', () => {
+    // default pagination would be `[pageSize]` provided to `mat-paginator`
 
-    expectObservable(component.__pageChange$).toContain({
-      length: 0,
-      pageIndex: 0,
-      pageSize: 50,
+    expectObservable(component.__pageChange$).toBe('100ms a', {
+      a: {
+        length: 0,
+        pageIndex: 0,
+        pageSize: 10,
+      },
     });
   });
 
-  describe('page change', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
+  it('should call lifecycle hook onPageChange when pagination changes', () => {
 
-    it('should call lifecycle hook onPageChange when pagination changes', () => {
-
-      expectObservableWithCallback(({expectObservable}) => {
-        component.paginator.page.emit({
-          pageIndex: 1,
-          pageSize: 20,
-          length: 100,
-        });
-
-        expectObservable(component.__pageChange$).toBe('100ms a 99ms b', {
-          a: expect.anything(),
-          b: {
-            length: 100,
-            pageIndex: 1,
-            pageSize: 20,
-          }
-        });
+    expectObservableWithCallback(({expectObservable}) => {
+      component.paginator.page.emit({
+        pageIndex: 1,
+        pageSize: 20,
+        length: 100,
       });
 
+      expectObservable(component.__pageChange$).toBe('200ms b', {
+        a: expect.anything(),
+        b: {
+          length: 100,
+          pageIndex: 1,
+          pageSize: 20,
+        }
+      });
     });
 
   });
