@@ -7,8 +7,8 @@ import { PersistOnLocalStorage } from './persist-on-local-storage/persist-on-loc
 import { BindToQueryParams } from './bind-to-query-params/bind-to-query-params';
 import { ParameterService } from '../../../services/paramter/parameter.service';
 import { Mocked, MockService } from '../../../../testing/mock-service';
-import { expectObservableWithCallback } from '../../../../testing/expect-observable';
 import { StorageService } from '../../../services/storage/storage.service';
+import { TestScheduler } from '@heimdall-ui/testing/test-scheduler';
 
 describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorage decorators', () => {
 
@@ -122,8 +122,8 @@ describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorag
         paramsService.getQueryParams.mockReturnValue({subject$: 'superman'});
       });
 
-      fit('should set initial values', () => {
-        expectObservableWithCallback(({expectObservable}) => {
+      it('should set initial values', () => {
+        new TestScheduler().run(({expectObservable}) => {
           fixture.detectChanges();
           expectObservable(component.subject$).toBe('a', {a: 'superman'});
         });

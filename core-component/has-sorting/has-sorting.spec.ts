@@ -4,8 +4,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { rxjsScheduler } from '../rxjs-scheduler.token';
-import { expectObservableWithCallback, testScheduler } from '../../../../testing/expect-observable';
 import { HasSorting } from './has-sorting';
+import { TestScheduler } from '@heimdall-ui/testing/test-scheduler';
 
 describe('core.component has sorting', () => {
   let component: TestClass2Component;
@@ -23,7 +23,11 @@ describe('core.component has sorting', () => {
   }
   let fixture: ComponentFixture<TestClass2Component>;
 
+  let testScheduler: TestScheduler;
+
   beforeEach(() => {
+    testScheduler = new TestScheduler();
+
     TestBed.configureTestingModule({
       imports: [ MatPaginatorModule, MatSortModule ],
       declarations: [ TestClass2Component ],
@@ -51,7 +55,7 @@ describe('core.component has sorting', () => {
 
     it('should call lifecycle hook onPageChange when sort changes', () => {
 
-      expectObservableWithCallback(({expectObservable}) => {
+      testScheduler.run(({expectObservable}) => {
         component.__sortBy.sortChange.emit({
           active: 'created_on',
           direction: 'desc',
