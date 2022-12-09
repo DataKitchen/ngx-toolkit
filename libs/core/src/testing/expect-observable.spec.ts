@@ -1,4 +1,4 @@
-import { expectObservable, expectObservableWithCallback } from './expect-observable';
+import { expectObservable } from './expect-observable';
 import { BehaviorSubject, from, of } from 'rxjs';
 
 describe('expect-observable', () => {
@@ -19,16 +19,6 @@ describe('expect-observable', () => {
   it('should match on an observable (.toContain)', () => {
 
     expectObservable(from([ 1, 2, 3 ])).toContain(2);
-
-  });
-
-  it('should match using a callback', () => {
-
-    expectObservableWithCallback(({hot, expectObservable, flush}) => {
-      const hot$ = hot('-------a', { a: 1 })
-      expectObservable(hot$).toBe('-------a', { a: 1 })
-      flush();
-    });
 
   });
 
