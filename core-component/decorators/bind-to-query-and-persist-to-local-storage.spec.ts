@@ -8,7 +8,7 @@ import { BindToQueryParams } from './bind-to-query-params/bind-to-query-params';
 import { ParameterService } from '../../../services/paramter/parameter.service';
 import { Mocked, MockService } from '../../../../testing/mock-service';
 import { StorageService } from '../../../services/storage/storage.service';
-import { TestScheduler } from '@heimdall-ui/testing/test-scheduler';
+import { TestScheduler } from '../../../../testing/test-scheduler';
 
 describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorage decorators', () => {
 
