@@ -12,8 +12,7 @@ describe('core-component has paginator', () => {
     selector: 'comp',
     template: `
       <h1>my component</h1>
-
-      <mat-paginator></mat-paginator>
+      <mat-paginator pageSize="20"></mat-paginator>
     `
   })
   class TestClassComponent extends CoreComponent implements HasPaginator {
@@ -42,40 +41,43 @@ describe('core-component has paginator', () => {
 
     fixture = TestBed.createComponent(TestClassComponent);
     component = fixture.componentInstance;
+
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call notify `__pageChange$` with default pagination', () => {
+  it('should notify `__pageChange$` with default pagination', () => {
     // default pagination would be `[pageSize]` provided to `mat-paginator`
-
-    testScheduler.expect$(component.__pageChange$).toContain({
-      length: 0,
-      pageIndex: 0,
-      pageSize: 50,
+    testScheduler.expect$(component.__pageChange$).toBe('100ms a', {
+      a: {
+        length: 0,
+        pageIndex: 0,
+        pageSize: 20,
+      }
     });
   });
 
-    it('should notify pagination changes', () => {
+  it('should notify pagination changes', () => {
 
-      testScheduler.run(({expectObservable}) => {
-        component.paginator.page.emit({
+    testScheduler.run(({ expectObservable }) => {
+      component.paginator.page.emit({
+        pageIndex: 1,
+        pageSize: 20,
+        length: 100,
+      });
+
+      expectObservable(component.__pageChange$).toBe('100ms a', {
+        a: {
           pageIndex: 1,
           pageSize: 20,
           length: 100,
-        });
-
-        expectObservable(component.__pageChange$).toBe('a 99ms b', {
-          a: expect.anything(),
-          b: {
-            length: 100,
-            pageIndex: 1,
-            pageSize: 20,
-          }
-        });
+        },
       });
+
+    });
 
   });
 
