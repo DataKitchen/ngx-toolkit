@@ -32,8 +32,17 @@ export function MockService<T extends new(...args: any[]) => any>(service: T): (
     const mockedClass = _klass;
 
     for (const method of methods) {
-      // @ts-ignore
-      (mockedClass.prototype as unknown)[method] = jest.fn();
+
+      const spy = jest.fn();
+
+      if (method in _klass.prototype) {
+        spy.mockImplementation(_klass.prototype[method]);
+      }
+
+      (mockedClass.prototype)[method] = spy;
+
+
+
     }
 
     return mockedClass as Mocked<T>;
