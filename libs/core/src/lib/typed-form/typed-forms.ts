@@ -23,6 +23,14 @@ export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup 
   override setValue(value: T, options?: { onlySelf?: boolean; emitEvent?: boolean }): void {
     super.setValue(value, options);
   }
+
+  setDisabled(disabled: boolean) {
+    if (disabled) {
+      this.disable();
+    } else {
+      this.enable();
+    }
+  }
 }
 
 export class TypedFormArray<T extends any[]> extends FormArray {
@@ -41,6 +49,15 @@ export class TypedFormArray<T extends any[]> extends FormArray {
   override setValue(value: T, options?: { onlySelf?: boolean; emitEvent?: boolean }): void {
     super.setValue(value, options);
   }
+
+
+  setDisabled(disabled: boolean) {
+    if (disabled) {
+      this.disable();
+    } else {
+      this.enable();
+    }
+  }
 }
 
 export class TypedFormControl<T> extends FormControl {
@@ -58,5 +75,13 @@ export class TypedFormControl<T> extends FormControl {
 
   override setValue(value: T, options?: { onlySelf?: boolean; emitEvent?: boolean }): void {
     super.setValue(value, options);
+  }
+
+  setDisabled(disabled: boolean) {
+    if (disabled) {
+      this.disable();
+    } else {
+      this.enable();
+    }
   }
 }
