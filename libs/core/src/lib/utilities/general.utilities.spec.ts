@@ -44,7 +44,12 @@ describe('general-utilities', () => {
 
   describe('parseDate()', () => {
     it('should add UTC padding to the ISO string', () => {
-      expect(parseDate('2019-08-24T14:15:22').toISOString()).toBe('2019-08-24T14:15:22.000Z');
+      expect((parseDate('2019-08-24T14:15:22') as Date).toISOString()).toBe('2019-08-24T14:15:22.000Z');
+    });
+
+    it('should return undefined if input is undefined', () => {
+      const nullDate = undefined;
+      expect(parseDate(nullDate)).toEqual(undefined);
     });
   });
 
