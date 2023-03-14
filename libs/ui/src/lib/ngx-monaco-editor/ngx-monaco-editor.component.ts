@@ -88,8 +88,7 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
         ...this.options,
       });
 
-      this.editor.onDidChangeModelContent((e) => {
-        console.log(e)
+      this.editor.onDidChangeModelContent(() => {
         this.editorChanged(monaco)
       });
 
@@ -123,13 +122,10 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
   }
 
   private editorChanged(monaco: Monaco) {
-    console.log('editor changed')
-
 
     if (this.updateFormControl) {
 
       this.updateEditor = false;
-      console.log('bubbling changes to the form control 😱😱😱😱😱')
       const value = this.editor.getValue();
       this.control.setValue(value);
 
@@ -144,11 +140,8 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
 
 
     const errors = monaco.editor.getModelMarkers({});
-    console.log({ errors });
 
     if (errors.length > 0) {
-
-      console.log('setting errors on form control');
       this.control.setErrors({ monaco: true });
     }
 

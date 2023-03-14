@@ -147,7 +147,6 @@ describe('NgxMonacoComponent', () => {
   describe('editor changes', () => {
 
     beforeEach(() => {
-      console.log('updating editor manually');
       setValueSpy.mockClear();
       component.editor['editor'].setValue('value');
     });
