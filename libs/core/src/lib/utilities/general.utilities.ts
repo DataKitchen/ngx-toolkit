@@ -51,3 +51,27 @@ export function pick(obj: object, keys: string[]) {
   return newObject;
 >>>>>>> 38eebec (feat(core): add pick, omit, isObject utilities)
 }
+
+export function stringify(d: unknown, pretty: boolean = false): string {
+  if (d === undefined || d === null) {
+    return '';
+  }
+
+  if (typeof d === 'string') {
+    return d;
+  }
+
+  let v = '';
+
+  try {
+    if (pretty) {
+      v = JSON.stringify(d, null, 2);
+    } else {
+      v = JSON.stringify(d);
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+
+  return v;
+}

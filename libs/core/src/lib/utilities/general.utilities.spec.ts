@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { caseInsensitiveIncludes, isValidDate, parseDate } from './general.utilities';
 =======
 import { caseInsensitiveIncludes, isObject, omit, parseDate, pick } from './general.utilities';
 >>>>>>> f6ff16e (test(core): add tests for pick, omit, isObject utilities)
+=======
+import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, stringify } from './general.utilities';
+>>>>>>> 4cdf9ee (fix: safely handle null/undefined and stringify values in webhook action)
 
 describe('general-utilities', () => {
 
@@ -145,5 +149,25 @@ describe('general-utilities', () => {
       expect(isValidDate([ 'test' ])).toBeFalsy();
     });
   });
+<<<<<<< HEAD
 >>>>>>> ed4a231 (test: add more tests for valid date utility)
+=======
+
+  describe('stringify', () => {
+    it('should cleanly stringify null or undefined', () => {
+      expect(stringify(null)).toEqual('');
+      expect(stringify(undefined)).toEqual('');
+    });
+
+    it('should stringify a string', () => {
+      expect(stringify('hello')).toEqual('hello');
+    });
+
+    it('should stringify an object', () => {
+      const obj = { hello: true };
+      expect(stringify(obj)).toEqual(JSON.stringify(obj));
+    });
+  });
+
+>>>>>>> 4cdf9ee (fix: safely handle null/undefined and stringify values in webhook action)
 });
