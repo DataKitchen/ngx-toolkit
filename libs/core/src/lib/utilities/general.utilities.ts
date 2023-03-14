@@ -11,7 +11,8 @@ export function caseInsensitiveIncludes(value: string | string[], searchString: 
 
 export function parseDate(date?: string): Date | undefined {
   if (date !== null && date !== undefined) {
-    return new Date(date + '+00:00');
+    const timezoneOffset = date.endsWith('+00:00') ? '' : '+00:00';
+    return new Date(date + timezoneOffset);
   }
 
   return date;
