@@ -23,7 +23,9 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
   private updateEditor: boolean = true;
 
   @Input() set value(value: any) {
-    if (typeof value === 'string') {
+    if (value === null || value === undefined) {
+      this._value = '';
+    } else if (typeof value === 'string') {
       this._value = value;
     } else {
       this._value = JSON.stringify(value, null, 2);

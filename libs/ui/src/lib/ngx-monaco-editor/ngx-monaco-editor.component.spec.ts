@@ -142,6 +142,15 @@ describe('NgxMonacoComponent', () => {
 
     });
 
+    it('should skip null/undefined', () => {
+      component.testControl.patchValue(null);
+      expect(component.editor.value).toEqual('');
+
+      // @ts-ignore
+      component.testControl.patchValue(undefined);
+      expect(component.editor.value).toEqual('');
+    });
+
   });
 
   describe('editor changes', () => {
