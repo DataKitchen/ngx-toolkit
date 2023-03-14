@@ -1,0 +1,5 @@
+<div #monaco class="fx-flex monaco-editor"></div>
+
+<ng-container *ngIf="(error$ | async) === true">
+  <textarea #textarea [formControl]="control"></textarea>
+</ng-container>
