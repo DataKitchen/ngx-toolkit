@@ -9,6 +9,15 @@ import { Component, ViewChild } from '@angular/core';
 import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
 import Mock = jest.Mock;
 
+/*
+  There are two know bugs left to resolve
+
+  1) when the editor is initialized with a string containing an error (respect to the language set) the form does not receive the error state
+
+  2) if the initial value is a json object the form hold the value as is. ie. the json object while the
+    editor has the stringified version of it
+ */
+
 describe('NgxMonacoComponent', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -29,8 +38,6 @@ describe('NgxMonacoComponent', () => {
   class TestComponent {
     @ViewChild(NgxMonacoEditorComponent) editor: NgxMonacoEditorComponent;
 
-
-    value = 'initial value';
     testControl = new FormControl(initialValue);
   }
 
@@ -117,6 +124,7 @@ describe('NgxMonacoComponent', () => {
     const value = '{\ntest: "changed!"\n}';
 
     beforeEach(() => {
+      // @ts-ignore
       component.testControl.patchValue(value);
     });
 

@@ -6,6 +6,7 @@ import { Monaco } from '@monaco-editor/loader';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { AbstractField } from '../fields';
 import { takeUntil } from 'rxjs/operators';
+import { stringify } from '@heimdall-ui/core';
 
 @Component({
   selector: 'ngx-monaco-editor',
@@ -23,13 +24,7 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
   private updateEditor: boolean = true;
 
   @Input() set value(value: any) {
-    if (value === null || value === undefined) {
-      this._value = '';
-    } else if (typeof value === 'string') {
-      this._value = value;
-    } else {
-      this._value = JSON.stringify(value, null, 2);
-    }
+    this._value = stringify(value, true);
   };
 
   get value() {
@@ -91,7 +86,7 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
       });
 
       this.editor.onDidChangeModelContent(() => {
-        this.editorChanged(monaco)
+        this.editorChanged(monaco);
       });
 
       this.editor.onDidBlurEditorWidget(() => this.control.markAsTouched());
@@ -147,6 +142,7 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
       this.control.setErrors({ monaco: true });
     }
 
+    this.valueChange.emit(this.value);
   }
 
 }
