@@ -115,7 +115,6 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
       this.updateEditor = true;
     }
 
-
   }
 
   private editorChanged(monaco: Monaco) {
