@@ -126,11 +126,10 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
       this.control.setValue(value);
 
     } else {
-      // when bubbleChanges is false means that we came here
+      // when updateEditor is false means that we came here
       // from an external change to the form control
       // so we don't need to set the value back on it
       // if we do we'll land on an infinite loop
-      // still we want to reset `bubbleChanges`
       this.updateFormControl = true;
     }
 
