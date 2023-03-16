@@ -51,6 +51,11 @@ describe('general-utilities', () => {
       const nullDate = undefined;
       expect(parseDate(nullDate)).toEqual(undefined);
     });
+
+    it('should ignore date objects', () => {
+      const date = new Date();
+      expect(parseDate(date as any)).toBe(date);
+    });
   });
 
 <<<<<<< HEAD
