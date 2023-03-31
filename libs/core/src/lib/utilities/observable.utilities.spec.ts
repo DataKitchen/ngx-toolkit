@@ -1,5 +1,5 @@
-import { TestScheduler } from '@heimdall-ui/testing/test-scheduler';
 import { of } from 'rxjs';
+import { TestScheduler } from './../../testing/test-scheduler';
 import { max, min } from './observable.utilities';
 
 describe('observable.utilities', () => {
