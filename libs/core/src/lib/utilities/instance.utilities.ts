@@ -1,11 +1,11 @@
-type AlertType = 'WARNING' | 'ERROR';
+import { AlertLevel } from '../models';
 
 export interface RemappedInstanceAlert<T> {
   count: number;
   alerts: T[];
 }
 
-export function aggregateAlerts<T extends {level: AlertType}>(alerts: Array<T>): {errors: RemappedInstanceAlert<T>; warnings: RemappedInstanceAlert<T>} {
+export function aggregateAlerts<T extends {level: AlertLevel}>(alerts: Array<T>): {errors: RemappedInstanceAlert<T>; warnings: RemappedInstanceAlert<T>} {
   const errorAlerts = alerts.filter(x => x.level === 'ERROR');
   const warningAlerts = alerts.filter(x => x.level === 'WARNING');
 
