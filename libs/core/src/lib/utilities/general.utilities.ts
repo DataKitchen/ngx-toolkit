@@ -91,7 +91,7 @@ export function toTimezoneAwareISOString(date: Date): string {
 function getTimezoneOffsetSuffix(): string {
   const timezoneOffset = new Date().getTimezoneOffset();
   const prefix = timezoneOffset < 0 ? '+' : '-';
-  const offsetHours = Math.floor(timezoneOffset / 60).toString().padStart(2, '0');
+  const offsetHours = Math.abs(Math.floor(timezoneOffset / 60)).toString().padStart(2, '0');
   const offsetMinutes = Math.abs(Math.floor(timezoneOffset % 60)).toString().padStart(2, '0');
 
   return `${prefix}${offsetHours}:${offsetMinutes}`;
