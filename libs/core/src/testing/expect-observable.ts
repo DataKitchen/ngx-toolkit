@@ -26,7 +26,7 @@ export function expectObservable<
         expectObservable(obs).toBe(marble, values, errorValue);
       });
     },
-    toEqual: (...values: Array<{}>) => {
+    toEqual: (...values: Array<T>) => {
 
       testScheduler.run(({ expectObservable }) => {
 
@@ -43,7 +43,7 @@ export function expectObservable<
         expectObservable(obs).toBe(marble.join(''), v);
       });
     },
-    toContain: (...values: Array<{}>) => {
+    toContain: (...values: Array<T>) => {
 
       testScheduler.expect$(obs).toContain(...values);
     }
