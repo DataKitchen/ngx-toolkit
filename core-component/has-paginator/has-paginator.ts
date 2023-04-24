@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 
 export interface HasPaginator {
   paginator: MatPaginator;
