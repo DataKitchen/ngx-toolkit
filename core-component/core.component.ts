@@ -15,7 +15,7 @@ import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle-hooks/lifecycle.model';
 import { isObject, omit, pick } from '../../utilities/general.utilities';
 import { Sort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
+import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 import { rxjsScheduler } from './rxjs-scheduler.token';
 import { hasSorting } from './has-sorting/has-sorting';
 
