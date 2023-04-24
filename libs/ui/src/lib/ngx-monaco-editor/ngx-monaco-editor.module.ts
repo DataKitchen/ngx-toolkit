@@ -5,7 +5,7 @@ import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 
 export const defaultOptions = {
