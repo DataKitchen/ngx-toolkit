@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CoreComponent } from '../core.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { rxjsScheduler } from '../rxjs-scheduler.token';
 import { HasSorting } from './has-sorting';
