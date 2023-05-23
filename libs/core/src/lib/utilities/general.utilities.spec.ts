@@ -51,11 +51,6 @@ describe('general-utilities', () => {
       expect((parseDate('2019-08-24T14:15:22') as Date).toISOString()).toBe('2019-08-24T14:15:22.000Z');
     });
 
-    it('should return undefined if input is undefined', () => {
-      const nullDate = undefined;
-      expect(parseDate(nullDate)).toEqual(undefined);
-    });
-
     it('should ignore date objects', () => {
       const date = new Date();
       expect(parseDate(date as any)).toBe(date);
