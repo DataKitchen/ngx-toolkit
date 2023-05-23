@@ -9,7 +9,7 @@ export function caseInsensitiveIncludes(value: string | string[], searchString: 
   return String(value ?? '').toLowerCase().includes(search);
 }
 
-export function parseDate(date?: string): Date | undefined {
+export function parseDate(date: string): Date {
   if (date !== null && date !== undefined && typeof date === 'string') {
     const timezoneOffset = date.endsWith('+00:00') ? '' : '+00:00';
     return new Date(date + timezoneOffset);
