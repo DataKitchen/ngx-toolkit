@@ -1,9 +1,11 @@
 /* istanbul ignore file */
-import { AbstractControl, AbstractControlOptions, AsyncValidatorFn, FormArray, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
-import { Observable } from 'rxjs';
+import {AbstractControl, AbstractControlOptions, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidatorFn} from '@angular/forms';
+import {Observable} from 'rxjs';
 
-export type AbstractControlFields<T extends { [key: string]: any }> = {
-  [key in keyof T]: AbstractControl | UntypedFormControl | UntypedFormGroup;
+export type AbstractControlFields<
+  T extends { [key: string]: any },
+> = {
+  [key in keyof T]: FormControl<T[key]>;
 };
 
 export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup {
