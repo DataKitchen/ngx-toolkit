@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 export type AbstractControlFields<
   T extends { [key: string]: any },
 > = {
-  [key in keyof T]: T[key] extends Array<infer S> ? TypedFormArray<S[]> | TypedFormControl<S[]> : TypedFormControl<T[key]>;
+  [key in keyof T]: FormControl<T[key]>;
 };
 
 export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup {
