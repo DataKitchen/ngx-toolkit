@@ -1,15 +1,22 @@
 import { Run, RunProcessedStatus } from '../models/runs.model';
 import { mostImportantStatus, runsByComponent } from './batch-runs.utilities';
+import { TestStatus } from '../models';
 
 describe('batch-runs.utilities', () => {
   const runs = [
-    {status: RunProcessedStatus.Completed, pipeline: {id: '2', name: 'Pipeline B'}},
-    {status: RunProcessedStatus.Pending, pipeline: {id: '3', name: 'Pipeline C'}},
-    {status: RunProcessedStatus.Running, pipeline: {id: '3', name: 'Pipeline C'}},
-    {status: RunProcessedStatus.CompletedWithWarnings, pipeline: {id: '1', name: 'Pipeline A'}},
-    {status: RunProcessedStatus.Missing, pipeline: {id: '3', name: 'Pipeline C'}},
-    {status: RunProcessedStatus.Failed, pipeline: {id: '1', name: 'Pipeline A'}},
+    { status: RunProcessedStatus.Completed, pipeline: { id: '2', name: 'Pipeline B' } },
+    { status: RunProcessedStatus.Pending, pipeline: { id: '3', name: 'Pipeline C' } },
+    { status: RunProcessedStatus.Running, pipeline: { id: '3', name: 'Pipeline C' } },
+    { status: RunProcessedStatus.CompletedWithWarnings, pipeline: { id: '1', name: 'Pipeline A' } },
+    { status: RunProcessedStatus.Missing, pipeline: { id: '3', name: 'Pipeline C' } },
+    { status: RunProcessedStatus.Failed, pipeline: { id: '1', name: 'Pipeline A' } },
   ] as Run[];
+
+  const tests = [
+    { status: TestStatus.Passed },
+    { status: TestStatus.Warning },
+    { status: TestStatus.Failed },
+  ];
 
   describe('runsByComponent()', () => {
     it('should group the runs by component id', () => {
@@ -52,6 +59,22 @@ describe('batch-runs.utilities', () => {
 
     it('should give least priority to completed status', () => {
       expect(mostImportantStatus(runs.slice(0, -5))).toBe(RunProcessedStatus.Completed);
+    });
+
+    it('should give default priority to completed status', () => {
+      expect(mostImportantStatus(runs.slice(0, -5))).toBe(RunProcessedStatus.Completed);
+    });
+
+    it('should give most priority to failed test', () => {
+      expect(mostImportantStatus(tests)).toBe(RunProcessedStatus.Failed);
+    });
+
+    it('should give second priority to warning test', () => {
+      expect(mostImportantStatus(tests.slice(0, -1))).toBe(RunProcessedStatus.CompletedWithWarnings);
+    });
+
+    it('should give least priority to passed status', () => {
+      expect(mostImportantStatus(tests.slice(0, -2))).toBe(RunProcessedStatus.Completed);
     });
   });
 });
