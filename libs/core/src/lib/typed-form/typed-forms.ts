@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 export type AbstractControlFields<
   T extends { [key: string]: any },
 > = {
-  [key in keyof T]: FormControl<T[key]>;
+  [key in keyof T]: T[key] extends Array<infer S> ? TypedFormArray<S[]> | TypedFormControl<S[]> : TypedFormControl<T[key]>;
 };
 
 export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup {
@@ -14,7 +14,11 @@ export class TypedFormGroup<T extends { [key: string]: any }> extends FormGroup 
   override valueChanges!: Observable<T>;
   override controls!: AbstractControlFields<T>;
 
-  constructor(controls: AbstractControlFields<T>, validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null) {
+  constructor(
+    controls: AbstractControlFields<T>,
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ) {
     super(controls, validatorOrOpts, asyncValidator);
   }
 
