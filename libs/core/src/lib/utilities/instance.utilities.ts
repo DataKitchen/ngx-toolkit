@@ -1,4 +1,4 @@
-import { AlertLevel } from '../models';
+import { AlertLevel, Run, TestOutcomeItem } from '../models';
 import {} from '../models';
 
 export interface RemappedInstanceAlert<T> {
@@ -9,6 +9,10 @@ export interface RemappedInstanceAlert<T> {
 interface Summary {
   status: string;
   count: number;
+}
+
+interface TestsByComponent {
+  [componentId: string]: TestOutcomeItem[];
 }
 
 export function aggregateAlerts<T extends { level: AlertLevel }>(alerts: Array<T>): {
@@ -35,4 +39,21 @@ export function getSummary(entities: Array<{ status: string }>): Summary[] {
     status,
     count
   }));
+}
+
+export function testsByComponent(tests: TestOutcomeItem[]): TestsByComponent {
+  const groups = {} as TestsByComponent;
+  const result = tests.reduce((g, test) => {
+    if (test.component) {
+      if (!g[test.component.id]) {
+        g[test.component.id] = [];
+      }
+
+      g[test.component.id].push(test);
+    }
+
+    return g;
+  }, groups);
+
+  return result;
 }
