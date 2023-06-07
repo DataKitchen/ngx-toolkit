@@ -11,7 +11,10 @@ interface Summary {
   count: number;
 }
 
-export function aggregateAlerts<T extends { level: AlertLevel }>(alerts: Array<T>): { errors: RemappedInstanceAlert<T>; warnings: RemappedInstanceAlert<T> } {
+export function aggregateAlerts<T extends { level: AlertLevel }>(alerts: Array<T>): {
+  errors: RemappedInstanceAlert<T>;
+  warnings: RemappedInstanceAlert<T>
+} {
   const errorAlerts = alerts.filter(x => x.level === 'ERROR');
   const warningAlerts = alerts.filter(x => x.level === 'WARNING');
 
@@ -28,16 +31,8 @@ export function aggregateAlerts<T extends { level: AlertLevel }>(alerts: Array<T
 }
 
 export function getSummary(entities: Array<{ status: string }>): Summary[] {
-  const entitesByStatus = entities.reduce((map, entity) => map.set(entity.status, (map.get(entity.status) ?? 0) + 1), new Map<string, number>());
-
-  const summary: Summary[] = [];
-
-  entitesByStatus.forEach((count, status) => {
-    summary.push({
-      status,
-      count
-    });
-  });
-
-  return summary;
+  return Array.from(entities.reduce((map, entity) => map.set(entity.status, (map.get(entity.status) ?? 0) + 1), new Map<string, number>()).entries()).map(([ status, count ]) => ({
+    status,
+    count
+  }));
 }
