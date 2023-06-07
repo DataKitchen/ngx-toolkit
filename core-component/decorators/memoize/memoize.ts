@@ -1,4 +1,7 @@
-export function Memoize(_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor) {
+export function Memoize(
+  _target: unknown,
+  _propertyKey: string,
+  descriptor: PropertyDescriptor) {
   const previousResults: { [key: string]: unknown } = {};
 
   const originalMethod = descriptor.value as unknown;
@@ -17,5 +20,6 @@ export function Memoize(_target: unknown, _propertyKey: string, descriptor: Prop
       return previousResults[key];
     };
   }
-  return undefined;
+
+  return descriptor;
 }
