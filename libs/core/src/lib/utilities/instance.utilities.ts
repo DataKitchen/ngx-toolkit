@@ -1,4 +1,4 @@
-import { AlertLevel, Run, TestOutcomeItem } from '../models';
+import { AlertLevel, TestOutcomeItem } from '../models';
 import {} from '../models';
 
 export interface RemappedInstanceAlert<T> {
