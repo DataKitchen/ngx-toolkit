@@ -18,7 +18,9 @@ export function runsByComponent(runs: Run[]): RunsByComponent {
   return result;
 }
 
-export function mostImportantStatus(runsOrTests: { status: RunProcessedStatus | TestStatus }[], initial: RunProcessedStatus = RunProcessedStatus.Pending): RunProcessedStatus {
+export function mostImportantStatus(runsOrTests: {
+  status: RunProcessedStatus | TestStatus
+}[], initial: RunProcessedStatus = RunProcessedStatus.Pending): RunProcessedStatus {
   return getRunProcessedStatus(runsOrTests.map((runOrTest) => runOrTest.status).sort((a, b) => statusWeight[b] - statusWeight[a])[0] ?? initial);
 }
 
@@ -46,3 +48,7 @@ export const statusWeight: { [status in RunProcessedStatus | TestStatus]: number
   [RunProcessedStatus.Completed]: 1,
   [TestStatus.Passed]: 1
 };
+
+export function sortByStatusWeight(statusArray: { status: RunProcessedStatus | TestStatus }[]) {
+  return statusArray.sort((a, b) => statusWeight[a.status] - statusWeight[b.status]);
+}
