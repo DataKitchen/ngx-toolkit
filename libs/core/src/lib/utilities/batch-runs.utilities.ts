@@ -35,7 +35,7 @@ function getRunProcessedStatus(status: RunProcessedStatus | TestStatus): RunProc
   return status as RunProcessedStatus;
 }
 
-const statusWeight: { [status in RunProcessedStatus | TestStatus]: number } = {
+export const statusWeight: { [status in RunProcessedStatus | TestStatus]: number } = {
   [RunProcessedStatus.Failed]: 6,
   [TestStatus.Failed]: 6,
   [RunProcessedStatus.Missing]: 5,
