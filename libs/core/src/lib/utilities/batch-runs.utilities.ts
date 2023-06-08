@@ -50,5 +50,5 @@ export const statusWeight: { [status in RunProcessedStatus | TestStatus]: number
 };
 
 export function sortByStatusWeight(statusArray: { status: RunProcessedStatus | TestStatus }[]) {
-  return statusArray ? statusArray.sort((a, b) => statusWeight[a.status] - statusWeight[b.status]) : statusArray;
+  return statusArray?.sort((a, b) => statusWeight[a.status] - statusWeight[b.status]);
 }
