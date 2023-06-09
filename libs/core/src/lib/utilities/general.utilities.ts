@@ -50,9 +50,12 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]) {
     return res[k] = obj[k];
   });
 <<<<<<< HEAD
+<<<<<<< HEAD
   return newObject;
 >>>>>>> 38eebec (feat(core): add pick, omit, isObject utilities)
 =======
+=======
+>>>>>>> da8cf49 (refactor: improve typings)
 
   return res;
 }
