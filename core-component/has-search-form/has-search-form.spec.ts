@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
-import { FormControl } from '@angular/forms';
 import { CoreComponent } from '../core.component';
 import { HasSearchForm } from './has-search-form';
-import { TypedFormGroup } from '../../../typed-form/typed-forms';
+import { TypedFormControl, TypedFormGroup } from '../../../typed-form/typed-forms';
 import { Subject, tap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -28,8 +27,8 @@ describe('core-component has search form', () => {
     spy = jest.fn();
 
     search = new TypedFormGroup<SearchFields>({
-      name: new FormControl('initial name'),
-      created_on: new FormControl('2022-01-01'),
+      name: new TypedFormControl('initial name'),
+      created_on: new TypedFormControl('2022-01-01'),
     });
 
     search$ = new Subject<SearchFields>();
