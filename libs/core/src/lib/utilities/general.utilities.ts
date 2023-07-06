@@ -110,3 +110,14 @@ function getTimezoneOffsetSuffix(): string {
   return `${prefix}${offsetHours}:${offsetMinutes}`;
 }
 
+export function removeDuplicates<T extends object, K extends keyof T>(array: T[], property: K) {
+  const uniqueValues = new Set();
+  return array.filter(item => {
+    const value = item[property];
+    if (!uniqueValues.has(value)) {
+      uniqueValues.add(value);
+      return true;
+    }
+    return false;
+  });
+}
