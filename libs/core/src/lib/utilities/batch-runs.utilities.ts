@@ -21,7 +21,9 @@ export function runsByComponent(runs: Run[]): RunsByComponent {
 export function mostImportantStatus(runsOrTests: {
   status: RunProcessedStatus | TestStatus
 }[], initial: RunProcessedStatus = RunProcessedStatus.Pending): RunProcessedStatus {
-  return getRunProcessedStatus(runsOrTests.map((runOrTest) => runOrTest.status).sort((a, b) => statusWeight[b] - statusWeight[a])[0] ?? initial);
+  return getRunProcessedStatus(runsOrTests
+    .map((runOrTest) => runOrTest.status)
+    .sort((a, b) => statusWeight[b] - statusWeight[a])[0] ?? initial);
 }
 
 function getRunProcessedStatus(status: RunProcessedStatus | TestStatus): RunProcessedStatus {
