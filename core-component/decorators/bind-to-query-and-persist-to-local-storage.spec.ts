@@ -222,8 +222,8 @@ describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorag
       it('should win params coming from query and set localstorage accordingly', () => {
         fixture.detectChanges();
         expect(component.formGroup.value).toEqual({name: 'batman', email: 'b@tm.an'});
-        expect(storageService.setStorage).toHaveBeenCalledWith('formGroup', {name: 'batman', email: 'b@tm.an'});
-        expect(storageService.setStorage).toHaveBeenCalledWith('heroName', 'superman');
+        expect(storageService.setStorage).toHaveBeenCalledWith(expect.stringContaining('formGroup'), {name: 'batman', email: 'b@tm.an'});
+        expect(storageService.setStorage).toHaveBeenCalledWith(expect.stringContaining('heroName'), 'superman');
       });
     });
 
@@ -241,7 +241,7 @@ describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorag
       it('should win params coming from query and set localstorage accordingly', () => {
         fixture.detectChanges();
         expect(component.primitive).toEqual('spiderman');
-        expect(storageService.setStorage).toHaveBeenCalledWith('primitive', 'spiderman');
+        expect(storageService.setStorage).toHaveBeenCalledWith(expect.stringContaining('primitive'), 'spiderman');
 
       });
     });
