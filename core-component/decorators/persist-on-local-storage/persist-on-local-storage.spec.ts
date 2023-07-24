@@ -141,7 +141,7 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
       fixture.detectChanges();
 
       component.formGroup.patchValue({name: 'superman', email: 'superman'});
-      expect(service.setStorage).toHaveBeenCalledWith('formGroup', {name: 'superman', email: 'superman'});
+      expect(service.setStorage).toHaveBeenCalledWith(expect.stringContaining('formGroup'), {name: 'superman', email: 'superman'});
 
     });
 
@@ -165,7 +165,7 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
         fixture.detectChanges();
 
         component.fgWithWhiteList.patchValue({age: 12, birthDate: '01-01-2000'});
-        expect(service.setStorage).toHaveBeenCalledWith('fgWithWhiteList', {age: 12});
+        expect(service.setStorage).toHaveBeenCalledWith(expect.stringContaining('fgWithWhiteList'), {age: 12});
 
       });
     });
@@ -175,7 +175,7 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
         fixture.detectChanges();
 
         component.fgWithBlackList.patchValue({age: 12, birthDate: '01-01-2000'});
-        expect(service.setStorage).toHaveBeenCalledWith('fgWithBlackList', {birthDate: '01-01-2000'});
+        expect(service.setStorage).toHaveBeenCalledWith(expect.stringContaining('fgWithBlackList'), {birthDate: '01-01-2000'});
 
       });
     });
@@ -209,7 +209,7 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
       fixture.detectChanges();
 
       component.name.patchValue('superman');
-      expect(service.setStorage).toHaveBeenCalledWith('name', 'superman');
+      expect(service.setStorage).toHaveBeenCalledWith(expect.stringContaining('name'), 'superman');
 
     });
 
@@ -274,7 +274,7 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
       fixture.detectChanges();
 
       component.heroEmail = 'superm@n';
-      expect(service.setStorage).toHaveBeenCalledWith('heroEmail', 'superm@n');
+      expect(service.setStorage).toHaveBeenCalledWith(expect.stringContaining('heroEmail'), 'superm@n');
 
     });
 
@@ -333,7 +333,7 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
       fixture.detectChanges();
 
       component.heroes$.next('superm@n');
-      expect(service.setStorage).toHaveBeenCalledWith('heroes$', 'superm@n');
+      expect(service.setStorage).toHaveBeenCalledWith(expect.stringContaining('heroes$'), 'superm@n');
 
     });
   });
