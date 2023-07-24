@@ -83,7 +83,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
     if (hasPaginator(this)) {
 
       this.paginator.page.pipe(
-       startWith({
+        startWith({
           pageIndex: this.paginator.pageIndex,
           pageSize: this.paginator.pageSize,
           length: this.paginator.length,
@@ -168,7 +168,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
       const queryParamsNamespaceOption = getBindablePropertyNamespace(this, property);
       const queryParamsNamespace = (queryParamsNamespaceOption as DeferredProp)?.resolve?.(this) || queryParamsNamespaceOption as string || '';
       const localStorageOptions: PersistOnLocalStorageOptions = getLocalStorageOptions(this, property);
-      const getLocalStorageNamespace = () => (localStorageOptions.namespace as DeferredProp)?.resolve?.(this) || localStorageOptions.namespace as string || '';
+      const getLocalStorageNamespace = () => (localStorageOptions.namespace as DeferredProp)?.resolve?.(this) || localStorageOptions.namespace as string || location.href.split('?')[0];
 
       if (isHydratedFromLocalStorage) {
         // get value from local storage
