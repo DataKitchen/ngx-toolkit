@@ -121,3 +121,15 @@ export function removeDuplicates<T extends object, K extends keyof T>(array: T[]
     return false;
   });
 }
+
+export function importScript(src: string, type = 'text/javascript') {
+  const script = document.createElement('script');
+  script.type = type;
+  script.src = src;
+
+  script.addEventListener('loadeddata', () => {
+    console.log(src, 'has been loaded');
+  });
+
+  document.body.appendChild(script);
+}
