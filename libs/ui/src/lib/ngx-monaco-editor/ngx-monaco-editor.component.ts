@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, Subject, tap } from 'rxjs';
 import { IEditorOptions, IStandaloneCodeEditor, NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
 import { Monaco } from '@monaco-editor/loader';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { AbstractField } from '../fields';
-import { takeUntil } from 'rxjs/operators';
 import { stringify } from '@heimdall-ui/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ngx-monaco-editor',
@@ -22,10 +22,11 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
   // the form control
   private updateFormControl: boolean = true;
   private updateEditor: boolean = true;
+  private editorChanged$ = new Subject();
 
-  @Input() set value(value: any) {
+  @Input() set value(value: string) {
     this._value = stringify(value, true);
-  };
+  }
 
   get value() {
     return this._value;
@@ -48,10 +49,6 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
     @Self() @Optional() protected override ngControl?: NgControl,
   ) {
     super(ngControl);
-  }
-
-  override ngOnInit() {
-    super.ngOnInit();
 
     this.service.monaco$.pipe(
       tap((monaco) => {
@@ -66,9 +63,10 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
         return EMPTY;
 
       }),
-      takeUntil(this.destroyed$)
+      takeUntilDestroyed(),
     ).subscribe();
   }
+
 
   @HostListener('window:resize')
   layout() {
@@ -86,10 +84,33 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
       });
 
       this.editor.onDidChangeModelContent(() => {
-        this.editorChanged(monaco);
+        console.log('onDidChangeModelContent');
+        this.editorChanged();
       });
 
-      this.editor.onDidBlurEditorWidget(() => this.control.markAsTouched());
+      this.editor.onDidChangeModel(() => {
+        console.log('onDidChangeModel');
+
+      });
+
+      this.editor.onDidBlurEditorWidget(() => {
+        console.log('onDidBlurEditorWidget');
+        this.control.markAsTouched();
+        this.editorChanged();
+
+      });
+
+      monaco.editor.onDidChangeMarkers(() => {
+        console.log('markers changed');
+
+        const errors = monaco.editor.getModelMarkers({});
+        console.log('errors', errors);
+        if (errors.length > 0) {
+          console.log('setting error');
+          this.control.setErrors({ monaco: true });
+          console.log(this.control.errors);
+        }
+      });
 
     } catch (e) {
       console.error(e);
@@ -99,7 +120,7 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
 
   }
 
-  override writeValue(value: any) {
+  override writeValue(value: string) {
     this.value = value;
 
     if (this.updateEditor) {
@@ -117,7 +138,7 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
 
   }
 
-  private editorChanged(monaco: Monaco) {
+  private editorChanged() {
 
     if (this.updateFormControl) {
 
@@ -131,13 +152,6 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
       // so we don't need to set the value back on it
       // if we do we'll land on an infinite loop
       this.updateFormControl = true;
-    }
-
-
-    const errors = monaco.editor.getModelMarkers({});
-
-    if (errors.length > 0) {
-      this.control.setErrors({ monaco: true });
     }
 
     this.valueChange.emit(this.value);
