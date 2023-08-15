@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
-import { NgxMonacoEditor2Component } from '@heimdall-ui/ui';
+import { NgxMonacoEditor2Component } from './ngx-monaco-editor-2.component';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import { TypedFormControl } from '@heimdall-ui/core';
 import Mock = jest.Mock;

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
-import { NGX_MONACO_EDITOR_CONFIG2 } from '@heimdall-ui/ui';
+import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
 
 describe('ngx-monaco-editor.service', () => {
 
