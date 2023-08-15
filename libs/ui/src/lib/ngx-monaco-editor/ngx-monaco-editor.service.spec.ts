@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
+import { NGX_MONACO_EDITOR_CONFIG2 } from '@heimdall-ui/ui';
 
 describe('ngx-monaco-editor.service', () => {
 
@@ -7,7 +8,13 @@ describe('ngx-monaco-editor.service', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [ NgxMonacoEditorService ],
+      providers: [
+        NgxMonacoEditorService,
+        {
+          provide: NGX_MONACO_EDITOR_CONFIG2,
+          useValue: {},
+        }
+      ],
     });
 
     service = TestBed.inject(NgxMonacoEditorService);

@@ -2,11 +2,12 @@ import { APP_INITIALIZER, InjectionToken, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import loader from '@monaco-editor/loader';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
-
+import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
-import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
+import IMarker = editor.IMarker;
+import { NgxMonacoEditor2Component } from './ngx-monaco-editor-2.component';
 
 export const defaultOptions = {
   language: 'json',
@@ -28,6 +29,9 @@ export type IStandaloneCodeEditor = monacoEditor.editor.IStandaloneCodeEditor;
 
 export const NGX_MONACO_EDITOR_CONFIG2 = new InjectionToken<IEditorOptions>('NGX_MONACO_EDITOR_CONFIG2');
 
+export interface StandaloneCodeEditor extends IStandaloneCodeEditor {
+  onDidChangeMarkers: (cb: (errors: IMarker[]) => void) => void;
+}
 
 
 @NgModule({
@@ -37,7 +41,7 @@ export const NGX_MONACO_EDITOR_CONFIG2 = new InjectionToken<IEditorOptions>('NGX
     ReactiveFormsModule,
   ],
   declarations: [
-    NgxMonacoEditorComponent,
+    NgxMonacoEditor2Component,
   ],
   providers: [
     {
@@ -67,7 +71,7 @@ export const NGX_MONACO_EDITOR_CONFIG2 = new InjectionToken<IEditorOptions>('NGX
     },
   ],
   exports: [
-    NgxMonacoEditorComponent,
+    NgxMonacoEditor2Component,
   ]
 })
 export class NgxMonacoEditorModule {
