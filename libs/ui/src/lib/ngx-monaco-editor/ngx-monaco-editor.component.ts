@@ -9,7 +9,7 @@ import { AbstractMatFormFieldControl } from '../fields/abstract-mat-form-field-c
 
 
 @Component({
-  selector: 'ngx-monaco-editor-2',
+  selector: 'ngx-monaco-editor',
   template: `
     <div #monaco
       class="fx-flex ngx-monaco-editor-input-container"></div>
@@ -18,7 +18,7 @@ import { AbstractMatFormFieldControl } from '../fields/abstract-mat-form-field-c
         [formControl]="_control"></textarea>
   `,
   providers: [
-    { provide: MatFormFieldControl, useExisting: NgxMonacoEditor2Component },
+    { provide: MatFormFieldControl, useExisting: NgxMonacoEditorComponent },
   ],
 
   styles: [ `
@@ -29,7 +29,7 @@ import { AbstractMatFormFieldControl } from '../fields/abstract-mat-form-field-c
     }
   ` ]
 })
-export class NgxMonacoEditor2Component extends AbstractMatFormFieldControl<string> implements AfterViewInit {
+export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string> implements AfterViewInit {
 
   override controlType = 'ngx-monaco-editor-input';
 

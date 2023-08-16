@@ -6,7 +6,7 @@ import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxMonacoEditor2Component } from './ngx-monaco-editor-2.component';
+import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import IMarker = editor.IMarker;
 
 export const defaultOptions = {
@@ -41,7 +41,7 @@ export interface StandaloneCodeEditor extends IStandaloneCodeEditor {
     ReactiveFormsModule,
   ],
   declarations: [
-    NgxMonacoEditor2Component,
+    NgxMonacoEditorComponent,
   ],
   providers: [
     {
@@ -71,7 +71,7 @@ export interface StandaloneCodeEditor extends IStandaloneCodeEditor {
     },
   ],
   exports: [
-    NgxMonacoEditor2Component,
+    NgxMonacoEditorComponent,
   ]
 })
 export class NgxMonacoEditorModule {

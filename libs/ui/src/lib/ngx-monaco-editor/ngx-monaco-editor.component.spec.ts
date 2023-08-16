@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
-import { NgxMonacoEditor2Component } from './ngx-monaco-editor-2.component';
+import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import { TypedFormControl } from '@heimdall-ui/core';
 import Mock = jest.Mock;
@@ -37,7 +37,7 @@ describe('NgxMonacoComponent', () => {
       <mat-form-field>
         <mat-label></mat-label>
 
-        <ngx-monaco-editor-2 [formControl]="testControl"></ngx-monaco-editor-2>
+        <ngx-monaco-editor [formControl]="testControl"></ngx-monaco-editor>
 
         <mat-hint></mat-hint>
 
@@ -52,7 +52,7 @@ describe('NgxMonacoComponent', () => {
     `
   })
   class TestComponent {
-    @ViewChild(NgxMonacoEditor2Component) editor: NgxMonacoEditor2Component;
+    @ViewChild(NgxMonacoEditorComponent) editor: NgxMonacoEditorComponent;
 
     testControl = new TypedFormControl(initialValue);
   }
@@ -70,7 +70,7 @@ describe('NgxMonacoComponent', () => {
         NoopAnimationsModule,
       ],
       declarations: [
-        NgxMonacoEditor2Component,
+        NgxMonacoEditorComponent,
         TestComponent,
       ],
       providers: [
