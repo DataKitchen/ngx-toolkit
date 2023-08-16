@@ -47,7 +47,7 @@ export class TestScheduler extends RxJsTestScheduler {
 
 
   static expect$<T>(observable: Observable<T>) {
-    console.log('running static method')
+    console.log('running static method');
     const scheduler = new TestScheduler();
 
     return scheduler.expect$(observable);
