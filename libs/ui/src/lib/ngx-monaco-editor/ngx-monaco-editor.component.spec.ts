@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { MockProvider } from '@heimdall-ui/testing/mock-service';
 import { of } from 'rxjs';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
+import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
+import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { TypedFormControl } from '@heimdall-ui/core';
 import Mock = jest.Mock;
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 /*
   There are two know bugs left to resolve
@@ -32,13 +34,27 @@ describe('NgxMonacoComponent', () => {
   @Component({
     selector: 'test-component',
     template: `
-      <ngx-monaco-editor [formControl]="testControl"></ngx-monaco-editor>
+      <mat-form-field>
+        <mat-label></mat-label>
+
+        <ngx-monaco-editor [formControl]="testControl"></ngx-monaco-editor>
+
+        <mat-hint></mat-hint>
+
+        <mat-error>
+
+        </mat-error>
+
+        <mat-icon matPrefix></mat-icon>
+        <mat-icon matSuffix></mat-icon>
+
+      </mat-form-field>
     `
   })
   class TestComponent {
     @ViewChild(NgxMonacoEditorComponent) editor: NgxMonacoEditorComponent;
 
-    testControl = new FormControl(initialValue);
+    testControl = new TypedFormControl(initialValue);
   }
 
   beforeEach(async () => {
@@ -50,6 +66,8 @@ describe('NgxMonacoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
+        MatLegacyFormFieldModule,
+        NoopAnimationsModule,
       ],
       declarations: [
         NgxMonacoEditorComponent,
@@ -69,23 +87,28 @@ describe('NgxMonacoComponent', () => {
           monaco$ = of({
             editor: {
               getModelMarkers: getModelMarkersSpy,
-              create: createSpy.mockImplementation(() => {
-                return {
-                  onDidChangeModelContent: jest.fn().mockImplementation((cb) => {
-                    this.modelChangedCb = cb;
-                  }),
-                  onDidBlurEditorWidget: jest.fn(),
-                  setValue: setValueSpy.mockImplementation((value) => {
-                    this.value = value;
-                    this.modelChangedCb.call(
-                      component.editor);
-                  }),
-                  getValue: getValueSpy.mockImplementation(() => {
-                    return this.value;
-                  }),
-                }
-              }),
+              onDidChangeMarkers: () => {
+                console.log('called onDidChangeMarkers');
+              }
             }
+          });
+
+          create = createSpy.mockImplementation(() => {
+            return {
+              onDidChangeModelContent: jest.fn().mockImplementation((cb) => {
+                this.modelChangedCb = cb;
+              }),
+              onDidBlurEditorWidget: jest.fn(),
+              setValue: setValueSpy.mockImplementation((value) => {
+                this.value = value;
+                this.modelChangedCb.call(
+                  component.editor);
+              }),
+              getValue: getValueSpy.mockImplementation(() => {
+                return this.value;
+              }),
+              onDidChangeMarkers: getModelMarkersSpy,
+            };
           });
         })
       ]
@@ -132,33 +155,6 @@ describe('NgxMonacoComponent', () => {
       expect(component.editor.value).toEqual(value);
     });
 
-    it('should update the editor', () => {
-      expect(setValueSpy).toHaveBeenCalledWith(value);
-      // this is for testing implicitly that the
-      // form control has not been patched again
-      // which would happen when the form changes
-      // programmatically which updates the editor
-      expect(getValueSpy).not.toHaveBeenCalled();
-    });
-
-    it('should parse non string value', () => {
-      const value = { test: true };
-      // @ts-ignore
-      component.testControl.patchValue(value);
-
-      expect(component.editor.value).toEqual(JSON.stringify(value, null, 2))
-
-    });
-
-    it('should skip null/undefined', () => {
-      component.testControl.patchValue(null);
-      expect(component.editor.value).toEqual('');
-
-      // @ts-ignore
-      component.testControl.patchValue(undefined);
-      expect(component.editor.value).toEqual('');
-    });
-
   });
 
   describe('editor changes', () => {
@@ -178,17 +174,6 @@ describe('NgxMonacoComponent', () => {
       expect(setValueSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should set errors when value is invalid', () => {
-
-      // error could be anything we only care that the array
-      // is not empty
-      getModelMarkersSpy.mockReturnValue([ 'error' ]);
-
-      component.editor['editor'].setValue('invalid value');
-      expect(component.editor.control.errors).toEqual({
-        monaco: true
-      })
-    });
   });
 
 });

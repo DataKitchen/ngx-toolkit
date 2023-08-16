@@ -1,63 +1,70 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
-import { NgControl } from '@angular/forms';
+/* eslint-disable @angular-eslint/no-input-rename,@angular-eslint/no-host-metadata-property,@typescript-eslint/no-explicit-any */
+import { AfterViewInit, Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
-import { IEditorOptions, IStandaloneCodeEditor, NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
-import { Monaco } from '@monaco-editor/loader';
+import { MatLegacyFormFieldControl as MatFormFieldControl } from '@angular/material/legacy-form-field';
+import { TypedFormControl } from '@heimdall-ui/core';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
-import { AbstractField } from '../fields';
-import { takeUntil } from 'rxjs/operators';
-import { stringify } from '@heimdall-ui/core';
+import { IEditorOptions, StandaloneCodeEditor } from './ngx-monaco-editor.module';
+import { AbstractMatFormFieldControl } from '../fields/abstract-mat-form-field-control.directive';
+
 
 @Component({
   selector: 'ngx-monaco-editor',
-  templateUrl: 'ngx-monaco-editor.component.html',
-  styleUrls: [ 'ngx-monaco-editor.component.scss' ],
+  template: `
+    <div #monaco
+      class="fx-flex ngx-monaco-editor-input-container"></div>
 
+    <textarea #textarea [class.hidden]="(error$ | async) === false"
+        [formControl]="_control"></textarea>
+  `,
+  providers: [
+    { provide: MatFormFieldControl, useExisting: NgxMonacoEditorComponent },
+  ],
+
+  styles: [ `
+    :host {
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
+    }
+  ` ]
 })
-export class NgxMonacoEditorComponent extends AbstractField implements OnInit, AfterViewInit {
+export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string> implements AfterViewInit {
 
-  private _value!: string;
-
-  // whether or not a change to the editor should be bubbled to
-  // the form control
-  private updateFormControl: boolean = true;
-  private updateEditor: boolean = true;
-
-  @Input() set value(value: any) {
-    this._value = stringify(value, true);
-  };
-
-  get value() {
-    return this._value;
-  }
-
-  @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
-
-  @Input() options!: IEditorOptions;
+  override controlType = 'ngx-monaco-editor-input';
 
   @ViewChild('monaco') monacoElm!: ElementRef;
   @ViewChild('textarea') textarea!: ElementRef;
 
+  @Input() options!: IEditorOptions;
+
+  _control = new TypedFormControl<string>();
+
   error$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private editor!: IStandaloneCodeEditor;
+  private editor!: StandaloneCodeEditor;
 
-  constructor(
-    private service: NgxMonacoEditorService,
-    @Inject(NGX_MONACO_EDITOR_CONFIG2) private defaults: IEditorOptions,
-    @Self() @Optional() protected override ngControl?: NgControl,
-  ) {
-    super(ngControl);
+  private service: NgxMonacoEditorService = inject(NgxMonacoEditorService);
+
+  getEmptyState(): boolean {
+    // this must be set to false so that the mat-form-field will show the label
+    // always floating.
+    return false;
   }
 
-  override ngOnInit() {
-    super.ngOnInit();
+  getValue(): string {
+    return this._control.value;
+  }
+
+  setValue(v: string): void {
+    this._control.setValue(v);
+  }
+
+  ngAfterViewInit() {
 
     this.service.monaco$.pipe(
-      tap((monaco) => {
-        this.defer(() => {
-          this.createEditor(monaco);
-        }).after('AfterViewInit');
+      tap(() => {
+        void this.createEditor();
       }),
       catchError((err) => {
         console.warn(err);
@@ -66,30 +73,46 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
         return EMPTY;
 
       }),
-      takeUntil(this.destroyed$)
+      // TODO need to unsubscribe here
     ).subscribe();
   }
 
-  @HostListener('window:resize')
-  layout() {
-    this.editor?.layout();
-  }
-
-  private createEditor(monaco: Monaco) {
+  private async createEditor() {
 
     try {
 
-      this.editor = monaco.editor.create(this.monacoElm.nativeElement, {
-        value: this.value,
-        ...this.defaults,
-        ...this.options,
+      this.editor = await this.service.create(this.monacoElm.nativeElement, {
+        value: this.value || '',
+        options: this.options,
       });
 
       this.editor.onDidChangeModelContent(() => {
-        this.editorChanged(monaco);
+        this.value = this.editor.getValue();
+        // triggers a value change to the parent
+        this.onChange(this.value);
       });
 
-      this.editor.onDidBlurEditorWidget(() => this.control.markAsTouched());
+
+      this.editor.onDidBlurEditorWidget(() => {
+        this._control.markAsTouched();
+      });
+
+      this.editor.onDidChangeMarkers((errors) => {
+
+        if (errors.length) {
+
+          this._control.setErrors({ monaco: true });
+
+          // @ts-ignore
+          (this.ngControl.form as TypedFormControl<any>).setErrors({ monaco: true });
+        } else {
+          this._control.setErrors(null);
+          // @ts-ignore
+          (this.ngControl.form as TypedFormControl<any>).setErrors(null);
+        }
+
+      });
+
 
     } catch (e) {
       console.error(e);
@@ -98,49 +121,4 @@ export class NgxMonacoEditorComponent extends AbstractField implements OnInit, A
     }
 
   }
-
-  override writeValue(value: any) {
-    this.value = value;
-
-    if (this.updateEditor) {
-      this.service.monaco$.toPromise().then(() => {
-        this.updateFormControl = false;
-        this.editor.setValue(this.value);
-      });
-    } else {
-      // same below comment on `updateFormControl`
-      // this is basically to avoid an infinite loop of calls
-      // between the FC that updates the editor and the editor
-      // that updates again the FC
-      this.updateEditor = true;
-    }
-
-  }
-
-  private editorChanged(monaco: Monaco) {
-
-    if (this.updateFormControl) {
-
-      this.updateEditor = false;
-      const value = this.editor.getValue();
-      this.control.setValue(value);
-
-    } else {
-      // when updateEditor is false means that we came here
-      // from an external change to the form control
-      // so we don't need to set the value back on it
-      // if we do we'll land on an infinite loop
-      this.updateFormControl = true;
-    }
-
-
-    const errors = monaco.editor.getModelMarkers({});
-
-    if (errors.length > 0) {
-      this.control.setErrors({ monaco: true });
-    }
-
-    this.valueChange.emit(this.value);
-  }
-
 }
