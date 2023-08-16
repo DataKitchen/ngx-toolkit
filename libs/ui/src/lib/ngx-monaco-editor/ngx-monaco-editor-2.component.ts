@@ -14,24 +14,22 @@ import { AbstractMatFormFieldControl } from '../fields/abstract-mat-form-field-c
     <div #monaco
       class="fx-flex ngx-monaco-editor-input-container"></div>
 
-    <ng-container *ngIf="(error$ | async) === true">
-        <textarea #textarea
-            [formControl]="_control"></textarea>
-    </ng-container>
+    <textarea #textarea [class.hidden]="(error$ | async) === false"
+        [formControl]="_control"></textarea>
   `,
   providers: [
-    { provide: MatFormFieldControl, useExisting: NgxMonacoEditor2Component }
+    { provide: MatFormFieldControl, useExisting: NgxMonacoEditor2Component },
   ],
 
-  styles: [`
+  styles: [ `
     :host {
       display: flex;
       flex-direction: column;
       min-height: 200px;
     }
-  `]
+  ` ]
 })
-export class NgxMonacoEditor2Component extends AbstractMatFormFieldControl<string>  implements AfterViewInit {
+export class NgxMonacoEditor2Component extends AbstractMatFormFieldControl<string> implements AfterViewInit {
 
   override controlType = 'ngx-monaco-editor-input';
 
@@ -99,8 +97,20 @@ export class NgxMonacoEditor2Component extends AbstractMatFormFieldControl<strin
         this._control.markAsTouched();
       });
 
-      this.editor.onDidChangeMarkers(() => {
-        this._control.setErrors({ monaco: true });
+      this.editor.onDidChangeMarkers((errors) => {
+
+        if (errors.length) {
+
+          this._control.setErrors({ monaco: true });
+
+          // @ts-ignore
+          (this.ngControl.form as TypedFormControl<any>).setErrors({ monaco: true });
+        } else {
+          this._control.setErrors(null);
+          // @ts-ignore
+          (this.ngControl.form as TypedFormControl<any>).setErrors(null);
+        }
+
       });
 
 
@@ -111,5 +121,4 @@ export class NgxMonacoEditor2Component extends AbstractMatFormFieldControl<strin
     }
 
   }
-
 }

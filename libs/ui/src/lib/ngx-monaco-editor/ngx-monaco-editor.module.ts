@@ -6,8 +6,8 @@ import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
-import IMarker = editor.IMarker;
 import { NgxMonacoEditor2Component } from './ngx-monaco-editor-2.component';
+import IMarker = editor.IMarker;
 
 export const defaultOptions = {
   language: 'json',

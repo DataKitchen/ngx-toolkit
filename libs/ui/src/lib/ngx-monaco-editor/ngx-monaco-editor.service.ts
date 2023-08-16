@@ -33,10 +33,8 @@ export class NgxMonacoEditorService {
           for (const client of clients) {
             const errors = monaco.editor.getModelMarkers({ resource: client });
             console.log('errors in', client.toString(), errors);
-            if (errors.length > 0) {
-              for (const didChangeMarkersCallbackElement of this.didChangeMarkersCallbacks[client.toString()]) {
-                didChangeMarkersCallbackElement(errors);
-              }
+            for (const didChangeMarkersCallbackElement of this.didChangeMarkersCallbacks[client.toString()]) {
+              didChangeMarkersCallbackElement(errors);
             }
           }
         });
