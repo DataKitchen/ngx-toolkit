@@ -14,6 +14,7 @@ describe('core-component', () => {
 
     private subject$ = new Subject();
 
+    // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
     override ngOnInit() {
       this.subscriptions.push(this.subject$.subscribe());
 
