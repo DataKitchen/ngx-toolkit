@@ -33,6 +33,7 @@ describe('core-component has search form', () => {
 
     search$ = new Subject<SearchFields>();
 
+    // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
     override ngOnInit() {
       this.search$.pipe(
         tap((values) => this.spy(values)),
