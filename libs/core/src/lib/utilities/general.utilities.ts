@@ -133,3 +133,11 @@ export function importScript(src: string, type = 'text/javascript') {
 
   document.body.appendChild(script);
 }
+
+export function difference<T>(a: Set<T>, b: Set<T>): Set<T> {
+  const diff = new Set<T>(a);
+  for (const element of b) {
+    diff.delete(element);
+  }
+  return diff;
+}
