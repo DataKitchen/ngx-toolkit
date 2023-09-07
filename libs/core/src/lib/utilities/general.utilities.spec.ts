@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { caseInsensitiveIncludes, isValidDate, parseDate } from './general.utilities';
 =======
 import { caseInsensitiveIncludes, isObject, omit, parseDate, pick } from './general.utilities';
@@ -7,6 +8,9 @@ import { caseInsensitiveIncludes, isObject, omit, parseDate, pick } from './gene
 =======
 import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, stringify } from './general.utilities';
 >>>>>>> 4cdf9ee (fix: safely handle null/undefined and stringify values in webhook action)
+=======
+import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, stringify, difference, removeDuplicates, beginningOfDay } from './general.utilities';
+>>>>>>> 95e4ece (test: increate test coverage)
 
 describe('general-utilities', () => {
 
@@ -164,5 +168,23 @@ describe('general-utilities', () => {
     });
   });
 
+<<<<<<< HEAD
 >>>>>>> 4cdf9ee (fix: safely handle null/undefined and stringify values in webhook action)
+=======
+  describe('removeDuplicates()', () => {
+    it('should remove duplicates from an array of objects by the provided property', () => {
+      const value = [{id: '1', name: 'A'}, {id: '2', name: 'B'}, {id: '3', name: 'D'}, {id: '4', name: 'A'}];
+      expect(removeDuplicates(value, 'name')).toEqual([{id: '1', name: 'A'}, {id: '2', name: 'B'}, {id: '3', name: 'D'}]);
+    });
+  });
+
+  describe('difference()', () => {
+    it('should include the elements in a that are not in b', () => {
+      const a = new Set(['a', 'b', 'd', 'e']);
+      const b = new Set(['c', 'b', 't', 'y', 'e']);
+
+      expect(Array.from(difference(a, b))).toEqual(['a', 'd']);
+    });
+  });
+>>>>>>> 95e4ece (test: increate test coverage)
 });

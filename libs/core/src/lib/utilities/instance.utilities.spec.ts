@@ -3,10 +3,12 @@ import { TestOutcomeItem, TestStatus } from '../models';
 
 describe('instance.utilities', () => {
   describe('aggregateAlerts()', () => {
-    const alerts = [ { level: 'ERROR', message: 'Error 1' }, { level: 'ERROR', message: 'Error 2' }, {
-      level: 'ERROR',
-      message: 'Error 3'
-    }, { level: 'WARNING', message: 'Warning 1' } ] as any;
+    const alerts = [
+      { level: 'ERROR', message: 'Error 1', count: 1 },
+      { level: 'ERROR', message: 'Error 2', count: 1 },
+      { level: 'ERROR', description: 'Error 3', count: 1},
+      { level: 'WARNING', message: 'Warning 1', count: 1 }
+    ] as any;
 
     it('should count the error alerts', () => {
       expect(aggregateAlerts(alerts)).toEqual(expect.objectContaining({ errors: expect.objectContaining({ count: 3 }) }));
