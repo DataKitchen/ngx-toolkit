@@ -15,7 +15,7 @@ interface TestsByComponent {
   [componentId: string]: TestOutcomeItem[];
 }
 
-export function aggregateAlerts<T extends { level: AlertLevel }>(alerts: Array<T>): {
+export function aggregateAlerts<T extends { level: AlertLevel; count: number }>(alerts: Array<T>): {
   errors: RemappedInstanceAlert<T>;
   warnings: RemappedInstanceAlert<T>
 } {
@@ -24,11 +24,11 @@ export function aggregateAlerts<T extends { level: AlertLevel }>(alerts: Array<T
 
   return {
     errors: {
-      count: errorAlerts.length,
+      count: errorAlerts.reduce((a, b) => a + b.count, 0),
       alerts: errorAlerts,
     },
     warnings: {
-      count: warningAlerts.length,
+      count: warningAlerts.reduce((a, b) => a + b.count, 0),
       alerts: warningAlerts,
     },
   };
