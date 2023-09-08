@@ -56,8 +56,6 @@ export class TestScheduler extends RxJsTestScheduler {
 
   constructor() {
     super((actual, expected) => {
-      console.log('actual', actual);
-      console.log('expected', expected);
       if (this.useContain) {
         for (const expectedElement of expected) {
           expect(actual).toContainEqual(expectedElement);
