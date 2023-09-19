@@ -141,3 +141,15 @@ export function difference<T>(a: Set<T>, b: Set<T>): Set<T> {
   }
   return diff;
 }
+
+export function isToday(date: Date) {
+  const today = new Date();
+  return isSameDay(date, today);
+}
+
+export function isSameDay(one: Date, other: Date): boolean {
+  return one.getFullYear() === other.getFullYear()
+    && one.getMonth() === other.getMonth()
+    && one.getDate() === other.getDate();
+}
+
