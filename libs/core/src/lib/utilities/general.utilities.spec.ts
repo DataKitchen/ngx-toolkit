@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { caseInsensitiveIncludes, isValidDate, parseDate } from './general.utilities';
 =======
 import { caseInsensitiveIncludes, isObject, omit, parseDate, pick } from './general.utilities';
@@ -11,6 +12,9 @@ import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, 
 =======
 import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, stringify, difference, removeDuplicates, beginningOfDay } from './general.utilities';
 >>>>>>> 95e4ece (test: increate test coverage)
+=======
+import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isValidDate, omit, parseDate, pick, removeDuplicates, stringify } from './general.utilities';
+>>>>>>> 491a6ee (refactor: move date utilities to general utils file)
 
 describe('general-utilities', () => {
 
@@ -186,5 +190,65 @@ describe('general-utilities', () => {
       expect(Array.from(difference(a, b))).toEqual(['a', 'd']);
     });
   });
+<<<<<<< HEAD
 >>>>>>> 95e4ece (test: increate test coverage)
+=======
+
+  describe('isToday', () => {
+
+    it('should check handle a past date', () => {
+      const aDay = new Date();
+
+      aDay.setDate(aDay.getDate() - 1);
+
+      expect(isToday(aDay)).toBeFalsy();
+
+    });
+
+    it('should check a date in the future', () => {
+      const aDay = new Date();
+
+      aDay.setDate(aDay.getDate() + 1);
+
+      expect(isToday(aDay)).toBeFalsy();
+    });
+
+    it('should check today', () => {
+      const aDay = new Date();
+
+      expect(isToday(aDay)).toBeTruthy();
+    });
+
+  });
+
+  describe('isSameDay', () => {
+
+    it('should check two dates being the same day', () => {
+
+      const dateA = new Date();
+      dateA.setDate(12);
+      dateA.setHours(13);
+
+      const dateB = new Date();
+      dateB.setDate(12);
+      dateB.setHours(23);
+
+      expect(isSameDay(dateA, dateB)).toBeTruthy();
+    });
+
+    it('should check two dates being not the same day', () => {
+
+      const dateA = new Date();
+      dateA.setDate(13);
+      dateA.setHours(13);
+
+      const dateB = new Date();
+      dateB.setDate(12);
+      dateB.setHours(13);
+
+      expect(isSameDay(dateA, dateB)).toBeFalsy();
+    });
+  });
+
+>>>>>>> 491a6ee (refactor: move date utilities to general utils file)
 });
