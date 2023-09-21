@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Inject, Injectable } from '@angular/core';
 import { AsyncSubject, tap } from 'rxjs';
 import { Monaco } from '@monaco-editor/loader';
