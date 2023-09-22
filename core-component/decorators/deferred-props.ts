@@ -10,7 +10,7 @@ export interface DeferredProp {
  * @return a colon `:` separated string of the value contained in the given property or the key itself if that property is not defined.
  *
  * @example
- * ```typescript
+
  * class MyComponent {
  *     kitchen = 'myKitchen';
  *
@@ -19,7 +19,6 @@ export interface DeferredProp {
  *     form = new FormGroup(....)
  *
  * }
- * ```
  */
 export function Prop(propertyPath: string): DeferredProp {
   return {
