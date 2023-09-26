@@ -1,5 +1,5 @@
 import { AlertLevel, TestOutcomeItem } from '../models';
-import {} from '../models';
+import { Instance, isInstance, TodayInstance, UpcomingInstance } from '../models/instance.model';
 
 export interface RemappedInstanceAlert<T> {
   count: number;
@@ -56,4 +56,50 @@ export function testsByComponent(tests: TestOutcomeItem[]): TestsByComponent {
   }, groups);
 
   return result;
+}
+
+export function parseInstances(instance: Instance | UpcomingInstance, now: Date, startTime: Date): TodayInstance {
+
+  if (isInstance(instance)) {
+
+    const alertsSummary = aggregateAlerts(instance.alerts_summary);
+
+    return {
+      ...instance,
+      start_time: new Date(instance.start_time),
+      end_time: instance.end_time ? new Date(instance.end_time) : now,
+      runsCount: instance.runs_summary?.reduce((total, summary) => total + summary.count, 0) ?? 0,
+      errorAlertsCount: alertsSummary.errors.count,
+      warningAlertsCount: alertsSummary.warnings.count,
+    };
+  } else {
+    const upInst = instance as UpcomingInstance;
+
+    let start_time;
+
+    if (upInst.expected_start_time) {
+      start_time = new Date(upInst.expected_start_time);
+    } else {
+      startTime.setMinutes(startTime.getMinutes() + 1);
+      // avoid copy by reference
+      start_time = new Date(startTime.toISOString());
+    }
+
+    let end_time;
+    if (upInst.expected_end_time) {
+      end_time = new Date(upInst.expected_end_time);
+    } else {
+      const endTime = new Date(start_time);
+      endTime.setHours(start_time.getHours() + 3);
+      end_time = endTime;
+    }
+
+    return {
+      ...instance,
+      id: Math.random().toString(36).slice(2),
+      start_time,
+      end_time,
+      status: 'UPCOMING',
+    };
+  }
 }
