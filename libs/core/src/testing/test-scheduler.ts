@@ -61,6 +61,11 @@ export class TestScheduler extends RxJsTestScheduler {
           expect(actual).toContainEqual(expectedElement);
         }
       } else {
+        // leaving this here because the way jest displays the differences between
+        // the two arrays is not intelligible
+        console.log('actual', actual);
+        console.log('expected', expected);
+
         expect(actual).toEqual(expected);
       }
     });
