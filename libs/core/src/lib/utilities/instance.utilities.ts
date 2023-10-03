@@ -67,11 +67,14 @@ export function parseInstances(instance: Instance | UpcomingInstance, now: Date,
     return {
       ...instance,
       start_time: new Date(instance.start_time),
-      end_time: instance.end_time ? new Date(instance.end_time) : now,
+      end_time: instance.end_time ? new Date(instance.end_time)
+        : instance.expected_end_time ? new Date(instance.expected_end_time) : now,
+
       runsCount: instance.runs_summary?.reduce((total, summary) => total + summary.count, 0) ?? 0,
       errorAlertsCount: alertsSummary.errors.count,
       warningAlertsCount: alertsSummary.warnings.count,
     };
+
   } else {
     const upInst = instance as UpcomingInstance;
 
