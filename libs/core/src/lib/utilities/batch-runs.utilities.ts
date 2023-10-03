@@ -52,7 +52,7 @@ export function getDatasetStatus(datasetOperationEvents: EventType[], tests: {
     if (datasetOperationEvents.find(e => (e.raw_data as DatasetOperationEventData).operation === 'WRITE') !== undefined) {
       return RunProcessedStatus.Completed;
     } else {
-      return RunProcessedStatus.Missing;
+      return RunProcessedStatus.Pending;
     }
   }
 }
