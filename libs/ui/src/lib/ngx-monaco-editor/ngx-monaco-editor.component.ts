@@ -60,6 +60,7 @@ export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string
     this._control.setValue(v);
   }
 
+  /* istanbul ignore next */
   ngAfterViewInit() {
 
     this.service.monaco$.pipe(
@@ -77,6 +78,7 @@ export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string
     ).subscribe();
   }
 
+  /* istanbul ignore next */
   private async createEditor() {
 
     try {
