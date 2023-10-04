@@ -47,11 +47,8 @@ export class TestScheduler extends RxJsTestScheduler {
 
 
   static expect$<T>(observable: Observable<T>) {
-    console.log('running static method');
     const scheduler = new TestScheduler();
-
     return scheduler.expect$(observable);
-
   }
 
   constructor() {
@@ -61,11 +58,6 @@ export class TestScheduler extends RxJsTestScheduler {
           expect(actual).toContainEqual(expectedElement);
         }
       } else {
-        // leaving this here because the way jest displays the differences between
-        // the two arrays is not intelligible
-        console.log('actual', actual);
-        console.log('expected', expected);
-
         expect(actual).toEqual(expected);
       }
     });
