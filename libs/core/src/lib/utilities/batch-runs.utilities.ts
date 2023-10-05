@@ -39,8 +39,6 @@ export function getDatasetStatus(datasetOperationEvents: EventType[], tests: {
   // If expectations are set
   if (schedules.length > 0) {
     // If at least one write operation
-    console.log(datasetOperationEvents);
-
     if (datasetOperationEvents.find(e => (e.raw_data as DatasetOperationEventData).operation === 'WRITE') !== undefined) {
       return RunProcessedStatus.Completed;
     } else {
