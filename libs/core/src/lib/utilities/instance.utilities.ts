@@ -84,8 +84,11 @@ export function parseInstances(instance: Instance | UpcomingInstance, now: Date,
       start_time = new Date(upInst.expected_start_time);
     } else {
       startTime.setMinutes(startTime.getMinutes() + 1);
-      // avoid copy by reference
-      start_time = new Date(startTime.toISOString());
+
+      // assuming that an upcoming instance must have expected_end_time
+      // if expected_start_time is not set
+      start_time = new Date(upInst.expected_end_time);
+      start_time.setHours(start_time.getHours() - 1);
     }
 
     let end_time;
