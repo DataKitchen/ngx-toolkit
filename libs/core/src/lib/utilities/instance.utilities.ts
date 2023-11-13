@@ -58,7 +58,7 @@ export function testsByComponent(tests: TestOutcomeItem[]): TestsByComponent {
   return result;
 }
 
-export function parseInstances(instance: Instance | UpcomingInstance, now: Date, startTime: Date): TodayInstance {
+export function parseInstances(instance: Instance | UpcomingInstance, now: Date): TodayInstance {
 
   if (isInstance(instance)) {
 
@@ -83,7 +83,6 @@ export function parseInstances(instance: Instance | UpcomingInstance, now: Date,
     if (upInst.expected_start_time) {
       start_time = new Date(upInst.expected_start_time);
     } else {
-      startTime.setMinutes(startTime.getMinutes() + 1);
 
       // assuming that an upcoming instance must have expected_end_time
       // if expected_start_time is not set

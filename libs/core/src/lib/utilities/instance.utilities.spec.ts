@@ -87,7 +87,7 @@ describe('instance.utilities', () => {
         end_time: new Date('11/11/2011').toString(),
         runs_summary: [ { count: 1 } as InstanceRunSummary ],
         alerts_summary: [],
-      } as unknown as Instance, now, startTime)).toEqual({
+      } as unknown as Instance, now)).toEqual({
         alerts_summary: [],
         end_time: new Date('11/11/2011'),
         errorAlertsCount: 0,
@@ -113,7 +113,7 @@ describe('instance.utilities', () => {
         start_time: new Date('11/11/2011').toString(),
         runs_summary: [ { count: 1 } as InstanceRunSummary ],
         alerts_summary: [],
-      } as unknown as Instance, now, startTime)).toEqual({
+      } as unknown as Instance, now)).toEqual({
         alerts_summary: [],
         end_time: now,
         errorAlertsCount: 0,
@@ -131,10 +131,6 @@ describe('instance.utilities', () => {
       // storing their `Date` version in start_time and end_time
 
       const now = new Date();
-      const startTime = new Date();
-      startTime.setHours(0);
-      startTime.setMinutes(0);
-      startTime.setSeconds(0);
 
       const expected_start_time = new Date('11/11/2011 12:00');
       const expected_end_time = new Date('11/11/2011 15:00');
@@ -143,7 +139,7 @@ describe('instance.utilities', () => {
         status: 'UPCOMING',
         expected_start_time: expected_start_time.toISOString(),
         expected_end_time: expected_end_time.toISOString(),
-      } as unknown as Instance, now, startTime)).toEqual({
+      } as unknown as Instance, now)).toEqual({
         id: expect.anything(),
         status: 'UPCOMING',
         expected_start_time: expected_start_time.toISOString(),
@@ -159,18 +155,13 @@ describe('instance.utilities', () => {
       // so if expected start time is 12PM then we expect it to finish by 15PM
 
       const now = new Date();
-      const startTime = new Date();
-
-      startTime.setHours(0);
-      startTime.setMinutes(0);
-      startTime.setSeconds(0);
 
       const expected_start_time = new Date('11/11/2011 12:00');
 
       expect(parseInstances({
         status: 'UPCOMING',
         expected_start_time: expected_start_time.toISOString(),
-      } as unknown as Instance, now, startTime)).toEqual({
+      } as unknown as Instance, now)).toEqual({
         id: expect.anything(),
         status: 'UPCOMING',
         expected_start_time: expected_start_time.toISOString(),
@@ -184,20 +175,14 @@ describe('instance.utilities', () => {
       // when expected start time is not set we assume that the instance is going to start soon
 
       const now = new Date();
-      const startTime = new Date();
-
-      startTime.setHours(0);
-      startTime.setMinutes(0);
-      startTime.setSeconds(0);
 
       const expected_end_time = new Date('11/11/2011 12:00');
-      const start_time = new Date(startTime);
-      start_time.setMinutes(start_time.getMinutes() + 1);
+      const start_time = new Date('11/11/2011 11:00');
 
       expect(parseInstances({
         status: 'UPCOMING',
         expected_end_time: expected_end_time.toISOString(),
-      } as unknown as Instance, now, startTime)).toEqual({
+      } as unknown as Instance, now)).toEqual({
         id: expect.anything(),
         status: 'UPCOMING',
         expected_end_time: expected_end_time.toISOString(),
