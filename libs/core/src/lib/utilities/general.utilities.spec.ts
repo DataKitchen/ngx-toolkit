@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { caseInsensitiveIncludes, isValidDate, parseDate } from './general.utilities';
 =======
 import { caseInsensitiveIncludes, isObject, omit, parseDate, pick } from './general.utilities';
@@ -15,6 +16,9 @@ import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, 
 =======
 import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isValidDate, omit, parseDate, pick, removeDuplicates, stringify } from './general.utilities';
 >>>>>>> 491a6ee (refactor: move date utilities to general utils file)
+=======
+import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isFutureDay, isValidDate, omit, parseDate, pick, removeDuplicates, stringify } from './general.utilities';
+>>>>>>> 9663ece (fix(dots-chart): include upcoming instances only on future days)
 
 describe('general-utilities', () => {
 
@@ -196,7 +200,7 @@ describe('general-utilities', () => {
 
   describe('isToday', () => {
 
-    it('should check handle a past date', () => {
+    it('should handle a past date', () => {
       const aDay = new Date();
 
       aDay.setDate(aDay.getDate() - 1);
@@ -219,6 +223,32 @@ describe('general-utilities', () => {
       expect(isToday(aDay)).toBeTruthy();
     });
 
+  });
+
+  describe('isFutureDay', () => {
+
+    it('should handle a past date', () => {
+      const aDay = new Date();
+
+      aDay.setDate(aDay.getDate() - 1);
+
+      expect(isFutureDay(aDay)).toBeFalsy();
+
+    });
+
+    it('should handle the current day', () => {
+      const aDay = new Date();
+
+      expect(isFutureDay(aDay)).toBeFalsy();
+    });
+
+    it('should pass a date in the future', () => {
+      const aDay = new Date();
+
+      aDay.setDate(aDay.getDate() + 1);
+
+      expect(isFutureDay(aDay)).toBeTruthy();
+    });
   });
 
   describe('isSameDay', () => {
