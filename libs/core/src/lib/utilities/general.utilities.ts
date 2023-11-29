@@ -142,6 +142,11 @@ export function difference<T>(a: Set<T>, b: Set<T>): Set<T> {
   return diff;
 }
 
+export function isFutureDay(other: Date): boolean {
+  const today = new Date();
+  return other > today;
+}
+
 export function isToday(date: Date) {
   const today = new Date();
   return isSameDay(date, today);
