@@ -270,7 +270,10 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
       } else if (value instanceof Subject) {
 
         if (initialValue !== null && initialValue !== undefined) {
-          if (isObject(initialValue) && !Array.isArray(initialValue)) {
+          if (isBoundToQueryParams && isObject(initialValue) && !Array.isArray(initialValue)) {
+
+            // when the property is bound to query params then the initial value can contain other properties too
+            // so we want to only get the ones of the property
             // @ts-ignore
             value.next(initialValue[[ queryParamsNamespace, property ].join('')]);
           } else {
