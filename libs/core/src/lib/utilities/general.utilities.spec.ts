@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { caseInsensitiveIncludes, isValidDate, parseDate } from './general.utilities';
 =======
 import { caseInsensitiveIncludes, isObject, omit, parseDate, pick } from './general.utilities';
@@ -19,6 +20,9 @@ import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isVa
 =======
 import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isFutureDay, isValidDate, omit, parseDate, pick, removeDuplicates, stringify } from './general.utilities';
 >>>>>>> 9663ece (fix(dots-chart): include upcoming instances only on future days)
+=======
+import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isFutureDay, isValidDate, omit, parseDate, pick, removeDuplicates, stringify, trimStart } from './general.utilities';
+>>>>>>> 0ddca9b (feat(integrations): update synapse integration guide to prod agent)
 
 describe('general-utilities', () => {
 
@@ -280,5 +284,21 @@ describe('general-utilities', () => {
     });
   });
 
+<<<<<<< HEAD
 >>>>>>> 491a6ee (refactor: move date utilities to general utils file)
+=======
+  describe('trimStart()', () => {
+    it('should remove leading white spaces', () => {
+      expect(trimStart('  test-string')).toEqual('test-string');
+    });
+
+    it('should remove leading line breaks', () => {
+      expect(trimStart(' \ntest-string')).toEqual('test-string');
+    });
+
+    it('should leave trailing white spaces alone', () => {
+      expect(trimStart(' \ntest-string\n ')).toEqual('test-string\n ');
+    });
+  });
+>>>>>>> 0ddca9b (feat(integrations): update synapse integration guide to prod agent)
 });

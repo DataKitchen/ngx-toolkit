@@ -158,3 +158,11 @@ export function isSameDay(one: Date, other: Date): boolean {
     && one.getDate() === other.getDate();
 }
 
+export function trimStart(value: string): string {
+  let index = 0;
+  while (value[index] === ' ' || value[index] === '\n') {
+    index += 1;
+  }
+
+  return value.slice(index);
+}
