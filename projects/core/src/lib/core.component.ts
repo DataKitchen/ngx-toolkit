@@ -7,8 +7,6 @@ import { Params } from '@angular/router';
 import { isPrimitive } from 'utility-types';
 import { getBindableProperties, getBindablePropertyNamespace } from './decorators/bind-to-query-params/bind-to-query-params';
 import { getLocalStorageOptions, getPersistOnLocalStorage, PersistOnLocalStorageOptions } from './decorators/persist-on-local-storage/persist-on-local-storage';
-import { ParameterService } from '../../services/paramter/parameter.service';
-import { StorageService } from '../../services/storage/storage.service';
 import { hasPaginator } from './has-paginator/has-paginator';
 import { hasSearchForm } from './has-search-form/has-search-form';
 import { DeferredProp } from './decorators/deferred-props';
@@ -18,6 +16,8 @@ import { Sort } from '@angular/material/sort';
 import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 import { rxjsScheduler } from './rxjs-scheduler.token';
 import { hasSorting } from './has-sorting/has-sorting';
+import { StorageService } from './services/storage/storage.service';
+import { ParameterService } from './services/paramter/parameter.service';
 
 
 @Directive()
@@ -197,6 +197,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
           }
 
           if (value instanceof UntypedFormControl || isPrimitive(value) || value instanceof Subject) {
+            // @ts-ignore
             params = params[`${queryParamsNamespace}${property}`] as string;
           }
 
