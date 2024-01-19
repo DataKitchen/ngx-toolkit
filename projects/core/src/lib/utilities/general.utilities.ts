@@ -18,10 +18,6 @@ export function parseDate(date: Date|string): Date {
   return date;
 }
 
-<<<<<<< HEAD
-export function isValidDate(d: any) {
-  return d instanceof Date && !isNaN(d as any);
-=======
 export function isObject(value: any): boolean {
   const type = typeof value;
   return value != null && (type === 'object' || type === 'function');
@@ -49,20 +45,12 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]) {
   keys.forEach((k) => {
     return res[k] = obj[k];
   });
-<<<<<<< HEAD
-<<<<<<< HEAD
-  return newObject;
->>>>>>> 38eebec (feat(core): add pick, omit, isObject utilities)
-=======
-=======
->>>>>>> da8cf49 (refactor: improve typings)
 
   return res;
 }
 
 export function isValidDate(d: any) {
   return d instanceof Date && !isNaN(d as any);
->>>>>>> dab967d (refactor: improve typings)
 }
 
 export function stringify(d: unknown, pretty: boolean = false): string {
