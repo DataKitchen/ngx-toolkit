@@ -1,5 +1,6 @@
 import { AbstractControl } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { TypedFormGroup } from '../typed-form/typed-forms';
 
 export interface HasSearchForm<E extends { [key: string]: any }> {
   search: TypedFormGroup<E>;
