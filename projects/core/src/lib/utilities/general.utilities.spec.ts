@@ -1,28 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { caseInsensitiveIncludes, isValidDate, parseDate } from './general.utilities';
-=======
-import { caseInsensitiveIncludes, isObject, omit, parseDate, pick } from './general.utilities';
->>>>>>> f6ff16e (test(core): add tests for pick, omit, isObject utilities)
-=======
-import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, stringify } from './general.utilities';
->>>>>>> 4cdf9ee (fix: safely handle null/undefined and stringify values in webhook action)
-=======
-import { caseInsensitiveIncludes, isValidDate, isObject, omit, parseDate, pick, stringify, difference, removeDuplicates, beginningOfDay } from './general.utilities';
->>>>>>> 95e4ece (test: increate test coverage)
-=======
-import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isValidDate, omit, parseDate, pick, removeDuplicates, stringify } from './general.utilities';
->>>>>>> 491a6ee (refactor: move date utilities to general utils file)
-=======
-import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isFutureDay, isValidDate, omit, parseDate, pick, removeDuplicates, stringify } from './general.utilities';
->>>>>>> 9663ece (fix(dots-chart): include upcoming instances only on future days)
-=======
 import { caseInsensitiveIncludes, difference, isObject, isSameDay, isToday, isFutureDay, isValidDate, omit, parseDate, pick, removeDuplicates, stringify, trimStart } from './general.utilities';
->>>>>>> 0ddca9b (feat(integrations): update synapse integration guide to prod agent)
 
 describe('general-utilities', () => {
 
@@ -73,15 +49,6 @@ describe('general-utilities', () => {
     });
   });
 
-<<<<<<< HEAD
-  describe('isValidDate', () => {
-    it('should return true if a valid date is passed in input', () => {
-      expect(isValidDate(new Date())).toBeTruthy();
-    });
-
-    it('should return false if no valid date is passed in input', () => {
-      expect(isValidDate(3)).toBeFalsy();
-=======
   describe('isObject', () => {
     it('should return true if the input value is an object', () => {
       const input = { test: 'test' };
@@ -124,7 +91,6 @@ describe('general-utilities', () => {
       const input = { name: 'Test', surname: 'Utility', age: 30 };
       const expected = { age: 30 };
       expect(pick(input, [ 'age' ])).toEqual(expected);
->>>>>>> f6ff16e (test(core): add tests for pick, omit, isObject utilities)
     });
 
     it('should throw an error if input is not an object', () => {
@@ -132,8 +98,6 @@ describe('general-utilities', () => {
       expect(() => pick(input as any, [ 'age' ])).toThrowError('Input must be an object');
     });
   });
-<<<<<<< HEAD
-=======
 
   describe('isValidDate', () => {
     it('should return true if a valid date is passed as input', () => {
@@ -160,9 +124,6 @@ describe('general-utilities', () => {
       expect(isValidDate([ 'test' ])).toBeFalsy();
     });
   });
-<<<<<<< HEAD
->>>>>>> ed4a231 (test: add more tests for valid date utility)
-=======
 
   describe('stringify', () => {
     it('should cleanly stringify null or undefined', () => {
@@ -180,9 +141,6 @@ describe('general-utilities', () => {
     });
   });
 
-<<<<<<< HEAD
->>>>>>> 4cdf9ee (fix: safely handle null/undefined and stringify values in webhook action)
-=======
   describe('removeDuplicates()', () => {
     it('should remove duplicates from an array of objects by the provided property', () => {
       const value = [{id: '1', name: 'A'}, {id: '2', name: 'B'}, {id: '3', name: 'D'}, {id: '4', name: 'A'}];
@@ -198,9 +156,6 @@ describe('general-utilities', () => {
       expect(Array.from(difference(a, b))).toEqual(['a', 'd']);
     });
   });
-<<<<<<< HEAD
->>>>>>> 95e4ece (test: increate test coverage)
-=======
 
   describe('isToday', () => {
 
@@ -284,9 +239,6 @@ describe('general-utilities', () => {
     });
   });
 
-<<<<<<< HEAD
->>>>>>> 491a6ee (refactor: move date utilities to general utils file)
-=======
   describe('trimStart()', () => {
     it('should remove leading white spaces', () => {
       expect(trimStart('  test-string')).toEqual('test-string');
@@ -300,5 +252,4 @@ describe('general-utilities', () => {
       expect(trimStart(' \ntest-string\n ')).toEqual('test-string\n ');
     });
   });
->>>>>>> 0ddca9b (feat(integrations): update synapse integration guide to prod agent)
 });
