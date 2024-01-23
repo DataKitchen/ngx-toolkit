@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Class } from 'utility-types';
 
 const builtInMethods = Object.keys(Object.getOwnPropertyDescriptors(Object.getPrototypeOf({})));

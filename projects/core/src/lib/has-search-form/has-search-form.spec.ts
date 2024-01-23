@@ -3,9 +3,9 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
 import { CoreComponent } from '../core.component';
 import { HasSearchForm } from './has-search-form';
-import { TypedFormControl, TypedFormGroup } from '../../../typed-form/typed-forms';
 import { Subject, tap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { TypedFormControl, TypedFormGroup } from '../typed-form/typed-forms';
 
 describe('core-component has search form', () => {
 
