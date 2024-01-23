@@ -1,8 +1,14 @@
+import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { TestService } from './test.service';
 
 describe('TestService', () => {
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  class TestService {}
+
   let service: TestService;
 
   beforeEach(() => {
