@@ -4,11 +4,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { CoreComponent } from '../../core.component';
 import { BindToQueryParams } from './bind-to-query-params';
-import { ParameterService } from '../../../../services/paramter/parameter.service';
-import { Prop } from '../deferred-props';
-import { Mocked, MockService } from '../../../../../testing/mock-service';
-import { expectObservable } from '../../../../../testing/expect-observable';
 import spyOn = jest.spyOn;
+import { MockService, Mocked, expectObservable } from '@ngx-rocket/test';
+import { ParameterService } from '../../services/paramter/parameter.service';
+import { Prop } from '../deferred-props';
 
 describe('core-componenta with @BindToQueryParam', () => {
 

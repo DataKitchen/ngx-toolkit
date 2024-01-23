@@ -3,8 +3,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "core": [
-        "dist/core"
+      "@ngx-rocket/core": [
+        "projects/core/src/public-api.ts"
+      ],
+      "@ngx-rocket/test": [
+        "projects/test/src/public-api.ts"
       ]
     },
     "outDir": "./dist/out-tsc",

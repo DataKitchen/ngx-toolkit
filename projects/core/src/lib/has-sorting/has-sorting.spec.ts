@@ -5,7 +5,7 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { rxjsScheduler } from '../rxjs-scheduler.token';
 import { HasSorting } from './has-sorting';
-import { TestScheduler } from '../../../../testing/test-scheduler';
+import { TestScheduler } from '@ngx-rocket/test';
 
 describe('core.component has sorting', () => {
   let component: TestClass2Component;

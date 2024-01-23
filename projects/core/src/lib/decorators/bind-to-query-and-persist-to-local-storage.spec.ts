@@ -5,10 +5,9 @@ import { BehaviorSubject } from 'rxjs';
 import { CoreComponent } from '../core.component';
 import { PersistOnLocalStorage } from './persist-on-local-storage/persist-on-local-storage';
 import { BindToQueryParams } from './bind-to-query-params/bind-to-query-params';
-import { ParameterService } from '../../../services/paramter/parameter.service';
-import { Mocked, MockService } from '../../../../testing/mock-service';
-import { StorageService } from '../../../services/storage/storage.service';
-import { TestScheduler } from '../../../../testing/test-scheduler';
+import { MockService, Mocked, TestScheduler } from '@ngx-rocket/test';
+import { ParameterService } from '../services/paramter/parameter.service';
+import { StorageService } from '../services/storage/storage.service';
 
 describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorage decorators', () => {
 

@@ -1,35 +1,33 @@
 
-module.exports = {
 
+
+module.exports = {
   projects: [
-    // libs
-    '<rootDir>/projects/core/src',
+    "projects/*"
   ],
+
   coverageDirectory: 'coverage',
   reporters: [
-    'default'
+    'default',
+    ['jest-junit', { outputDirectory: 'coverage', outputName: 'junit.xml' }],
   ],
-  coverageReporters: [
-    'html',
-    'lcov',
-    'text'
-  ],
+  coverageReporters: ['html', 'lcov', 'text', 'cobertura'],
   collectCoverageFrom: [
-    "**/src/**/!(*.spec).ts",
-    "!**/index.ts",
-    "!**/*.module.ts",
-    "!**/polyfills.ts",
-    "!**/src/environments/**",
-    "!**/main.ts",
-    "!**/src/public-api.ts",
+    'src/(app|lib)/**/*.ts',
+    '!src/(app|lib)/**/*.module.ts',
+    '!src/(app|lib)/**/*.translation(|s).ts',
+    '!src/(app|lib)/**/entry.component.ts',
+    '!src/(app|lib)/**/*.model.ts',
+    '!src/(app|lib)/**/*.mock.ts',
+    '!src/(app|lib)/**/index.ts',
+    '!src/lib/mock-service.ts'
   ],
   coverageThreshold: {
     global: {
-      statements: 73,
-      branches: 60,
-      lines: 71,
-      functions: 67,
-    }
-  },
-
+      statements: 95.28,
+      branches: 92.85,
+      functions: 93.15,
+      lines: 95.22,
+    },
+  }
 };

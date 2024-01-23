@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CoreComponent } from '../core.component';
 import { HasPaginator } from './has-paginator';
 import { rxjsScheduler } from '../rxjs-scheduler.token';
-import { TestScheduler } from '../../../../testing/test-scheduler';
+import { TestScheduler } from '@ngx-rocket/test';
 
 describe('core-component has paginator', () => {
 
