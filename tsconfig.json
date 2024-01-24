@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@ngx-rocket/core": [
+      "@ngx-toolkit/core": [
         "projects/core/src/public-api.ts"
       ],
-      "@ngx-rocket/test": [
+      "@ngx-toolkit/test": [
         "projects/test/src/public-api.ts"
       ]
     },

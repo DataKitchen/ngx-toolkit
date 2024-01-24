@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CoreComponent } from '../../core.component';
 import { PersistOnLocalStorage } from './persist-on-local-storage';
 import { Component } from '@angular/core';
-import { MockService, Mocked, expectObservable } from '@ngx-rocket/test';
+import { MockService, Mocked, expectObservable } from '@ngx-toolkit/test';
 import { StorageService } from '../../services/storage/storage.service';
 
 describe('core-componenta with @PersistOnLocalStorage', () => {
