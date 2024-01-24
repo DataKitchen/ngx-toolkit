@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CoreComponent } from '../../core.component';
 import { BindToQueryParams } from './bind-to-query-params';
 import spyOn = jest.spyOn;
-import { MockService, Mocked, expectObservable } from '@ngx-rocket/test';
+import { MockService, Mocked, expectObservable } from '@ngx-toolkit/test';
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { Prop } from '../deferred-props';
 
