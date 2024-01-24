@@ -3,11 +3,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
-    "esModuleInterop": true,
     "types": [
       "jest", "node"
     ],
-    "noImplicitAny": false
+    "esModuleInterop": true
   },
   "include": [
     "**/*.spec.ts",
