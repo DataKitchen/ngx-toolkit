@@ -8,6 +8,9 @@
       ],
       "@ngx-toolkit/test": [
         "projects/test/src/public-api.ts"
+      ],
+      "ngx-monaco-editor": [
+        "dist/ngx-monaco-editor"
       ]
     },
     "outDir": "./dist/out-tsc",
