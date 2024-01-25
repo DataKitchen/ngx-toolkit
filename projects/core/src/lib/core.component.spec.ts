@@ -32,7 +32,11 @@ describe('core-component', () => {
 
     fixture = TestBed.createComponent(TestClassComponent);
     component = fixture.componentInstance;
-});
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
 
   it('should unsubscribe when component is destroyed', () => {

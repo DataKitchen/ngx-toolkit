@@ -3,7 +3,7 @@
 
 module.exports = {
   projects: [
-    "projects/*"
+    'projects/*'
   ],
 
   coverageDirectory: 'coverage',

@@ -10,3 +10,12 @@ export * from './lib/decorators/persist-on-local-storage/persist-on-local-storag
 export * from './lib/decorators/deferred-props';
 export * from './lib/decorators/memoize/memoize';
 export * from './lib/has-sorting/has-sorting';
+export * from './lib/typed-form/typed-forms';
+export * from './lib/abstract-mat-form-field-control/abstract-mat-form-field-control.directive';
+
+// test utils
+export * from './lib/test-utils/expect-observable';
+export * from './lib/test-utils/mock-component';
+export * from './lib/test-utils/mock-service';
+export * from './lib/test-utils/activated-route.mock';
+export * from './lib/test-utils/test-scheduler';

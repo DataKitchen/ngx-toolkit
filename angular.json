@@ -48,23 +48,23 @@
         }
       }
     },
-    "test": {
+    "ngx-monaco-editor": {
       "projectType": "library",
-      "root": "projects/test",
-      "sourceRoot": "projects/test/src",
+      "root": "projects/ngx-monaco-editor",
+      "sourceRoot": "projects/ngx-monaco-editor/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/test/ng-package.json"
+            "project": "projects/ngx-monaco-editor/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/test/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-monaco-editor/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/test/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-monaco-editor/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -72,19 +72,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/test/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-monaco-editor/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/test/**/*.ts",
-              "projects/test/**/*.html"
             ]
           }
         }

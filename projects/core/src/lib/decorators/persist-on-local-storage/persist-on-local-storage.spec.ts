@@ -5,8 +5,9 @@ import { BehaviorSubject } from 'rxjs';
 import { CoreComponent } from '../../core.component';
 import { PersistOnLocalStorage } from './persist-on-local-storage';
 import { Component } from '@angular/core';
-import { MockService, Mocked, expectObservable } from '@ngx-toolkit/test';
 import { StorageService } from '../../services/storage/storage.service';
+import { expectObservable } from '../../test-utils/expect-observable';
+import { MockService, Mocked } from '../../test-utils/mock-service';
 
 describe('core-componenta with @PersistOnLocalStorage', () => {
 
@@ -238,6 +239,10 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
 
       it('should use the updated namespace to write to local storage', () => {
         fixture.detectChanges();
+<<<<<<< HEAD
+=======
+        // @ts-ignore
+>>>>>>> feature/import_monaco_editor
         component['dynamicNamespace'] = newNamespace;
         component.phone.patchValue('+18005551020');
 

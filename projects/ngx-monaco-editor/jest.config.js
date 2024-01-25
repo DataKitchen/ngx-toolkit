@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'core',
+  displayName: 'ngx-monaco-editor',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
