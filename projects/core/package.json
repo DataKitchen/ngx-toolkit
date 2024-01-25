@@ -1,6 +1,6 @@
 {
-  "name": "@ngx-toolkit/core",
-  "version": "0.0.1",
+  "name": "@datakitchen/ngx-toolkit",
+  "version": "16.2.0",
   "peerDependencies": {
     "@angular/common": "^16.2.0",
     "@angular/core": "^16.2.0",

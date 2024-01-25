@@ -3,13 +3,10 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@ngx-toolkit/core": [
-        "projects/core/src/public-api.ts"
+      "@datakitchen/ngx-toolkit": [
+        "dist/core"
       ],
-      "@ngx-toolkit/test": [
-        "projects/test/src/public-api.ts"
-      ],
-      "ngx-monaco-editor": [
+      "@datakitchen/ngx-monaco-editor": [
         "dist/ngx-monaco-editor"
       ]
     },
