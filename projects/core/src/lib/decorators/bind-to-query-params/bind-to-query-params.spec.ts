@@ -5,9 +5,10 @@ import { BehaviorSubject } from 'rxjs';
 import { CoreComponent } from '../../core.component';
 import { BindToQueryParams } from './bind-to-query-params';
 import spyOn = jest.spyOn;
-import { MockService, Mocked, expectObservable } from '@ngx-toolkit/test';
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { Prop } from '../deferred-props';
+import { MockService, Mocked } from '../../test-utils/mock-service';
+import { expectObservable } from '../../test-utils/expect-observable';
 
 describe('core-componenta with @BindToQueryParam', () => {
 
