@@ -7,7 +7,7 @@ describe('ngx-monaco-editor.service', () => {
   let service: NgxMonacoEditorService;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       providers: [
         NgxMonacoEditorService,
         {

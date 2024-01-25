@@ -2,10 +2,9 @@
 import { AfterViewInit, Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
 import { MatLegacyFormFieldControl as MatFormFieldControl } from '@angular/material/legacy-form-field';
-import { TypedFormControl } from '@heimdall-ui/core';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { IEditorOptions, StandaloneCodeEditor } from './ngx-monaco-editor.module';
-import { AbstractMatFormFieldControl } from '../fields/abstract-mat-form-field-control.directive';
+import { AbstractMatFormFieldControl, TypedFormControl } from '@datakitchen/ngx-toolkit';
 
 
 @Component({
@@ -83,7 +82,7 @@ export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string
 
     try {
 
-      this.editor = await this.service.create(this.monacoElm.nativeElement, {
+      this.editor = this.service.create(this.monacoElm.nativeElement, {
         value: this.value || '',
         options: this.options,
       });

@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
-import { MockProvider } from '@heimdall-ui/testing/mock-service';
 import { of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
-import { TypedFormControl } from '@heimdall-ui/core';
 import Mock = jest.Mock;
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TypedFormControl } from '@datakitchen/ngx-toolkit';
+import { MockProvider } from '@datakitchen/ngx-toolkit';
 
 /*
   There are two know bugs left to resolve
@@ -52,7 +52,7 @@ describe('NgxMonacoComponent', () => {
     `
   })
   class TestComponent {
-    @ViewChild(NgxMonacoEditorComponent) editor: NgxMonacoEditorComponent;
+    @ViewChild(NgxMonacoEditorComponent) editor!: NgxMonacoEditorComponent;
 
     testControl = new TypedFormControl(initialValue);
   }
@@ -80,9 +80,9 @@ describe('NgxMonacoComponent', () => {
         },
         MockProvider(NgxMonacoEditorService, class {
           // eslint-disable-next-line @typescript-eslint/ban-types
-          modelChangedCb: Function;
+          modelChangedCb!: Function;
 
-          value: string;
+          value!: string;
 
           monaco$ = of({
             editor: {
