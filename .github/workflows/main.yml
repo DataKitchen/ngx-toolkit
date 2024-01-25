@@ -21,10 +21,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
       - uses: c-hive/gha-yarn-cache@v2
       # Runs a single command using the runners shell
+
       - name: Install
         run: yarn install --frozen-lockfile
+
       - name: Test
         run: |
           yarn lerna run test --since origin/master
@@ -51,5 +57,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build
         run: |
-          echo "branch name: $GITHUB_HEAD_REF"
           yarn lerna run build --since origin/master
