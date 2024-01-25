@@ -1,5 +1,10 @@
-const nxPreset = require('@nx/jest/preset').default;
+
 
 module.exports = {
-  ...nxPreset,
+  preset: 'ts-jest',
+  testMatch: [ '**/?(*.)+(spec|test).[jt]s?(x)' ],
+  moduleFileExtensions: [ 'ts', 'js', 'mjs', 'html' ],
+  coverageReporters: [ 'html' ],
+  testEnvironment: 'jsdom',
+  testEnvironmentOptions: { customExportConditions: [ 'node', 'require', 'default' ] },
 };
