@@ -3,7 +3,8 @@
   "version": "16.2.0",
   "scripts": {
     "build": "ng build core",
-    "test": "jest test core"
+    "test": "jest test core",
+    "test:ci": "jest test core --ci --coverage"
   },
   "peerDependencies": {
     "@angular/common": "^16.2.0",

@@ -15,9 +15,6 @@ module.exports = {
   collectCoverageFrom: [
     'src/(app|lib)/**/*.ts',
     '!src/(app|lib)/**/*.module.ts',
-    '!src/(app|lib)/**/*.translation(|s).ts',
-    '!src/(app|lib)/**/entry.component.ts',
-    '!src/(app|lib)/**/*.model.ts',
     '!src/(app|lib)/**/*.mock.ts',
     '!src/(app|lib)/**/index.ts',
     '!src/lib/mock-service.ts'
