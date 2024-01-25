@@ -1,15 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { of } from 'rxjs';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import Mock = jest.Mock;
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TypedFormControl } from '@datakitchen/ngx-toolkit';
-import { MockProvider } from '@datakitchen/ngx-toolkit';
 
 /*
   There are two know bugs left to resolve
@@ -54,7 +52,7 @@ describe('NgxMonacoComponent', () => {
   class TestComponent {
     @ViewChild(NgxMonacoEditorComponent) editor!: NgxMonacoEditorComponent;
 
-    testControl = new TypedFormControl(initialValue);
+    testControl = new FormControl(initialValue);
   }
 
   beforeEach(async () => {
@@ -78,7 +76,9 @@ describe('NgxMonacoComponent', () => {
           provide: NGX_MONACO_EDITOR_CONFIG2,
           useValue: {},
         },
-        MockProvider(NgxMonacoEditorService, class {
+        {
+          provide: NgxMonacoEditorService,
+          useClass: class {
           // eslint-disable-next-line @typescript-eslint/ban-types
           modelChangedCb!: Function;
 
@@ -110,7 +110,9 @@ describe('NgxMonacoComponent', () => {
               onDidChangeMarkers: getModelMarkersSpy,
             };
           });
-        })
+
+          }
+        }
       ]
 
     }).compileComponents();
