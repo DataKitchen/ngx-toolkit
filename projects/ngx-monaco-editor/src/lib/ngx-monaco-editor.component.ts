@@ -4,7 +4,8 @@ import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
 import { MatLegacyFormFieldControl as MatFormFieldControl } from '@angular/material/legacy-form-field';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { IEditorOptions, StandaloneCodeEditor } from './ngx-monaco-editor.module';
-import { AbstractMatFormFieldControl, TypedFormControl } from '@datakitchen/ngx-toolkit';
+import { AbstractMatFormFieldControl } from './abstract-mat-form-field-control/abstract-mat-form-field-control.directive';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -28,7 +29,7 @@ import { AbstractMatFormFieldControl, TypedFormControl } from '@datakitchen/ngx-
     }
   ` ]
 })
-export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string> implements AfterViewInit {
+export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string|null> implements AfterViewInit {
 
   override controlType = 'ngx-monaco-editor-input';
 
@@ -37,7 +38,7 @@ export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string
 
   @Input() options!: IEditorOptions;
 
-  _control = new TypedFormControl<string>();
+  _control = new FormControl<string>('');
 
   error$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -51,7 +52,7 @@ export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string
     return false;
   }
 
-  getValue(): string {
+  getValue() {
     return this._control.value;
   }
 
