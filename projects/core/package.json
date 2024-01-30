@@ -4,7 +4,8 @@
   "scripts": {
     "build": "ng build core",
     "test": "jest test core",
-    "test:ci": "jest test core --ci --coverage"
+    "test:ci": "jest test core --ci --coverage",
+    "lint:ci": "ng lint core"
   },
   "peerDependencies": {
     "@angular/common": "^16.2.0",

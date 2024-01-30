@@ -9,10 +9,11 @@
     "l": "lerna",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "build:ci": "lerna run build --since origin/master"
     "test": "jest",
-    "test:ci": "jest --ci --coverage",
-    "lint": "ng lint"
+    "test:ci": "lerna run test:ci --since origin/master",
+    "lint": "ng lint",
+    "lint:ci": "lerna run lint"
   },
   "private": true,
   "dependencies": {
