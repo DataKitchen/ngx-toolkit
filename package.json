@@ -4,12 +4,13 @@
     "projects/*"
   ],
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "l": "lerna",
     "start": "ng serve",
     "build": "ng build",
-    "build:ci": "lerna run build --since origin/master"
+    "build:ci": "lerna run build --since origin/master",
     "test": "jest",
     "test:ci": "lerna run test:ci --since origin/master",
     "lint": "ng lint",
