@@ -2,7 +2,6 @@ export interface DeferredProp {
   resolve: (object: unknown) => string;
 }
 
-
 /**
  * Resolves a property from the current class to be used as namespace.
  *
