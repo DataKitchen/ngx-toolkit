@@ -5,6 +5,43 @@
 
 This library contains an abstract class which need to be `extended` in other to leverage most of functionalities implemented in this library.
 
+### General Utilities
+
+> say something nice
+
+#### @Memoize
+Use the 'Memoize' decorator to cache a method's result when it has already been calculated for a give input
+
+```typescript
+class TestClass {
+
+    @Memoize
+    testMemo(value: number): number {
+        return value * 2;
+    }
+}
+```
+#### TypedForms
+An easier to use version of Angular's `TypedForms`
+
+> TBD add example and comparison with Angular's TypedForms
+
+#### StorageService
+Service that wraps `localStorage`.
+
+> TBD add example and explain optional `localStorage`
+
+
+#### ParameterService and StorageService
+
+> TBD add example and use case especially for when the ParameterService is handy for fixing issue with angular's Router
+
+### CoreComponent
+> TBD add small description or maybe a TOC for all the CoreComponent things
+
+#### Automatic unsubscription
+CoreComponent impletents a `subscriptions: Subscription[]` array to easy automatic unsubscriptions.
+
 ```typescript
 import { CoreComponent } from '@datakitchen/ngx-toolkit';
 
@@ -19,8 +56,131 @@ class TestClassComponent extends CoreComponent {
   override ngOnInit() {
     // Extend CoreComponent to leverage automatic unsubscriptions
     this.subscriptions.push(this.subject$.subscribe());
-
-    super.ngOnInit();
   }
 }
 ```
+`subject$` will be automatically unsubscribed on `OnDestroy`.
+
+#### Defer a function after a lifecycle hooks
+Sometimes you may want to defer a method/function call after any of the Angular's lifecycle hooks.
+
+```typescript
+import { CoreComponent } from '@datakitchen/ngx-toolkit';
+
+@Component({
+  selector: 'comp',
+  template: `
+<h1>My Component</h1>
+`
+})
+class TestClassComponent extends CoreComponent {
+
+  callAfterNgAfterContentInit() {
+    this.defer(() => {
+      // do stuff
+    }).after('AfterContentInit');
+  }
+}
+```
+At the moment the only lifecycle hooks available are `OnInit`, `AfterContentInit` and `AfterViewInit`.
+The callback function is executed after the given lifecycle and, after that, every subsequent call to `callAfterNgAfterContentInit` will execute the callback directly, i.e.: as if the defer block wans't there.
+
+#### @PersistOnLocalStorage
+Annotate a property with `@PersistOnLocalStorage()` to have it hydrated from localStorage and to keep its value synch on the local storage.
+
+```typescript
+import { CoreComponent } from '@datakitchen/ngx-toolkit';
+
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'comp',
+  template: `
+<h1>my component</h1>
+`,
+})
+class TestComponent extends CoreComponent {
+
+  @PersistOnLocalStorage()
+  heroEmail: string = 'b@tman';
+}
+```
+When the component runs its `ngOnInit` lifecycle it checks for all properties decorated with `@PersistOnLocalStorage` if an not nullish entry for the given variable exists on `localStorage` exists then that value is used instead.
+
+
+The following interface reppresents the options that can be passed to the decorator
+```typescript
+export interface PersistOnLocalStorageOptions {
+  /**
+   * A string for the namespace to scope the property value with
+   * A `DeferredProp` as in
+   *
+   * @example
+   *   @PersistOnLocalStorage({namespace: Prop('myNamespace')})
+   *   heroEmailDeferred: string = 'spiderman';
+   *
+   *   ngOnInit() {
+   *     this.myNamespace = someAsyncValue;
+   *   }
+   *
+   * the `Prop` is resolved after ngOnInit inside CoreComponent
+   */
+  namespace?: string | DeferredProp;
+
+  /**
+   * When the decorated property is an object we can whilelist some properties
+   * so that only those are persisted.
+   *
+   * @example
+   *
+   *  @PersistOnLocalStorage({whiteList: [ 'age' ]})
+   *  fgWithWhiteList = new FormGroup({
+   *    age: new FormControl(),
+   *    birthDate: new FormControl(),
+   *  });
+   */
+  whiteList?: string[];
+
+
+  /**
+   * When the decorated property is an object we can blackList some properties
+   * so that only those are not persisted.
+   *
+   * @example
+   *
+   *  @PersistOnLocalStorage({blackList: [ 'age' ]})
+   *  fgWithBlackList = new FormGroup({
+   *    age: new FormControl(),
+   *    birthDate: new FormControl(),
+   *  });
+   */
+  blackList?: string[];
+
+}
+```
+
+#### @BindToQueryParameters
+> TBD add docs and examples
+
+#### hasSearchForm
+> TBD add docs and examples
+
+#### hasPaginator
+> TBD add docs and examples
+
+#### hasSorting
+> TBD add docs and examples
+
+
+### Testing Utilities
+
+####  ActivatedRouteMock
+> TBD add docs and examples
+
+#### HttpClientMock
+> TBD add docs and examples
+
+#### MockComponent
+> TBD add docs and examples
+
+#### MockService
+> TBD add docs and examples
