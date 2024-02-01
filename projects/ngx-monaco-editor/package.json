@@ -2,6 +2,12 @@
   "name": "@datakitchen/ngx-monaco-editor",
   "version": "0.0.1",
   "license": "MIT",
+  "scripts": {
+    "build": "ng build ngx-monaco-editor",
+    "test": "jest test ngx-monaco-editor",
+    "test:ci": "jest test ngx-monaco-editor --ci --coverage",
+    "lint:ci": "ng lint ngx-monaco-editor"
+  },
   "peerDependencies": {
     "@angular/common": "^16.2.0",
     "@angular/core": "^16.2.0",

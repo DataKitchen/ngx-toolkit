@@ -239,10 +239,8 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
 
       it('should use the updated namespace to write to local storage', () => {
         fixture.detectChanges();
-<<<<<<< HEAD
-=======
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
->>>>>>> feature/import_monaco_editor
         component['dynamicNamespace'] = newNamespace;
         component.phone.patchValue('+18005551020');
 

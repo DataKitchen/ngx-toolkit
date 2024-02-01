@@ -19,6 +19,14 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+
+  collectCoverageFrom: [
+    'src/(app|lib)/**/*.ts',
+    '!src/(app|lib)/**/*.module.ts',
+    '!src/(app|lib)/**/*.mock.ts',
+    '!src/(app|lib)/**/index.ts',
+    '!src/lib/mock-service.ts'
+  ],
   coverageThreshold: {
     global: {
       statements: 89,

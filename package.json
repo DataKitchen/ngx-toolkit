@@ -1,15 +1,20 @@
 {
   "name": "workspace",
+  "workspaces": [
+    "projects/*"
+  ],
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "l": "lerna",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "build:ci": "lerna run build --since origin/master",
     "test": "jest",
-    "test:ci": "jest --ci --coverage",
-    "lint": "ng lint"
+    "test:ci": "lerna run test:ci --since origin/master",
+    "lint": "ng lint",
+    "lint:ci": "lerna run lint"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +43,6 @@
     "@angular-eslint/template-parser": "16.3.1",
     "@angular/cli": "^16.2.11",
     "@angular/compiler-cli": "^16.2.0",
-    "@nx/jest": "^16.6.0",
     "@types/jest": "^29.4.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
