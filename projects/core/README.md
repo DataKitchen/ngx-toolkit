@@ -1,24 +1,30 @@
 # Datakitchen's ngx-toolkit :rocket:
 
-## Install
-`npm i -S @datakitchen/ngx-toolkit`
+This library contains a collection of utilities for Angular applications. These consist of three categories of utilities:
+ - General utilities such as a `@Memoize` decorator and a wrapper around the browser `localStorage`.
+ - An abstract component and a set of decorators and interfaces to ease the implementation of common tasks such as searching, paginating and sorting.
+ - Testing utilities to ease mocking and implementing common tasks when writing unit tests.
 
-This library contains an abstract class which need to be `extended` in other to leverage most of functionalities implemented in this library.
+## Install
+With your package manager of preference install
+```
+@datakitchen/ngx-toolkit
+```
 
 ### General Utilities
 
 > say something nice
 
 #### @Memoize
-Use the 'Memoize' decorator to cache a method's result when it has already been calculated for a give input
+Caches a method's result when it has already been calculated for a give input.
 
 ```typescript
 class TestClass {
 
-    @Memoize
-    testMemo(value: number): number {
-        return value * 2;
-    }
+  @Memoize
+  testMemo(value: number): number {
+    return value * 2;
+  }
 }
 ```
 #### TypedForms
@@ -32,7 +38,7 @@ Service that wraps `localStorage`.
 > TBD add example and explain optional `localStorage`
 
 
-#### ParameterService and StorageService
+#### ParameterService
 
 > TBD add example and use case especially for when the ParameterService is handy for fixing issue with angular's Router
 
@@ -40,7 +46,7 @@ Service that wraps `localStorage`.
 > TBD add small description or maybe a TOC for all the CoreComponent things
 
 #### Automatic unsubscription
-CoreComponent impletents a `subscriptions: Subscription[]` array to easy automatic unsubscriptions.
+CoreComponent implements a `subscriptions: Subscription[]` array for automatic unsubscriptions of observables.
 
 ```typescript
 import { CoreComponent } from '@datakitchen/ngx-toolkit';
@@ -78,12 +84,17 @@ class TestClassComponent extends CoreComponent {
   callAfterNgAfterContentInit() {
     this.defer(() => {
       // do stuff
+
+      /**
+       * The callback function is executed after the given lifecycle and,
+       * after that, every subsequent call to `callAfterNgAfterContentInit`
+       * will execute the callback directly, i.e.: as if the defer block wans't there.
+       */
     }).after('AfterContentInit');
   }
 }
 ```
-At the moment the only lifecycle hooks available are `OnInit`, `AfterContentInit` and `AfterViewInit`.
-The callback function is executed after the given lifecycle and, after that, every subsequent call to `callAfterNgAfterContentInit` will execute the callback directly, i.e.: as if the defer block wans't there.
+At the moment the lifecycle hooks available are `OnInit`, `AfterContentInit` and `AfterViewInit`.
 
 #### @PersistOnLocalStorage
 Annotate a property with `@PersistOnLocalStorage()` to have it hydrated from localStorage and to keep its value synch on the local storage.
