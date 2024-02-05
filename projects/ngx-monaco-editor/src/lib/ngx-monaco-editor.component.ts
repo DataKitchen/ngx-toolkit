@@ -11,9 +11,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'ngx-monaco-editor',
   template: `
-    <div #monaco
-      class="fx-flex ngx-monaco-editor-input-container"></div>
-
+    <div #monaco class="ngx-monaco-editor"></div>
     <textarea #textarea [class.hidden]="(error$ | async) === false"
         [formControl]="_control"></textarea>
   `,
@@ -22,10 +20,12 @@ import { FormControl } from '@angular/forms';
   ],
 
   styles: [ `
-    :host {
-      display: flex;
-      flex-direction: column;
-      min-height: 200px;
+    .ngx-monaco-editor {
+      min-height: var(--ngx-monaco-editor-min-height, 200px);
+    }
+
+    .hidden {
+      display: none;
     }
   ` ]
 })
