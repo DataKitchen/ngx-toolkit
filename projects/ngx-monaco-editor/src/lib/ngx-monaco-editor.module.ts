@@ -27,7 +27,7 @@ export const defaultOptions = {
 export type IEditorOptions = monacoEditor.editor.IEditorOptions;
 export type IStandaloneCodeEditor = monacoEditor.editor.IStandaloneCodeEditor;
 
-export const NGX_MONACO_EDITOR_CONFIG2 = new InjectionToken<IEditorOptions>('NGX_MONACO_EDITOR_CONFIG2');
+export const NGX_MONACO_EDITOR_CONFIG = new InjectionToken<IEditorOptions>('NGX_MONACO_EDITOR_CONFIG');
 
 export interface StandaloneCodeEditor extends IStandaloneCodeEditor {
   onDidChangeMarkers: (cb: (errors: IMarker[]) => void) => void;
@@ -66,7 +66,7 @@ export interface StandaloneCodeEditor extends IStandaloneCodeEditor {
       deps: [ NgxMonacoEditorService ],
     },
     {
-      provide: NGX_MONACO_EDITOR_CONFIG2,
+      provide: NGX_MONACO_EDITOR_CONFIG,
       useValue: defaultOptions,
     },
   ],

@@ -3,7 +3,7 @@ import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { of } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
-import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
+import { NGX_MONACO_EDITOR_CONFIG } from './ngx-monaco-editor.module';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import Mock = jest.Mock;
@@ -73,7 +73,7 @@ describe('NgxMonacoComponent', () => {
       ],
       providers: [
         {
-          provide: NGX_MONACO_EDITOR_CONFIG2,
+          provide: NGX_MONACO_EDITOR_CONFIG,
           useValue: {},
         },
         {
