@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
-import { NGX_MONACO_EDITOR_CONFIG2 } from './ngx-monaco-editor.module';
+import { NGX_MONACO_EDITOR_CONFIG } from './ngx-monaco-editor.module';
 
 describe('ngx-monaco-editor.service', () => {
 
@@ -11,7 +11,7 @@ describe('ngx-monaco-editor.service', () => {
       providers: [
         NgxMonacoEditorService,
         {
-          provide: NGX_MONACO_EDITOR_CONFIG2,
+          provide: NGX_MONACO_EDITOR_CONFIG,
           useValue: {},
         }
       ],

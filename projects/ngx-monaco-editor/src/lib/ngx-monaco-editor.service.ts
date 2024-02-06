@@ -2,7 +2,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { AsyncSubject, tap } from 'rxjs';
 import { Monaco } from '@monaco-editor/loader';
-import { IEditorOptions, NGX_MONACO_EDITOR_CONFIG2, StandaloneCodeEditor } from './ngx-monaco-editor.module';
+import { IEditorOptions, NGX_MONACO_EDITOR_CONFIG, StandaloneCodeEditor } from './ngx-monaco-editor.module';
 import { editor } from 'monaco-editor';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import IMarker = editor.IMarker;
@@ -20,7 +20,7 @@ export class NgxMonacoEditorService {
   } = {};
 
   constructor(
-    @Inject(NGX_MONACO_EDITOR_CONFIG2) private defaults: IEditorOptions,
+    @Inject(NGX_MONACO_EDITOR_CONFIG) private defaults: IEditorOptions,
   ) {
 
     this.monaco$.pipe(

@@ -124,7 +124,7 @@ export abstract class AbstractMatFormFieldControl<T> implements ControlValueAcce
   }
 
   onContainerClick() {
-    console.warn('Not Implemented! Add your logic if you find a ');
+    // todo: I'm not sure what we're supposed to do here.
   }
 
   writeValue(value: T): void {

@@ -314,6 +314,11 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
         expect(service.setStorage).toHaveBeenCalledWith(`${newNamespace}heroEmailDeferred`, '+spiderman');
       });
     });
+    // TODO this basically works only when the variable is of type `string`
+    // for other type we need to provide some why of casting the values read from
+    // localStorage.
+    // Having only string is usally good enough because we use this exclusively
+    // to store user selections in forms for things like search fields.
   });
 
   describe('used on a Subject', () => {

@@ -27,7 +27,7 @@ export abstract class CoreComponent implements OnInit, AfterViewInit, AfterConte
 
   __sortChange$ = new BehaviorSubject<Sort | undefined>(undefined);
 
-  protected subscriptions: Subscription[] = [];
+  protected readonly subscriptions: Subscription[] = [];
   protected destroyed$: Subject<void> = new Subject<void>();
 
   protected defaultDebounce: number = 100;

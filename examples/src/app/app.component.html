@@ -1,0 +1,8 @@
+<h1>{{title}}</h1>
+<mat-form-field>
+
+  <mat-label>Monaco Editor</mat-label>
+  <ngx-monaco-editor [formControl]="formControl"></ngx-monaco-editor>
+
+  <mat-error *ngIf="formControl.hasError('monaco')">Invalid Json</mat-error>
+</mat-form-field>
