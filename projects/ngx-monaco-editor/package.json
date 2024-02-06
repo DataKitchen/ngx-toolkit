@@ -1,6 +1,6 @@
 {
   "name": "@datakitchen/ngx-monaco-editor",
-  "version": "0.0.1",
+  "version": "16.2.1",
   "license": "MIT",
   "scripts": {
     "build": "ng build ngx-monaco-editor",
