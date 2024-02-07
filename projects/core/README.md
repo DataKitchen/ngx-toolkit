@@ -1,12 +1,12 @@
 # Datakitchen's ngx-toolkit :rocket:
 
-This library contains a collection of utilities for Angular applications. These consist of three categories of utilities:
+This library contains a collection of utilities for Angular applications. There are three categories of utilities:
  - General utilities such as a `@Memoize` decorator and a wrapper around the browser `localStorage`.
- - An abstract component and a set of decorators and interfaces to ease the implementation of common tasks such as searching, paginating and sorting.
+ - An abstract component and a set of decorators and interfaces to ease the implementation of common tasks such as search, pagination, and sorting.
  - Testing utilities to ease mocking and implementing common tasks when writing unit tests.
 
 ## Install
-With your package manager of preference install
+With your package manager of preference, install
 ```
 @datakitchen/ngx-toolkit
 ```
@@ -16,7 +16,7 @@ With your package manager of preference install
 > say something nice
 
 #### @Memoize
-Caches a method's result when it has already been calculated for a give input.
+Caches a method's result when it has already been calculated for a given input.
 
 ```typescript
 class TestClass {
@@ -68,7 +68,7 @@ class TestClassComponent extends CoreComponent {
 `subject$` will be automatically unsubscribed on `OnDestroy`.
 
 #### Defer a function after a lifecycle hooks
-Sometimes you may want to defer a method/function call after any of the Angular's lifecycle hooks.
+Sometimes you may want to defer a method/function call after one of Angular's lifecycle hooks.
 
 ```typescript
 import { CoreComponent } from '@datakitchen/ngx-toolkit';
@@ -94,10 +94,10 @@ class TestClassComponent extends CoreComponent {
   }
 }
 ```
-At the moment the lifecycle hooks available are `OnInit`, `AfterContentInit` and `AfterViewInit`.
+At the moment, the lifecycle hooks available are `OnInit`, `AfterContentInit` and `AfterViewInit`.
 
 #### @PersistOnLocalStorage
-Annotate a property with `@PersistOnLocalStorage()` to have it hydrated from localStorage and to keep its value synch on the local storage.
+Annotate a property with `@PersistOnLocalStorage()` to have it hydrated from localStorage and to keep its value synced on the local storage.
 
 ```typescript
 import { CoreComponent } from '@datakitchen/ngx-toolkit';
@@ -115,10 +115,10 @@ class TestComponent extends CoreComponent {
   heroEmail: string = 'b@tman';
 }
 ```
-When the component runs its `ngOnInit` lifecycle it checks for all properties decorated with `@PersistOnLocalStorage` if an not nullish entry for the given variable exists on `localStorage` exists then that value is used instead.
+When the component runs its `ngOnInit` lifecycle, it checks for all properties decorated with `@PersistOnLocalStorage`. If a non-nullish entry for the given variable exists on `localStorage`, then that value is used instead.
 
 
-The following interface reppresents the options that can be passed to the decorator
+The following interface represents the options that can be passed to the decorator
 ```typescript
 export interface PersistOnLocalStorageOptions {
   /**
