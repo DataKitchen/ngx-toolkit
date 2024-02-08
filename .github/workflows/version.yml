@@ -1,4 +1,4 @@
-name: version
+name: Version and Deploy
 on:
   push:
     branches:
@@ -31,3 +31,16 @@ jobs:
         run: yarn lerna version -y --conventional-commits --create-release github --loglevel verbose
         env:
           GH_TOKEN: ${{ github.token }}
+
+      - name: Build
+        run: |
+          yarn build:ci
+
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
