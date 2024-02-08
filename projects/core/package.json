@@ -6,7 +6,8 @@
     "build": "ng build core",
     "test": "jest test core",
     "test:ci": "jest test core --ci --coverage",
-    "lint:ci": "ng lint core"
+    "lint:ci": "ng lint core",
+    "deploy": "echo 'deploy command here'"
   },
   "peerDependencies": {
     "@angular/common": "^16.2.0",
