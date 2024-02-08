@@ -14,7 +14,8 @@
     "test": "jest",
     "test:ci": "lerna run test:ci --since origin/master",
     "lint": "ng lint",
-    "lint:ci": "lerna run lint"
+    "lint:ci": "lerna run lint",
+    "deploy:ci": "lerna run deploy --since origin/master"
   },
   "private": true,
   "dependencies": {

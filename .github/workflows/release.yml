@@ -6,7 +6,7 @@ on:
       - '*'           # Push events to every tag starting with v
 
 jobs:
-  version:
+  deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -27,8 +27,17 @@ jobs:
 
       - name: Install
         run: yarn install --frozen-lockfile
+        #
 
-      - name: Deploy
-        run: yarn lerna run deploy
+      - name: Build
+        run: |
+          yarn build:ci
+
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm publish
         env:
-          GH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
