@@ -1,9 +1,9 @@
-name: version
+name: release
 on:
   push:
     # Pattern matched against refs/tags
     tags:
-      - 'v*'           # Push events to every tag starting with v
+      - '*'           # Push events to every tag starting with v
 
 jobs:
   version:
