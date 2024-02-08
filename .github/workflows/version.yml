@@ -1,11 +1,37 @@
-name: Version and Deploy
+name: Test - Build - Version and Deploy
+
 on:
   push:
     branches:
       - master
 
 jobs:
-  version:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
+
+      - uses: c-hive/gha-yarn-cache@v2
+      # Runs a single command using the runners shell
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Test
+        run: |
+          yarn test:ci
+
+      - name: Lint
+        run: |
+          yarn lint:ci
+
+  deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -27,14 +53,14 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
 
+      - name: Build
+        run: |
+          yarn build:ci
+
       - name: Version
         run: yarn lerna version -y --conventional-commits --create-release github --loglevel verbose
         env:
           GH_TOKEN: ${{ github.token }}
-
-      - name: Build
-        run: |
-          yarn build:ci
 
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
