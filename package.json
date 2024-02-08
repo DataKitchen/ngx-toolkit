@@ -56,5 +56,10 @@
     "ts-jest": "^29.1.0",
     "typescript": "~5.1.3",
     "utility-types": "^3.11.0"
-  }
+  },
+  "contributors": [
+    "Davide Cavaliere <cavaliere.davide@gmail.com>",
+    "Gianluca Paris <gianluca.paris@outlook.com>",
+    "Luis Trinidad <ltrinidad@datakitchen.io>"
+  ]
 }
