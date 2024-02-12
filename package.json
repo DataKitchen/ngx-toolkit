@@ -10,12 +10,12 @@
     "l": "lerna",
     "start": "ng serve",
     "build": "ng build",
-    "build:ci": "lerna run build --since origin/master",
+    "build:ci": "lerna run build",
     "test": "jest",
-    "test:ci": "lerna run test:ci --since origin/master",
+    "test:ci": "lerna run test:ci",
     "lint": "ng lint",
     "lint:ci": "lerna run lint",
-    "deploy:ci": "lerna run deploy --since origin/master"
+    "deploy:ci": "lerna run deploy"
   },
   "private": true,
   "dependencies": {
