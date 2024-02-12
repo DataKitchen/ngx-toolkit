@@ -1,5 +1,5 @@
 # DataKitchen's front end monorepo
-![CI build status](https://github.com/DataKitchen/ngx-toolkit/actions/workflows/main.yml/badge.svg)
+![CI build status](https://github.com/DataKitchen/ngx-toolkit/actions/workflows/version.yml/badge.svg)
 
 Welcome to the DataKitchen `ngx-toolkit` monorepo! This repository houses a collection of libraries developed by our Front End team to address common tasks that Angular developers encounter on a daily basis. These libraries are split into <!-- three --> two npm packages:
   - @datakitchen/ngx-toolkit
