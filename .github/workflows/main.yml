@@ -17,6 +17,11 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           fetch-depth: 0
 
+      - name: Set git user
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
       - uses: c-hive/gha-yarn-cache@v2
       # Runs a single command using the runners shell
 
