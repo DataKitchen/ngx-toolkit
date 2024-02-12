@@ -67,6 +67,6 @@ jobs:
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm publish
+      - run: yarn deploy:ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
