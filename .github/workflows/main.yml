@@ -45,7 +45,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - uses: actions/setup-node@v4
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Deploy
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn deploy:ci
