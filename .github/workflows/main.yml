@@ -22,34 +22,33 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
 
-      - uses: c-hive/gha-yarn-cache@v2
-      # Runs a single command using the runners shell
-
-      - name: Install
-        run: yarn install --frozen-lockfile
-
-      - name: Test
-        run: |
-          yarn test:ci
-
-      - name: Lint
-        run: |
-          yarn lint:ci
-
-      - name: Build
-        run: |
-          yarn build:ci
-
-      - name: Version
-        run: yarn lerna version -y --conventional-commits --create-release github --loglevel verbose
-        env:
-          GH_TOKEN: ${{ github.token }}
-
       - uses: actions/setup-node@v4
         with:
           token: ${{ secrets.NPM_TOKEN }}
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: |
+          npm run test:ci
+
+      - name: Lint
+        run: |
+          npm run lint:ci
+
+      - name: Build
+        run: |
+          npm run build:ci
+
+      - name: Version
+        run: npm run lerna version -y --conventional-commits --create-release github --loglevel verbose
+        env:
+          GH_TOKEN: ${{ github.token }}
+
 
       - name: Deploy
-        run: yarn deploy:ci
+        run: npm run deploy:ci
