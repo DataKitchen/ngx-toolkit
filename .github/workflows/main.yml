@@ -45,10 +45,9 @@ jobs:
           npm run build:ci
 
       - name: Version
-        run: npm run lerna version -y --conventional-commits --create-release github --loglevel verbose
+        run: npm run l -- version -y --conventional-commits --create-release github --loglevel verbose
         env:
           GH_TOKEN: ${{ github.token }}
-
 
       - name: Deploy
         run: npm run deploy:ci
