@@ -2,6 +2,7 @@
   "name": "@datakitchen/ngx-monaco-editor",
   "version": "16.2.11",
   "license": "MIT",
+  "private": false,
   "scripts": {
     "build": "ng build ngx-monaco-editor",
     "test": "jest test ngx-monaco-editor",
