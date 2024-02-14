@@ -23,15 +23,17 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           fetch-depth: 0
 
-      - uses: c-hive/gha-yarn-cache@v2
-      # Runs a single command using the runners shell
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
 
       - name: Install
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Test
         run: |
-          yarn test:ci --since origin/master
+          npm run test:ci -- --since origin/master
 
   lint:
     runs-on: ubuntu-latest
@@ -43,15 +45,16 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           fetch-depth: 0
 
-      - uses: c-hive/gha-yarn-cache@v2
-      # Runs a single command using the runners shell
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
 
       - name: Install
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Lint
         run: |
-          yarn lint:ci --since origin/master
+          npm run lint:ci -- --since origin/master
       # This workflow contains a single job called "build"
 
   build:
@@ -68,12 +71,13 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           fetch-depth: 0
 
-      - uses: c-hive/gha-yarn-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
 
       - name: Install
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
-      # Runs a set of commands using the runners shell
       - name: Build
         run: |
-          yarn build:ci --since origin/master
+          npm run build:ci -- --since origin/master
