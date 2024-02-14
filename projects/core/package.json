@@ -8,7 +8,7 @@
     "test:ci": "jest test core --ci --coverage",
     "lint:ci": "ng lint core",
     "predeploy": "echo 'Creating npmrc file' && cp ../../.npmrc ../../dist/core/",
-    "deploy": "cd ../../dist/core && npm publish --access public"
+    "deploy": "cd ../../dist/core && cat .npmrc && npm publish --access public"
   },
   "peerDependencies": {
     "@angular/common": "^16.2.0",

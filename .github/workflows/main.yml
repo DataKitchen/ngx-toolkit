@@ -48,6 +48,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Deploy
-        run: npm run deploy:ci
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm run deploy:ci
