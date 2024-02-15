@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.16](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.15...v16.2.16) (2024-02-15)
+
+
+### Bug Fixes
+
+* **ngx-monaco-editor:** it should declare its own dependencies ([d805253](https://github.com/DataKitchen/ngx-toolkit/commit/d805253577252204eec8f9d8e64ce3d67164f936))
+
+
+
+
+
 ## [16.2.15](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.14...v16.2.15) (2024-02-15)
 
 **Note:** Version bump only for package workspace
