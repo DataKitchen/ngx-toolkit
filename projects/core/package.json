@@ -1,7 +1,7 @@
 {
   "name": "@datakitchen/ngx-toolkit",
   "license": "MIT",
-  "version": "16.2.14",
+  "version": "16.2.15",
   "private": false,
   "scripts": {
     "build": "ng build core",
