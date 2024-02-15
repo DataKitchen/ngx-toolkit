@@ -3,6 +3,13 @@
   "license": "MIT",
   "version": "16.2.16",
   "private": false,
+  "description": "Goodies for Angular developer, backed at DataKitchen",
+  "keywords": [
+    "angular",
+    "request parameter",
+    "localstorage",
+    "mocks"
+  ],
   "scripts": {
     "build": "ng build core",
     "test": "jest test core",

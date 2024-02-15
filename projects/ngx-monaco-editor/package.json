@@ -3,6 +3,14 @@
   "version": "16.2.16",
   "license": "MIT",
   "private": false,
+  "description": "Monaco Editor wrapper for angular applications",
+  "keywords": [
+    "angular",
+    "monaco-editor",
+    "mat-form-field",
+    "angular-material",
+    "reactive-forms"
+  ],
   "scripts": {
     "build": "ng build ngx-monaco-editor",
     "test": "jest test ngx-monaco-editor",
