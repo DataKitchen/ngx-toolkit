@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.17](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.16...v16.2.17) (2024-02-15)
+
+**Note:** Version bump only for package @datakitchen/ngx-monaco-editor
+
+
+
+
+
 ## [16.2.16](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.15...v16.2.16) (2024-02-15)
 
 
