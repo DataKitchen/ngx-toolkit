@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.19](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.18...v16.2.19) (2024-02-16)
+
+
+### Bug Fixes
+
+* **core:** parameter and storage service should be exported ([11c90fa](https://github.com/DataKitchen/ngx-toolkit/commit/11c90fac0ee6605ccc69f2fabe4aa60e658491ef))
+
+
+
+
+
 ## [16.2.18](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.17...v16.2.18) (2024-02-16)
 
 **Note:** Version bump only for package workspace
