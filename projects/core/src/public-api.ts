@@ -13,6 +13,9 @@ export * from './lib/has-sorting/has-sorting';
 export * from './lib/typed-form/typed-forms';
 export * from './lib/abstract-mat-form-field-control/abstract-mat-form-field-control.directive';
 
+export * from './lib/services/paramter/parameter.service';
+export * from './lib/services/storage/storage.service';
+
 // test utils
 export * from './lib/test-utils/expect-observable';
 export * from './lib/test-utils/mock-component';
