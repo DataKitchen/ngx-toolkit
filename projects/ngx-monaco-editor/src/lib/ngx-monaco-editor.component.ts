@@ -3,9 +3,9 @@ import { AfterViewInit, Component, ElementRef, inject, Input, ViewChild } from '
 import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
 import { MatLegacyFormFieldControl as MatFormFieldControl } from '@angular/material/legacy-form-field';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
-import { IEditorOptions, StandaloneCodeEditor } from './ngx-monaco-editor.module';
 import { AbstractMatFormFieldControl } from './abstract-mat-form-field-control/abstract-mat-form-field-control.directive';
 import { FormControl } from '@angular/forms';
+import { IEditorOptions, StandaloneCodeEditor } from './ngx-monaco-editor.model';
 
 
 @Component({

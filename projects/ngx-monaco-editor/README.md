@@ -6,7 +6,7 @@
 ## Install
 With your package manager of preference, install
 ```
-@datakitchen/ngx-monaco-editor
+@datakitchen/ngx-monaco-editor @monaco-editor/loader monaco-editor
 ```
 
 ## Usage

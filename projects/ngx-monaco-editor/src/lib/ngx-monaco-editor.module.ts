@@ -1,37 +1,12 @@
-import { APP_INITIALIZER, InjectionToken, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import loader from '@monaco-editor/loader';
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
-import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
-import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import loader from '@monaco-editor/loader';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
-import IMarker = editor.IMarker;
+import { NGX_MONACO_EDITOR_CONFIG, defaultOptions } from './ngx-monaco-editor.model';
+import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 
-export const defaultOptions = {
-  language: 'json',
-  automaticLayout: true,
-  lineNumbers: 'off',
-  roundedSelection: false,
-  scrollBeyondLastLine: false,
-  readOnly: false,
-  theme: 'vs',
-  minimap: {
-    enabled: false
-  },
-  selectOnLineNumbers: true,
-  wordWrap: 'on'
-};
-
-export type IEditorOptions = monacoEditor.editor.IEditorOptions;
-export type IStandaloneCodeEditor = monacoEditor.editor.IStandaloneCodeEditor;
-
-export const NGX_MONACO_EDITOR_CONFIG = new InjectionToken<IEditorOptions>('NGX_MONACO_EDITOR_CONFIG');
-
-export interface StandaloneCodeEditor extends IStandaloneCodeEditor {
-  onDidChangeMarkers: (cb: (errors: IMarker[]) => void) => void;
-}
 
 
 @NgModule({

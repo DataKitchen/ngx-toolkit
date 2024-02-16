@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 import { Inject, Injectable } from '@angular/core';
-import { AsyncSubject, tap } from 'rxjs';
-import { Monaco } from '@monaco-editor/loader';
-import { IEditorOptions, NGX_MONACO_EDITOR_CONFIG, StandaloneCodeEditor } from './ngx-monaco-editor.module';
-import { editor } from 'monaco-editor';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Monaco } from '@monaco-editor/loader';
+import { editor } from 'monaco-editor';
+import { AsyncSubject, tap } from 'rxjs';
 import IMarker = editor.IMarker;
+import { IEditorOptions, NGX_MONACO_EDITOR_CONFIG, StandaloneCodeEditor } from './ngx-monaco-editor.model';
 
 @Injectable({
   providedIn: 'root',
