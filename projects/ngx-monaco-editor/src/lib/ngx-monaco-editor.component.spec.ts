@@ -3,11 +3,11 @@ import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { of } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
-import { NGX_MONACO_EDITOR_CONFIG } from './ngx-monaco-editor.module';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import Mock = jest.Mock;
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NGX_MONACO_EDITOR_CONFIG } from './ngx-monaco-editor.model';
 
 /*
   There are two know bugs left to resolve
