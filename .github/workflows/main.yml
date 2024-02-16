@@ -50,4 +50,8 @@ jobs:
       - name: Deploy
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run deploy:ci
+        run: |
+
+          # before publishing needs to build again otherwise will end up publishing the previous version
+          npm run build:ci
+          npm run deploy:ci
