@@ -22,3 +22,5 @@ export * from './lib/test-utils/mock-component';
 export * from './lib/test-utils/mock-service';
 export * from './lib/test-utils/activated-route.mock';
 export * from './lib/test-utils/test-scheduler';
+
+export * from './lib/utilities/general.utilities';
