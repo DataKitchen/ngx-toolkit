@@ -5,6 +5,10 @@ on:
     branches: [master]
   workflow_dispatch:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   checkout_and_install:
     runs-on: ubuntu-latest
@@ -23,18 +27,21 @@ jobs:
 
   test:
     needs: checkout_and_install
+    runs-on: ubuntu-latest
     steps:
       - name: Test
         run: yarn test:ci -- --since origin/master
 
   lint:
     needs: checkout_and_install
+    runs-on: ubuntu-latest
     steps:
       - name: Lint
         run: yarn lint:ci -- --since origin/master
 
   build:
     needs: checkout_and_install
+    runs-on: ubuntu-latest
     steps:
       - name: Build
         run: yarn build:ci -- --since origin/master
