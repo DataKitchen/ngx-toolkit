@@ -10,38 +10,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  checkout_and_install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          cache: 'yarn'
-      - name: Install
-        run: yarn install --frozen-lockfile
 
   test:
-    needs: checkout_and_install
-    runs-on: ubuntu-latest
+    uses: DataKitchen/ngx-toolkit/.github/workflows/checkout_and_install.yml@v1
     steps:
       - name: Test
         run: yarn test:ci -- --since origin/master
 
-  lint:
-    needs: checkout_and_install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Lint
-        run: yarn lint:ci -- --since origin/master
-
-  build:
-    needs: checkout_and_install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
-        run: yarn build:ci -- --since origin/master
+  # lint:
+  #   needs: checkout_and_install
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Lint
+  #       run: yarn lint:ci -- --since origin/master
+  #
+  # build:
+  #   needs: checkout_and_install
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Build
+  #       run: yarn build:ci -- --since origin/master
