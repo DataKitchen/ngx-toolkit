@@ -1,6 +1,6 @@
 {
   "name": "@datakitchen/ngx-monaco-editor",
-  "version": "16.2.21",
+  "version": "16.2.22",
   "license": "MIT",
   "private": false,
   "description": "Monaco Editor wrapper for angular applications",
