@@ -1,32 +1,83 @@
 name: Pull Request Checks
 
+# Controls when the workflow will run
 on:
   pull_request:
-    branches: [master]
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
-
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
   test:
-    uses: DataKitchen/ngx-toolkit/.github/workflows/checkout_and_install.yml@v1
+    runs-on: ubuntu-latest
     steps:
-      - name: Test
-        run: yarn test:ci -- --since origin/master
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
 
-  # lint:
-  #   needs: checkout_and_install
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Lint
-  #       run: yarn lint:ci -- --since origin/master
-  #
-  # build:
-  #   needs: checkout_and_install
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Build
-  #       run: yarn build:ci -- --since origin/master
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'yarn'
+
+      - name: Install
+        run: yarn install --frozon-lockfile
+
+      - name: Test
+        run: |
+          yarn test:ci -- --since origin/master
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'yarn'
+
+      - name: Install
+        run: yarn install --frozon-lockfile
+
+      - name: Lint
+        run: |
+          yarn lint:ci -- --since origin/master
+      # This workflow contains a single job called "build"
+
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'yarn'
+
+      - name: Install
+        run: yarn install --frozon-lockfile
+
+      - name: Build
+        run: |
+          yarn build:ci -- --since origin/master
