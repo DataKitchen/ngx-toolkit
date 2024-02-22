@@ -40,6 +40,9 @@ jobs:
       - name: Test
         run: |
           yarn test:ci
+
+      - name: Lint
+        run: |
           yarn lint:ci
 
 
@@ -73,11 +76,14 @@ jobs:
 
       - name: Version
         run: yarn l version -y --conventional-commits --create-release github --loglevel verbose
+        # each package has a `postversion` script that will be executed by lerna
+        # according to these rules in lerna version lifecycle hooks
+        # https://www.npmjs.com/package/@lerna/version#lifecycle-scripts
+        # This way we will have in `dist` only the builds for the packages
+        # that actually changed
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: Build
-        run: yarn build:ci
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
