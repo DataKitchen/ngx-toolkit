@@ -1,4 +1,6 @@
 # Datakitchen's ngx-toolkit :rocket:
+[![@datakitchen/ngx-toolkit](https://badge.fury.io/js/@datakitchen%2Fngx-toolkit.svg)](https://badge.fury.io/js/@datakitchen%2Fngx-toolkit)
+
 
 This library contains a collection of utilities for Angular applications. There are three categories of utilities:
  - General utilities such as a `@Memoize` decorator and a wrapper around the browser `localStorage`.

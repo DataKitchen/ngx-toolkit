@@ -1,4 +1,5 @@
 # @datakitchen/ngx-monaco-editor
+[![@datakitchen/ngx-monaco-editor](https://badge.fury.io/js/@datakitchen%2Fngx-monaco-editor.svg)](https://badge.fury.io/js/@datakitchen%2Fngx-monaco-editor)
 
 [Microsoft's Monaco editor](https://microsoft.github.io/monaco-editor/) wrapper for Angular.
 > Material forms version!
