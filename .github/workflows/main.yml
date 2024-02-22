@@ -122,12 +122,14 @@ jobs:
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
+        with:
+          path: dist
 
       - name: Deploy
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          ls -al dist/
+          ls -al
           ./scripts/exec_in_subfolders dist 'ls -al'
 
 
