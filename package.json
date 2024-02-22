@@ -14,7 +14,7 @@
     "test": "jest",
     "test:ci": "lerna run test:ci --ci",
     "lint": "ng lint",
-    "lint:ci": "lerna run lint:ci",
+    "lint:ci": "lerna run lint:ci --ci",
     "deploy:ci": "lerna run deploy --ci"
   },
   "private": true,

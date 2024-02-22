@@ -105,10 +105,12 @@ export class NgxMonacoEditorComponent extends AbstractMatFormFieldControl<string
 
           this._control.setErrors({ monaco: true });
 
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           (this.ngControl.form as TypedFormControl<any>).setErrors({ monaco: true });
         } else {
           this._control.setErrors(null);
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           (this.ngControl.form as TypedFormControl<any>).setErrors(null);
         }

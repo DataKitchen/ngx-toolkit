@@ -52,7 +52,7 @@
       "projectType": "library",
       "root": "projects/ngx-monaco-editor",
       "sourceRoot": "projects/ngx-monaco-editor/src",
-      "prefix": "lib",
+      "prefix": "ngx",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -76,6 +76,15 @@
             "polyfills": [
               "zone.js",
               "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-monaco-editor/**/*.ts",
+              "projects/ngx-monaco-editor/**/*.html"
             ]
           }
         }

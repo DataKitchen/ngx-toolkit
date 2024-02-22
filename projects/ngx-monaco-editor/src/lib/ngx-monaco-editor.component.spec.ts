@@ -30,6 +30,7 @@ describe('NgxMonacoComponent', () => {
   let getModelMarkersSpy: Mock;
 
   @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'test-component',
     template: `
       <mat-form-field>
@@ -150,6 +151,7 @@ describe('NgxMonacoComponent', () => {
     const value = '{\ntest: "changed!"\n}';
 
     beforeEach(() => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       component.testControl.patchValue(value);
     });
