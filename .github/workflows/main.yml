@@ -127,5 +127,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          ls -al
           ./scripts/exec_in_subfolders.sh dist_folder 'npm publish --access public'

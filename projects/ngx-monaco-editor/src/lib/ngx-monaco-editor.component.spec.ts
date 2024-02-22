@@ -53,6 +53,7 @@ describe('NgxMonacoComponent', () => {
     @ViewChild(NgxMonacoEditorComponent) editor!: NgxMonacoEditorComponent;
 
     testControl = new FormControl(initialValue);
+
   }
 
   beforeEach(async () => {

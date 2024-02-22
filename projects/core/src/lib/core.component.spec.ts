@@ -20,7 +20,6 @@ describe('core-component', () => {
 
       super.ngOnInit();
     }
-
   }
 
   let component: TestClassComponent;
