@@ -42,6 +42,7 @@ export class NgxMonacoEditorService {
       }),
       takeUntilDestroyed(),
     ).subscribe();
+
   }
 
   create(elm: HTMLElement, { value, options }: { value: string, options: editor.IEditorOverrideServices }): StandaloneCodeEditor {

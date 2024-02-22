@@ -1,7 +1,7 @@
 {
   "name": "@datakitchen/ngx-toolkit",
   "license": "MIT",
-  "version": "16.2.20",
+  "version": "16.2.23",
   "private": false,
   "description": "Goodies for Angular developer, backed at DataKitchen",
   "keywords": [
@@ -16,7 +16,8 @@
     "test:ci": "jest test core --ci --coverage",
     "lint:ci": "ng lint core",
     "predeploy": "echo 'Creating npmrc file' && cp ../../.npmrc ../../dist/core/",
-    "deploy": "cd ../../dist/core && npm publish --access public"
+    "deploy": "cd ../../dist/core && npm publish --access public",
+    "postversion": "yarn build"
   },
   "peerDependencies": {
     "@angular/common": "^16.2.0",

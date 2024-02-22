@@ -1,13 +1,16 @@
 name: Test - Build - Version and Deploy
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
+
+  pull_request:
+    branches: [ master ]
 
 jobs:
 
-  Build_and_Deploy:
+  Test_Lint:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -25,33 +28,103 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
-          cache: 'npm'
+          cache: 'yarn'
+          # Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file,
+          # and set up auth to read in from env.NODE_AUTH_TOKEN.
+          # Default: ''
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install
-        run: npm ci
+        run: yarn install --frozon-lockfile
 
       - name: Test
         run: |
-          npm run test:ci
+          yarn test:ci
 
       - name: Lint
         run: |
-          npm run lint:ci
+          yarn lint:ci
 
-      - name: Build
+
+  Version_Build:
+    runs-on: ubuntu-latest
+    needs: Test_Lint
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
+
+      - name: Set git user
         run: |
-          npm run build:ci
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'yarn'
+          # Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file,
+          # and set up auth to read in from env.NODE_AUTH_TOKEN.
+          # Default: ''
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install
+        run: yarn install --frozon-lockfile
 
       - name: Version
-        run: npm run l -- version -y --conventional-commits --create-release github --loglevel verbose
+        run: yarn l version -y --conventional-commits --create-release github --loglevel verbose
+        # each package has a `postversion` script that will be executed by lerna
+        # according to these rules in lerna version lifecycle hooks
+        # https://www.npmjs.com/package/@lerna/version#lifecycle-scripts
+        # This way we will have in `dist` only the builds for the packages
+        # that actually changed
         env:
           GH_TOKEN: ${{ github.token }}
 
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist_folder
+          path: |
+            dist
+
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: Version_Build
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
+
+      - name: Set git user
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          # cache: 'yarn'
+          # Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file,
+          # and set up auth to read in from env.NODE_AUTH_TOKEN.
+          # Default: ''
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install
+        run: yarn install --frozon-lockfile
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+
       - name: Deploy
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-
-          # before publishing needs to build again otherwise will end up publishing the previous version
-          npm run build:ci
-          npm run deploy:ci
+          ./scripts/exec_in_subfolders.sh dist_folder 'npm publish --access public'
