@@ -1,7 +1,7 @@
 {
   "name": "@datakitchen/ngx-toolkit",
   "license": "MIT",
-  "version": "16.2.22",
+  "version": "16.2.23",
   "private": false,
   "description": "Goodies for Angular developer, backed at DataKitchen",
   "keywords": [
