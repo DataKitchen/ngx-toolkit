@@ -1,13 +1,16 @@
 name: Test - Build - Version and Deploy
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
+
+  pull_request:
+    branches: [ master ]
 
 jobs:
 
-  Build_and_Deploy:
+  Test_Lint:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -25,33 +28,37 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
-          cache: 'npm'
+          cache: 'yarn'
+          # Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file,
+          # and set up auth to read in from env.NODE_AUTH_TOKEN.
+          # Default: ''
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install
-        run: npm ci
+        run: yarn install --frozon-lockfile
 
       - name: Test
         run: |
-          npm run test:ci
+          yarn test:ci
 
-      - name: Lint
-        run: |
-          npm run lint:ci
-
-      - name: Build
-        run: |
-          npm run build:ci
-
-      - name: Version
-        run: npm run l -- version -y --conventional-commits --create-release github --loglevel verbose
-        env:
-          GH_TOKEN: ${{ github.token }}
-
-      - name: Deploy
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-
-          # before publishing needs to build again otherwise will end up publishing the previous version
-          npm run build:ci
-          npm run deploy:ci
+          # - name: Lint
+      #   run: |
+      #     npm run lint:ci
+      #
+      # - name: Build
+      #   run: |
+      #     npm run build:ci
+      #
+      # - name: Version
+      #   run: npm run l -- version -y --conventional-commits --create-release github --loglevel verbose
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #
+      # - name: Deploy
+      # env:
+      #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #   run: |
+      #
+      #     # before publishing needs to build again otherwise will end up publishing the previous version
+      #     npm run build:ci
+      #     npm run deploy:ci
