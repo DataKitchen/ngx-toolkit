@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.25](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.24...v16.2.25) (2024-02-22)
+
+**Note:** Version bump only for package @datakitchen/ngx-toolkit
+
+
+
+
+
 ## [16.2.24](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.23...v16.2.24) (2024-02-22)
 
 **Note:** Version bump only for package @datakitchen/ngx-toolkit
