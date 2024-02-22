@@ -97,16 +97,16 @@ jobs:
     needs: Version_Build
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # - uses: actions/checkout@v4
-      #   with:
-      #     ref: ${{ github.head_ref }}
-      #     repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-      #     fetch-depth: 0
-      #
-      # - name: Set git user
-      #   run: |
-      #     git config user.name github-actions
-      #     git config user.email github-actions@github.com
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
+
+      - name: Set git user
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
       - uses: actions/setup-node@v4
         with:
@@ -131,30 +131,3 @@ jobs:
         run: |
           ls -al
           ./scripts/exec_in_subfolders.sh dist 'ls -al'
-
-
-
-
-
-
-          # - name: Lint
-      #   run: |
-      #     npm run lint:ci
-      #
-      # - name: Build
-      #   run: |
-      #     npm run build:ci
-      #
-      # - name: Version
-      #   run: npm run l -- version -y --conventional-commits --create-release github --loglevel verbose
-      #   env:
-      #     GH_TOKEN: ${{ github.token }}
-      #
-      # - name: Deploy
-      # env:
-      #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #   run: |
-      #
-      #     # before publishing needs to build again otherwise will end up publishing the previous version
-      #     npm run build:ci
-      #     npm run deploy:ci
