@@ -22,6 +22,6 @@
     "test": "jest test rxjs-marbles",
     "test:ci": "jest test rxjs-marbles --ci --coverage",
     "lint:ci": "eslint ./src",
-    "prepack": "yarn build && cp package.json dist/"
+    "prepack": "yarn build"
   }
 }

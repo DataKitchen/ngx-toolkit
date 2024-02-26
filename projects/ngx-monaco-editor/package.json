@@ -4,6 +4,9 @@
   "license": "MIT",
   "private": false,
   "description": "Monaco Editor wrapper for angular applications",
+  "publishConfig": {
+    "directory": "dist"
+  },
   "keywords": [
     "angular",
     "monaco-editor",

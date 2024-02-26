@@ -15,7 +15,7 @@
     "test:ci": "lerna run test:ci --ci",
     "lint": "ng lint",
     "lint:ci": "lerna run lint:ci --ci",
-    "deploy:ci": "lerna publish -y --conventional-commits --create-release github --loglevel verbose --contents dist --no-private"
+    "deploy:ci": "lerna publish -y --conventional-commits --create-release github --loglevel verbose --no-private"
   },
   "private": true,
   "dependencies": {

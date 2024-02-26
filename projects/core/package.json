@@ -10,6 +10,9 @@
     "localstorage",
     "mocks"
   ],
+  "publishConfig": {
+    "directory": "dist"
+  },
   "scripts": {
     "build": "ng build core",
     "test": "jest test core",

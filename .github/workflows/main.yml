@@ -77,7 +77,7 @@ jobs:
       - name: Install
         run: yarn install --frozon-lockfile
 
-      - name: Version
+      - name: Version_and_Deploy
         run: |
           yarn deploy:ci
         # this will call lerna publish.
