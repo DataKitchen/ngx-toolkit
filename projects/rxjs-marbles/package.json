@@ -12,15 +12,16 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
-  },
   "repository": {
     "type": "git",
     "url": "git@github-dk:DataKitchen/ngx-toolkit.git"
   },
   "scripts": {
     "build": "tsc -b tsconfig.lib.prod.json",
-    "test": "node ./__tests__/rxjs-marbles.test.js"
+    "test": "jest test rxjs-marbles",
+    "test:ci": "jest test rxjs-marbles --ci --coverage",
+    "lint:ci": "eslint ./src",
+    "deploy": "npm publish --access public",
+    "postversion": "yarn build"
   }
 }
