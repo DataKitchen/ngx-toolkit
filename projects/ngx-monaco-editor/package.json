@@ -16,9 +16,7 @@
     "test": "jest test ngx-monaco-editor",
     "test:ci": "jest test ngx-monaco-editor --ci --coverage",
     "lint:ci": "ng lint core",
-    "predeploy": "echo 'Creating npmrc file' && cp ../../.npmrc ../../dist/ngx-monaco-editor/",
-    "deploy": "cd ../../dist/ngx-monaco-editor && npm publish --access public",
-    "postversion": "yarn build"
+    "prepack": "yarn build"
   },
   "peerDependencies": {
     "@angular/common": "^16.2.0",

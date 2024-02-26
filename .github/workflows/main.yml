@@ -43,7 +43,7 @@ jobs:
           yarn lint:ci
 
 
-  Version_Build:
+  Publish:
     runs-on: ubuntu-latest
     needs: Test_Lint
     steps:
@@ -72,22 +72,22 @@ jobs:
         run: yarn install --frozon-lockfile
 
       - name: Version
-        run: yarn l version -y --conventional-commits --create-release github --loglevel verbose
-        # each package has a `postversion` script that will be executed by lerna
-        # according to these rules in lerna version lifecycle hooks
-        # https://www.npmjs.com/package/@lerna/version#lifecycle-scripts
-        # This way we will have in `dist` only the builds for the packages
-        # that actually changed
+        run: |
+          yarn deploy:ci
+        # this will call lerna publish.
+        # Please note the `--contents dist` option https://www.npmjs.com/package/@lerna/publish#--contents-dir
+        # this implies that each package MUST generate its own artifacts in a dist folder within itself
+        # for the angular libraries this is done by angular-cli which will also copy over a package.json file
+        # for other packages the `package.json` file must be copied manually
+        #
+        # Also note that relative lifecycle hook will still run in the original folder
+        # and here we leverage the prepack lifecycle hook to build each package
+        # This voids the build step done before a probably we can get rid of it for now I'm just leaving it
+        # so that the pipeline stops earlier if for any reason the build fails.
         env:
           GH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist_folder
-          path: |
-            dist
 
   Deploy:
     runs-on: ubuntu-latest
@@ -124,4 +124,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          ./scripts/exec_in_subfolders.sh dist_folder 'npm publish --access public'
+          yarn deploy:ci
