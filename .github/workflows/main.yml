@@ -34,6 +34,12 @@ jobs:
       - name: Install
         run: yarn install --frozon-lockfile
 
+      - name: Build
+        # we need to build before testing
+        # otherwise dependent projects won't have their libs
+        run: |
+          yarn build:ci
+
       - name: Test
         run: |
           yarn test:ci
