@@ -41,8 +41,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/core/**/*.ts",
-              "projects/core/**/*.html"
+              "projects/core/src/**/*.ts",
+              "projects/core/src/**/*.html"
             ]
           }
         }
@@ -83,8 +83,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/ngx-monaco-editor/**/*.ts",
-              "projects/ngx-monaco-editor/**/*.html"
+              "projects/ngx-monaco-editor/src/**/*.ts",
+              "projects/ngx-monaco-editor/src/**/*.html"
             ]
           }
         }
