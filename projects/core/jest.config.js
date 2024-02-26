@@ -1,3 +1,8 @@
+const { pathsToModuleNameMapper } = require('ts-jest');
+// In the following statement, replace `./tsconfig` with the path to your `tsconfig` file
+// which contains the path mapping (ie the `compilerOptions.paths` option):
+const { compilerOptions } = require('../../tsconfig.json');
+
 module.exports = {
   displayName: 'core',
   preset: '../../jest.preset.js',
@@ -13,6 +18,8 @@ module.exports = {
     ],
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  modulePaths: [compilerOptions.baseUrl],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../'}),
 
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

@@ -1,0 +1,14 @@
+{
+  "extends": "../../.eslintrc.json",
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-inferrable-types": ["off"],
+        "@angular-eslint/component-selector": ["off"]
+      }
+    }
+  ]
+}

@@ -45,7 +45,6 @@ export class TestScheduler extends RxJsTestScheduler {
   useContain = false;
   private alphabet = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
 
-
   static expect$<T>(observable: Observable<T>) {
     const scheduler = new TestScheduler();
     return scheduler.expect$(observable);
@@ -104,6 +103,4 @@ export class TestScheduler extends RxJsTestScheduler {
     };
 
   }
-
-
 }

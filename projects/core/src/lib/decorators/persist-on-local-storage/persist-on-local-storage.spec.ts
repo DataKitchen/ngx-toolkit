@@ -6,8 +6,8 @@ import { CoreComponent } from '../../core.component';
 import { PersistOnLocalStorage } from './persist-on-local-storage';
 import { Component } from '@angular/core';
 import { StorageService } from '../../services/storage/storage.service';
-import { expectObservable } from '../../test-utils/expect-observable';
 import { MockService, Mocked } from '../../test-utils/mock-service';
+import { TestScheduler } from '@datakitchen/rxjs-marbles';
 
 describe('core-componenta with @PersistOnLocalStorage', () => {
 
@@ -78,8 +78,11 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let service: Mocked<StorageService>;
+  let testScheduler: TestScheduler;
 
   beforeEach(() => {
+    testScheduler = new TestScheduler();
+
     TestBed.configureTestingModule({
       declarations: [ TestComponent ],
       providers: [
@@ -326,7 +329,7 @@ describe('core-componenta with @PersistOnLocalStorage', () => {
       service.getStorage.mockReturnValue(undefined);
 
       fixture.detectChanges();
-      expectObservable(component.heroes$).toBe('a', {
+      testScheduler.expectObservable(component.heroes$).toBe('a', {
         a: 'heroes'
       });
     });

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { CoreComponent } from '../../core.component';
 import { BindToQueryParams } from './bind-to-query-params';
 import spyOn = jest.spyOn;
 import { ParameterService } from '../../services/paramter/parameter.service';
 import { Prop } from '../deferred-props';
 import { MockService, Mocked } from '../../test-utils/mock-service';
-import { expectObservable } from '../../test-utils/expect-observable';
+import { TestScheduler } from '@datakitchen/rxjs-marbles';
 
 describe('core-componenta with @BindToQueryParam', () => {
 
@@ -68,8 +68,11 @@ describe('core-componenta with @BindToQueryParam', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let service: Mocked<ParameterService>;
+  let testScheduler: TestScheduler;
 
   beforeEach(() => {
+    testScheduler = new TestScheduler();
+
     TestBed.configureTestingModule({
       declarations: [ TestComponent ],
       providers: [
@@ -303,7 +306,7 @@ describe('core-componenta with @BindToQueryParam', () => {
     it('should not override initial values if there are no values in query params)', () => {
       // calls ngOnInit
       fixture.detectChanges();
-      expectObservable(component.nameSubject$).toEqual('subzero');
+      testScheduler.expectObservable(component.nameSubject$).toEqual(of('subzero'));
 
     });
 

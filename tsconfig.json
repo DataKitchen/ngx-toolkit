@@ -8,6 +8,9 @@
       ],
       "@datakitchen/ngx-monaco-editor": [
         "dist/ngx-monaco-editor"
+      ],
+      "@datakitchen/rxjs-marbles": [
+        "projects/rxjs-marbles/dist"
       ]
     },
     "outDir": "./dist/out-tsc",
