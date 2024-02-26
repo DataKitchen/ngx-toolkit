@@ -17,10 +17,8 @@ export * from './lib/services/paramter/parameter.service';
 export * from './lib/services/storage/storage.service';
 
 // test utils
-export * from './lib/test-utils/expect-observable';
 export * from './lib/test-utils/mock-component';
 export * from './lib/test-utils/mock-service';
 export * from './lib/test-utils/activated-route.mock';
-export * from './lib/test-utils/test-scheduler';
 
 export * from './lib/utilities/general.utilities';

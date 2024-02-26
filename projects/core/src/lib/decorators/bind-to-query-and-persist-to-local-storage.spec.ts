@@ -8,7 +8,7 @@ import { BindToQueryParams } from './bind-to-query-params/bind-to-query-params';
 import { ParameterService } from '../services/paramter/parameter.service';
 import { StorageService } from '../services/storage/storage.service';
 import { MockService, Mocked } from '../test-utils/mock-service';
-import { TestScheduler } from '../test-utils/test-scheduler';
+import { TestScheduler } from '@datakitchen/rxjs-marbles';
 
 describe('core-componenta with both @BindToQueryParams and @PersistOnLocalStorage decorators', () => {
 
