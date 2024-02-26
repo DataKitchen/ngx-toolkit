@@ -7,6 +7,7 @@
   "publishConfig": {
     "directory": "dist"
   },
+  "homepage": "https://github.com/DataKitchen/ngx-toolkit/tree/master/projects/ngx-monaco-editor",
   "keywords": [
     "angular",
     "monaco-editor",

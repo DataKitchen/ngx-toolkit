@@ -4,6 +4,7 @@
   "version": "16.2.31",
   "private": false,
   "description": "Goodies for Angular developer, backed at DataKitchen",
+  "homepage": "https://github.com/DataKitchen/ngx-toolkit/tree/master/projects/core",
   "keywords": [
     "angular",
     "request parameter",

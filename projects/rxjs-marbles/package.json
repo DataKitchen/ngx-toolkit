@@ -7,11 +7,11 @@
     "marble-testing"
   ],
   "private": false,
-  "homepage": "https://github.com/DataKitchen/ngx-toolkit/tree/master/projects/rxjs-marbles",
   "license": "MIT",
+  "homepage": "https://github.com/DataKitchen/ngx-toolkit/tree/master/projects/rxjs-marbles",
   "main": "dist/lib/index.js",
   "files": [
-    "dist/lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
