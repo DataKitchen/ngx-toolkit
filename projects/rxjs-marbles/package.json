@@ -8,9 +8,9 @@
   ],
   "homepage": "",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "dist/lib/index.js",
   "files": [
-    "lib"
+    "dist/lib"
   ],
   "repository": {
     "type": "git",
