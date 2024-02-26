@@ -1,0 +1,26 @@
+{
+  "name": "@datakitchen/rxjs-marbles",
+  "version": "16.2.24",
+  "description": "Wrapper around rxjs TestScheduler for easier marble testing",
+  "keywords": [
+    "rxjs",
+    "marble-testing"
+  ],
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-dk:DataKitchen/ngx-toolkit.git"
+  },
+  "scripts": {
+    "build": "tsc -b tsconfig.lib.prod.json",
+    "test": "node ./__tests__/rxjs-marbles.test.js"
+  }
+}
