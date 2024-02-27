@@ -1,6 +1,6 @@
 {
   "name": "@datakitchen/rxjs-marbles",
-  "version": "16.2.32",
+  "version": "16.2.33",
   "description": "Wrapper around rxjs TestScheduler for easier marble testing",
   "keywords": [
     "rxjs",
