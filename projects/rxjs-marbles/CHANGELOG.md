@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.34](https://github/DataKitchen/ngx-toolkit/compare/v16.2.33...v16.2.34) (2024-02-28)
+
+
+### Bug Fixes
+
+* **rxjs-mables:** fix again package.json. now importing works fine ([f745431](https://github/DataKitchen/ngx-toolkit/commit/f7454313d0b231f9506b0faca74e4ad5e32cc171))
+
+
+
+
+
 ## [16.2.33](https://github/DataKitchen/ngx-toolkit/compare/v16.2.32...v16.2.33) (2024-02-27)
 
 
