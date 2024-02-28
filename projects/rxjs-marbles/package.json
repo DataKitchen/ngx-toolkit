@@ -9,11 +9,15 @@
   "private": false,
   "license": "MIT",
   "homepage": "https://github.com/DataKitchen/ngx-toolkit/tree/master/projects/rxjs-marbles",
-  "main": "dist/lib/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "module": "lib/index.js",
+  "directories": {
+    "dist": "dist"
+  },
   "repository": {
     "type": "git",
     "url": "git@github:DataKitchen/ngx-toolkit.git"
