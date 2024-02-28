@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.35](https://github/DataKitchen/ngx-toolkit/compare/v16.2.34...v16.2.35) (2024-02-28)
+
+
+### Bug Fixes
+
+* **rxjs-marbles:** change target and module to make it work with jest ([f5be539](https://github/DataKitchen/ngx-toolkit/commit/f5be53946e5c99d53d6961293b8996e9da336986))
+
+
+
+
+
 ## [16.2.34](https://github/DataKitchen/ngx-toolkit/compare/v16.2.33...v16.2.34) (2024-02-28)
 
 
