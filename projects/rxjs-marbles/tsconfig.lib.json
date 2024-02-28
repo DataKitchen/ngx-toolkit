@@ -5,7 +5,9 @@
     "outDir": "../../out-tsc/lib",
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "target": "es6",
+    "module": "commonjs"
   },
   "exclude": [
     "**/*.spec.ts",
