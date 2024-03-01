@@ -63,16 +63,16 @@ export class TestScheduler extends RxJsTestScheduler {
   }
 
   expect$<T>(observable: Observable<T>): {
-    toBe(marbles: string, values?: any, errorValue?: any): void;
+    toBe(marbles: string, values?: unknown, errorValue?: unknown): void;
     toEqual: (other: Observable<T>) => void;
-    toContain: (...values: any[]) => void;
+    toContain: (...values: unknown[]) => void;
   } {
 
     // reset use contain flag
     this.useContain = false;
 
     return {
-      toBe: (marbles: string, values?: any, errorValue?: any) => {
+      toBe: (marbles: string, values?: unknown, errorValue?: unknown) => {
         this.run(({ expectObservable }) => {
           expectObservable(observable).toBe(marbles, values, errorValue);
         });
