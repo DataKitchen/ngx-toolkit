@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.36](https://github/DataKitchen/ngx-toolkit/compare/v16.2.35...v16.2.36) (2024-03-01)
+
+**Note:** Version bump only for package @datakitchen/rxjs-marbles
+
+
+
+
+
 ## [16.2.35](https://github/DataKitchen/ngx-toolkit/compare/v16.2.34...v16.2.35) (2024-02-28)
 
 
