@@ -175,10 +175,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "monaco-editor-example:build:production"
+              "buildTarget": "monaco-editor-example:build:production"
             },
             "development": {
-              "browserTarget": "monaco-editor-example:build:development"
+              "buildTarget": "monaco-editor-example:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -186,7 +186,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "monaco-editor-example:build"
+            "buildTarget": "monaco-editor-example:build"
           }
         }
       }
