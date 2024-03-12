@@ -4,10 +4,10 @@ import { of } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
-import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import Mock = jest.Mock;
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NGX_MONACO_EDITOR_CONFIG } from './ngx-monaco-editor.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 /*
   There are two know bugs left to resolve
@@ -66,7 +66,7 @@ describe('NgxMonacoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        MatLegacyFormFieldModule,
+        MatFormFieldModule,
         NoopAnimationsModule,
       ],
       declarations: [

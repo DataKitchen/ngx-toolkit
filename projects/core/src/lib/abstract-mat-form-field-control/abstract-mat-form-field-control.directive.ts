@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars,@angular-eslint/no-input-rename,@typescript-eslint/no-empty-function */
 import { Directive, ElementRef, HostBinding, HostListener, Inject, Input, OnDestroy, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MAT_LEGACY_FORM_FIELD as MAT_FORM_FIELD, MatLegacyFormField as MatFormField, MatLegacyFormFieldControl as MatFormFieldControl } from '@angular/material/legacy-form-field';
+import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';

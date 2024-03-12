@@ -12,12 +12,12 @@ import { hasSearchForm } from './has-search-form/has-search-form';
 import { DeferredProp } from './decorators/deferred-props';
 import { LifeCycle, LifeCycleHooks } from './lifecycle-hooks/lifecycle.model';
 import { Sort } from '@angular/material/sort';
-import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 import { rxjsScheduler } from './rxjs-scheduler.token';
 import { hasSorting } from './has-sorting/has-sorting';
 import { StorageService } from './services/storage/storage.service';
 import { ParameterService } from './services/paramter/parameter.service';
 import { isObject, omit, pick } from './utilities/general.utilities';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Directive()
