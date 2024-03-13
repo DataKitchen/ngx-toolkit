@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/no-input-rename,@angular-eslint/no-host-metadata-property,@typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
-import { MatLegacyFormFieldControl as MatFormFieldControl } from '@angular/material/legacy-form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { NgxMonacoEditorService } from './ngx-monaco-editor.service';
 import { AbstractMatFormFieldControl } from './abstract-mat-form-field-control/abstract-mat-form-field-control.directive';
 import { FormControl } from '@angular/forms';

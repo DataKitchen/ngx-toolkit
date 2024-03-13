@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import loader from '@monaco-editor/loader';
 import { NgxMonacoEditorComponent } from './ngx-monaco-editor.component';
 import { NGX_MONACO_EDITOR_CONFIG, defaultOptions } from './ngx-monaco-editor.model';

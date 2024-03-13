@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatLegacyPaginator as MatPaginator, MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CoreComponent } from '../core.component';
 import { HasPaginator } from './has-paginator';

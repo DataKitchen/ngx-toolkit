@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
-import { MatLegacyFormFieldControl as MatFormFieldControl, MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 import { AbstractMatFormFieldControl } from './abstract-mat-form-field-control.directive';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { MatLegacyInputModule } from '@angular/material/legacy-input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'
 
 describe('abstract-mat-form-field-control', () => {
 
@@ -66,10 +66,10 @@ describe('abstract-mat-form-field-control', () => {
     `,
     standalone: true,
     imports: [
-      MatLegacyFormFieldModule,
+      MatFormFieldModule,
       ReactiveFormsModule,
       NgIf,
-      MatLegacyInputModule,
+      MatInputModule,
       TestInputField,
     ]
   })
