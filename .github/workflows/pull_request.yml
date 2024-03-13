@@ -29,6 +29,10 @@ jobs:
       - name: Install
         run: yarn install --frozon-lockfile
 
+      - name: Build
+        run: |
+          yarn build:ci
+
       - name: Test
         run: |
           yarn test:ci -- --since origin/master
