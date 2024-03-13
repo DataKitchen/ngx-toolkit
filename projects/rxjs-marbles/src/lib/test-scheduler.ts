@@ -82,6 +82,7 @@ export class TestScheduler extends RxJsTestScheduler {
           expectObservable(observable).toEqual(obs);
         });
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       toContain: (...values: any[]) => {
 
         this.useContain = true;
