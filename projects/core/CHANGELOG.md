@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.2.37](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.36...v16.2.37) (2024-03-14)
+
+
+### Bug Fixes
+
+* **ngx-toolkit:** add dev dependency ([caf45a7](https://github.com/DataKitchen/ngx-toolkit/commit/caf45a743c66749023477256717cb7416f9afb3b))
+
+
+
+
+
 ## [16.2.32](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.31...v16.2.32) (2024-02-26)
 
 **Note:** Version bump only for package @datakitchen/ngx-toolkit
