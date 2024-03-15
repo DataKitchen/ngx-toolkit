@@ -22,9 +22,9 @@
     "prepack": "yarn build"
   },
   "peerDependencies": {
-    "@angular/common": "^16.2.0",
-    "@angular/core": "^16.2.0",
-    "@angular/material": "^16.2.13"
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/material": "^17.3.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
