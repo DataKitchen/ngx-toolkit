@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [17.0.0](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.37...v17.0.0) (2024-03-15)
+
+
+### chore
+
+* upgrade peer depenencies ([ef270a8](https://github.com/DataKitchen/ngx-toolkit/commit/ef270a8e63211e4f386ef75773a6f57e17146370))
+
+
+### BREAKING CHANGES
+
+* follow angular versioning
+
+
+
+
+
 ## [16.2.37](https://github.com/DataKitchen/ngx-toolkit/compare/v16.2.36...v16.2.37) (2024-03-14)
 
 **Note:** Version bump only for package @datakitchen/ngx-monaco-editor
